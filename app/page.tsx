@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { allProjects } from "@/content/projects";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 
@@ -11,36 +12,199 @@ export const metadata: Metadata = {
 const tier1Projects = allProjects.filter((p) => p.tier === 1);
 const tier2Projects = allProjects.filter((p) => p.tier === 2);
 
-/** Telemetry targets derived from content — no runtime fetch, static at build time */
+/** Telemetry targets — static at build time, no runtime fetch */
 const telemetryTargets = [
-  { label: "Guardrail Latency Floor", value: "<120ms", source: "Pulsemind" },
-  { label: "Stream Resolution SLA p99", value: "<2000ms", source: "Weatherise" },
-  { label: "Command Throughput Target", value: "2400 evt/s", source: "Roomie" },
-  { label: "Agent Coordination Ceiling", value: "<35ms", source: "Vora" },
+  { label: "Guardrail Latency", value: "<120ms", source: "Pulsemind" },
+  { label: "Stream SLA p99", value: "<2000ms", source: "Weatherise" },
+  { label: "Command Throughput", value: "2400 evt/s", source: "Roomie" },
+  { label: "Agent Coordination", value: "<35ms", source: "Vora" },
 ];
+
+/** Operator profile — v2 implementation plan */
+const operatorProfile = {
+  name: "Yoshio Nomura",
+  title: "Full-Stack & AI Infrastructure Engineer",
+  institution: "University of Technology Sydney (UTS)",
+  discipline: "Computer Science & Artificial Intelligence Major",
+  location: "Ho Chi Minh City, VN // Global Routing",
+  avatarSrc: "/operator.jpg",
+  networks: [
+    { label: "GitHub", href: "https://github.com/UniverseScripts" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/yoshio-nomura-b3219438b/" },
+    { label: "X", href: "https://x.com/Asterios07" },
+    { label: "Gumroad", href: "https://galacticgamer62.gumroad.com" },
+  ],
+};
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen px-4 py-16 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-      {/* ── Header ── */}
-      <header className="mb-16">
-        <p className="text-[10px] font-mono text-[#3b82f6] tracking-[0.2em] uppercase mb-3">
-          Systems Engineering
-        </p>
-        <h1 className="text-3xl sm:text-4xl font-semibold text-[#fafafa] leading-tight mb-4 tracking-tight">
-          High-Stakes Architecture,
-          <br />
-          <span className="text-[#71717a]">deployed at latency boundaries.</span>
-        </h1>
-        <p className="text-sm text-[#71717a] leading-relaxed max-w-xl">
-          RAG pipelines with clinical safety guardrails. MCP surrogate patterns for zero-downtime
-          provider rotation. CQRS/DDD at 2400 events/s. Each project is a structural tradeoff
-          decision, documented.
-        </p>
+    <main className="min-h-screen px-4 py-14 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+
+      {/* ── Header & Identity Matrix (3-col grid) ── */}
+      <header className="mb-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pb-10">
+
+          {/* Col 1–2: Thesis statement */}
+          <div className="md:col-span-2 flex flex-col h-full">
+            <div>
+              <p className="text-[10px] font-mono text-[#3b82f6] tracking-[0.2em] uppercase mb-4">
+                Systems Engineering // Core Engine
+              </p>
+              <h1 className="text-3xl sm:text-4xl font-bold text-[#fafafa] leading-tight mb-5 tracking-tight">
+                High-Stakes Architecture,
+                <br />
+                <span className="text-[#71717a] font-semibold">
+                  deployed at latency boundaries.
+                </span>
+              </h1>
+              <p className="text-sm text-[#71717a] leading-relaxed max-w-lg">
+                RAG pipelines with clinical safety guardrails. MCP surrogate
+                patterns for zero-downtime provider rotation. CQRS/DDD at 2400
+                events/s. Each project is a structural tradeoff decision,
+                documented.
+              </p>
+            </div>
+
+            {/* Current Experience — FlyRank AI */}
+            <div className="mt-auto pt-8">
+              <p className="text-[9px] font-mono text-[#71717a] tracking-[0.15em] uppercase mb-3">
+                Current Experience
+              </p>
+              <div className="border border-[#27272a] rounded-md p-4 bg-[#111113] flex items-start justify-between gap-4">
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[9px] font-mono text-[#3b82f6] uppercase tracking-wider">
+                      FlyRank AI
+                    </span>
+                    <span className="text-[8px] font-mono text-[#10b981] px-1.5 py-0.5 rounded bg-[#10b981]/10 border border-[#10b981]/20 uppercase tracking-wider">
+                      Ongoing
+                    </span>
+                  </div>
+                  <span className="text-sm font-semibold text-[#fafafa]">
+                    AI Engineering Intern
+                  </span>
+                  <p className="text-[11px] font-mono text-[#71717a] leading-relaxed max-w-sm">
+                    Building AI-powered ranking and search infrastructure. Working across model integration, API design, and production deployment pipelines.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Col 3: Operator Identity Node */}
+          <div className="border border-[#27272a] rounded-md p-5 bg-[#111113]">
+            {/* Node header */}
+            <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#27272a]">
+              <p className="text-[9px] font-mono text-[#71717a] tracking-[0.15em] uppercase">
+                [Operator Profile]
+              </p>
+              <span className="text-[8px] font-mono text-[#10b981] px-1.5 py-0.5 rounded bg-[#10b981]/10 border border-[#10b981]/20 uppercase tracking-wider">
+                Online
+              </span>
+            </div>
+
+            {/* Photo block — grayscale, hover reveals color */}
+            <div className="relative w-full h-44 mb-4 rounded border border-[#27272a] bg-[#0d0d0f] overflow-hidden group">
+              <Image
+                src={operatorProfile.avatarSrc}
+                alt="Operator portrait"
+                width={300}
+                height={300}
+                priority
+                className="w-full h-full object-cover object-top grayscale contrast-[1.15] brightness-90 group-hover:grayscale-0 transition-all duration-500 ease-in-out"
+              />
+              {/* Fade vignette — bottom only */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#111113] via-transparent to-transparent opacity-50 pointer-events-none" />
+            </div>
+
+            {/* Parameter grid */}
+            <div className="space-y-3 mb-4">
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider">
+                  Identity
+                </span>
+                <span className="text-xs font-mono font-medium text-[#fafafa]">
+                  {operatorProfile.name}
+                </span>
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider">
+                  Role
+                </span>
+                <span className="text-xs font-mono font-medium text-[#fafafa]">
+                  {operatorProfile.title}
+                </span>
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider">
+                  Affiliation
+                </span>
+                <span className="text-xs font-mono text-[#fafafa]">
+                  {operatorProfile.institution}
+                </span>
+                <span className="text-[9px] font-mono text-[#71717a]/80 mt-0.5">
+                  {operatorProfile.discipline}
+                </span>
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider">
+                  Base Context
+                </span>
+                <span className="text-xs font-mono text-[#fafafa]">
+                  {operatorProfile.location}
+                </span>
+              </div>
+            </div>
+
+            {/* Network channel array */}
+            <div className="border-t border-[#27272a] pt-3">
+              <p className="text-[8px] font-mono text-[#71717a] uppercase tracking-widest mb-2">
+                Active Channels
+              </p>
+              <div className="grid grid-cols-2 gap-x-2 gap-y-1.5">
+                {operatorProfile.networks.map((net) => (
+                  <a
+                    key={net.label}
+                    href={net.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] font-mono text-[#3b82f6] hover:text-[#fafafa] transition-colors duration-150 flex items-center gap-1 min-w-0"
+                  >
+                    <span className="text-[#27272a] group-hover:text-[#71717a]" aria-hidden="true">↳</span>
+                    <span className="truncate">{net.label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Signature element: signal-decay rule */}
+        <hr className="signal-rule mb-0" aria-hidden="true" />
+
+        {/* Telemetry strip — between header and matrix */}
+        <div
+          aria-label="System performance targets"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-5 border-b border-[#27272a] mb-12"
+        >
+          {telemetryTargets.map((t) => (
+            <div key={t.label} className="flex flex-col gap-0.5">
+              <span className="text-[9px] font-mono text-[#71717a]/60 tracking-wider uppercase leading-none">
+                {t.label}
+              </span>
+              <span className="text-base font-mono font-semibold text-[#fafafa] leading-snug">
+                {t.value}
+              </span>
+              <span className="text-[9px] font-mono text-[#3b82f6]/60 tracking-wider">
+                {t.source}
+              </span>
+            </div>
+          ))}
+        </div>
       </header>
 
       {/* ── Core Pillars Matrix ── */}
-      <section aria-labelledby="matrix-heading" className="mb-16">
+      <section aria-labelledby="matrix-heading">
         <h2
           id="matrix-heading"
           className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mb-6"
@@ -49,12 +213,15 @@ export default function HomePage() {
         </h2>
 
         {/* Tier 1 row */}
-        <div className="mb-3">
+        <div className="mb-8">
           <p className="text-[9px] font-mono text-[#10b981] tracking-[0.15em] uppercase mb-3 flex items-center gap-2">
-            <span className="inline-block w-1 h-1 rounded-full bg-[#10b981]" aria-hidden="true" />
+            <span
+              className="inline-block w-1 h-1 rounded-full bg-[#10b981]"
+              aria-hidden="true"
+            />
             Tier 1 — High-Stakes Systems Engineering
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {tier1Projects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
@@ -62,42 +229,19 @@ export default function HomePage() {
         </div>
 
         {/* Tier 2 row */}
-        <div className="mt-6">
+        <div>
           <p className="text-[9px] font-mono text-[#71717a] tracking-[0.15em] uppercase mb-3 flex items-center gap-2">
-            <span className="inline-block w-1 h-1 rounded-full bg-[#71717a]" aria-hidden="true" />
+            <span
+              className="inline-block w-1 h-1 rounded-full bg-[#71717a]"
+              aria-hidden="true"
+            />
             Tier 2 — Decoupled Patterns &amp; Tooling
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {tier2Projects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── Telemetry Status Dashboard ── */}
-      <section
-        aria-labelledby="telemetry-heading"
-        className="border border-[#27272a] rounded-lg p-6"
-      >
-        <h2
-          id="telemetry-heading"
-          className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mb-5"
-        >
-          System Performance Targets
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-          {telemetryTargets.map((t) => (
-            <div key={t.label} className="flex flex-col gap-1">
-              <span className="text-[9px] font-mono text-[#71717a]/70 tracking-wider uppercase leading-none">
-                {t.label}
-              </span>
-              <span className="text-lg font-mono font-semibold text-[#fafafa]">{t.value}</span>
-              <span className="text-[9px] font-mono text-[#3b82f6]/70 tracking-wider">
-                {t.source}
-              </span>
-            </div>
-          ))}
         </div>
       </section>
     </main>

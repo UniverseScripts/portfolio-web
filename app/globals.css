@@ -9,6 +9,8 @@
   --color-muted: #27272a;
   --color-muted-tier1: #10b981;
   --color-muted-tier2: #71717a;
+  /* Surface token — one step above background, gives cards genuine depth */
+  --color-surface: #111113;
 
   /* Typography */
   --font-sans: var(--font-geist-sans);
@@ -27,16 +29,34 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/*
+ * Signal-decay rule — signature element.
+ * A 1px horizontal line where the left 25% holds the tier-1 accent
+ * and fades to the muted border. Encodes "signal decaying to noise",
+ * specific to a latency/systems engineering brief.
+ */
+.signal-rule {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    #10b981 0%,
+    #10b981 5%,
+    #27272a 28%,
+    #27272a 100%
+  );
+  border: none;
+}
+
 /* Tier 1 card — system pulse border animation */
 @keyframes pulse-bar {
   0%,
   100% {
-    transform: scaleY(0.6);
-    opacity: 0.7;
+    transform: scaleY(0.55);
+    opacity: 0.45;
   }
   50% {
     transform: scaleY(1);
-    opacity: 1;
+    opacity: 0.9;
   }
 }
 
@@ -46,25 +66,17 @@ body {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 3px;
+  width: 2px;
   background-color: #10b981;
   transform-origin: center;
-  animation: pulse-bar 2.4s ease-in-out infinite;
-}
-
-.tier1-card:hover .tier1-pulse::before {
-  animation-play-state: running;
-}
-
-.tier1-pulse-static::before {
-  animation-play-state: paused;
+  animation: pulse-bar 2.8s ease-in-out infinite;
 }
 
 /* Reduced motion compliance */
 @media (prefers-reduced-motion: reduce) {
   .tier1-pulse::before {
     animation: none;
-    transform: none;
-    opacity: 1;
+    transform: scaleY(1);
+    opacity: 0.6;
   }
 }

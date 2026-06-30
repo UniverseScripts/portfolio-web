@@ -51,7 +51,6 @@ export default async function ProjectPage({ params }: PageProps) {
   }
 
   const product = productByProject[slug] ?? null;
-  const isTier1 = project.tier === 1;
 
   return (
     <main className="min-h-screen px-4 py-16 sm:px-6 lg:px-8 max-w-3xl mx-auto">
@@ -66,18 +65,14 @@ export default async function ProjectPage({ params }: PageProps) {
       </nav>
 
       {/* Project header */}
-      <header className="mb-10">
+      <header className="mb-10 pb-8 border-b border-[#27272a]">
         <div className="flex items-center gap-3 mb-3">
           <TierLabel tier={project.tier} />
           <span className="text-[10px] font-mono text-[#71717a] tracking-wider">
             {project.domain}
           </span>
         </div>
-        <h1
-          className={`text-3xl sm:text-4xl font-semibold leading-tight tracking-tight mb-4 ${
-            isTier1 ? "text-[#fafafa]" : "text-[#fafafa]"
-          }`}
-        >
+        <h1 className="text-4xl sm:text-5xl font-bold leading-tight tracking-tight mb-4 text-[#fafafa]">
           {project.title}
         </h1>
         <p className="text-sm text-[#71717a] leading-relaxed">{project.summary}</p>
@@ -130,7 +125,7 @@ export default async function ProjectPage({ params }: PageProps) {
           >
             MCP Integration
           </h2>
-          <p className="text-sm text-[#71717a] leading-relaxed border-l-2 border-[#10b981]/40 pl-4">
+          <p className="text-sm text-[#71717a] leading-relaxed border-l-2 border-[#10b981]/60 pl-4">
             {project.mcpIntegration}
           </p>
         </section>

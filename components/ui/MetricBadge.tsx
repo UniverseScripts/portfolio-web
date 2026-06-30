@@ -6,11 +6,11 @@ interface MetricBadgeProps {
 
 export function MetricBadge({ metric }: MetricBadgeProps) {
   return (
-    <div className="flex flex-col gap-0.5">
-      <span className="font-mono text-xs text-[#71717a] uppercase tracking-wider leading-none">
+    <div className="flex flex-col gap-1">
+      <span className="font-mono text-[8px] text-[#71717a] uppercase tracking-normal leading-tight line-clamp-2">
         {metric.label}
       </span>
-      <span className="font-mono text-sm font-semibold text-[#fafafa] leading-tight">
+      <span className="font-mono text-xs font-semibold text-[#fafafa] leading-none">
         {metric.value}
       </span>
     </div>
@@ -23,7 +23,7 @@ interface MetricGridProps {
 
 export function MetricGrid({ metrics }: MetricGridProps) {
   return (
-    <div className="grid grid-cols-3 gap-4 pt-3 border-t border-[#27272a]">
+    <div className="grid grid-cols-3 gap-3 pt-3 border-t border-[#27272a]">
       {metrics.map((metric) => (
         <MetricBadge key={metric.label} metric={metric} />
       ))}

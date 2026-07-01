@@ -10,9 +10,9 @@ export const roomie: ProjectSchema = {
     { label: "Event Throughput Under Load", value: "2400 evt/s" },
     { label: "P95 Command Latency", value: "<85ms" },
   ],
-  architecturePattern: "CQRS + Domain-Driven Design with decoupled rendering analysis",
+  architecturePattern: "CQRS + Domain-Driven Design",
   contentFunnelRoute: "/projects/roomie",
-  gumroadProductId: null, // TODO: replace with gumroad.com/l/<id> (Next.js 16 Mobile Starter Kit)
+  gumroadProductId: null,
   summary:
     "A high-concurrency platform architected around CQRS and Domain-Driven Design principles. The read and write models are fully decoupled at the infrastructure level, allowing independent scaling of query projections without contending for command throughput.",
   architectureDetail:

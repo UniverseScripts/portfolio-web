@@ -10,11 +10,10 @@ export const vora: ProjectSchema = {
     { label: "Task Decomposition Depth", value: "4 layers" },
     { label: "Concurrent Agent Threads", value: "12" },
   ],
-  architecturePattern: "Multi-agent framework with DDD-influenced configuration graph",
-  mcpIntegration:
-    "Agent-to-agent communication routed through MCP channels with typed message schemas",
+  architecturePattern: "Multi-agent framework with DDD influenced configuration graph",
+  mcpIntegration: "Agent-to-agent communication routed through MCP channels with typed message schemas",
   contentFunnelRoute: "/projects/vora",
-  gumroadProductId: null, // TODO: replace with gumroad.com/l/<id> (Local RAG API)
+  gumroadProductId: null,
   summary:
     "A multi-agent orchestration framework configuring independent reasoning agents via a Domain-Driven Design configuration graph. Agents operate on isolated bounded contexts, communicating through typed MCP channels with guaranteed message ordering.",
   architectureDetail:

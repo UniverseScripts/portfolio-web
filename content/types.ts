@@ -20,7 +20,6 @@ export interface ProjectSchema {
 export interface ProductSchema {
   id: string;
   title: string;
-  // TODO: replace stub with gumroad.com/l/<id>
   url: string;
   targetCaseStudyId: string;
   description: string;

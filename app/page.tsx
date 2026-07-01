@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { allProjects } from "@/content/projects";
 import { ProjectCard } from "@/components/ui/ProjectCard";
+import { GitHubGrid } from "@/components/visualizations/GitHubGrid";
 
 export const metadata: Metadata = {
   title: "Systems Engineering Portfolio",
@@ -202,6 +203,9 @@ export default function HomePage() {
           ))}
         </div>
       </header>
+
+      {/* ── GitHub Commit Grid ── */}
+      <GitHubGrid username="UniverseScripts" />
 
       {/* ── Core Pillars Matrix ── */}
       <section aria-labelledby="matrix-heading">

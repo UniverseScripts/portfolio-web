@@ -241,44 +241,46 @@ function GridSVG({ data, username, available }: RenderProps) {
 
       {/* Grid container */}
       <div className="border border-[#27272a] rounded-md px-4 pt-3 pb-2 bg-[#111113] overflow-x-auto">
-        <svg
-          viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-          width="100%"
-          aria-label="GitHub contribution activity grid"
-          role="img"
-          style={{ minWidth: Math.min(svgWidth, 320) }}
-        >
-          {/* Month labels */}
-          {monthLabels.map(({ label, x }) => (
-            <text
-              key={`m-${label}-${x}`}
-              x={x}
-              y={10}
-              fontSize={7.5}
-              fontFamily="var(--font-geist-mono, ui-monospace, monospace)"
-              fill="#52525b"
-              letterSpacing="0.06em"
-            >
-              {label}
-            </text>
-          ))}
+          <svg
+            viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+            width="100%"
+            aria-label="GitHub contribution activity grid"
+            role="img"
+            style={{ minWidth: Math.min(svgWidth, 320) }}
+            className="group/svg"
+          >
+            {/* Month labels */}
+            {monthLabels.map(({ label, x }) => (
+              <text
+                key={`m-${label}-${x}`}
+                x={x}
+                y={10}
+                fontSize={7.5}
+                fontFamily="var(--font-geist-mono, ui-monospace, monospace)"
+                fill="#52525b"
+                letterSpacing="0.06em"
+              >
+                {label}
+              </text>
+            ))}
 
-          {/* Contribution cells */}
-          {weeks.map((week, wi) =>
-            week.days.map((day, di) => (
-              <rect
-                key={`${wi}-${di}`}
-                x={wi * CELL_STEP}
-                y={LABEL_HEIGHT + di * CELL_STEP}
-                width={CELL_SIZE}
-                height={CELL_SIZE}
-                rx={2}
-                ry={2}
-                fill={LEVEL_COLORS[day.level]}
-              />
-            ))
-          )}
-        </svg>
+            {/* Contribution cells */}
+            {weeks.map((week, wi) =>
+              week.days.map((day, di) => (
+                <rect
+                  key={`${wi}-${di}`}
+                  x={wi * CELL_STEP}
+                  y={LABEL_HEIGHT + di * CELL_STEP}
+                  width={CELL_SIZE}
+                  height={CELL_SIZE}
+                  rx={2}
+                  ry={2}
+                  fill={LEVEL_COLORS[day.level]}
+                  className="transition-opacity duration-100 group-hover/svg:opacity-30 hover:!opacity-100 cursor-crosshair"
+                />
+              ))
+            )}
+          </svg>
 
         {/* Legend */}
         <div className="flex items-center gap-1.5 justify-end mt-2 mb-1">

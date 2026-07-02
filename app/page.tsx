@@ -43,7 +43,10 @@ export default function HomePage() {
 
       {/* ── Header & Identity Matrix (3-col grid) ── */}
       <header className="mb-0">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pb-10">
+        <div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pb-10 animate-boot"
+          style={{ "--boot-delay": "50ms" } as React.CSSProperties}
+        >
 
           {/* Col 1–2: Thesis statement */}
           <div className="md:col-span-2 flex flex-col h-full">
@@ -181,19 +184,20 @@ export default function HomePage() {
         </div>
 
         {/* Signature element: signal-decay rule */}
-        <hr className="signal-rule mb-0" aria-hidden="true" />
+        <hr className="signal-rule animate-signal-crawl mb-0" aria-hidden="true" />
 
         {/* Telemetry strip — between header and matrix */}
         <div
           aria-label="System performance targets"
-          className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-5 border-b border-[#27272a] mb-12"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-5 border-b border-[#27272a] mb-12 animate-boot"
+          style={{ "--boot-delay": "150ms" } as React.CSSProperties}
         >
           {telemetryTargets.map((t) => (
             <div key={t.label} className="flex flex-col gap-0.5">
               <span className="text-[9px] font-mono text-[#71717a]/60 tracking-wider uppercase leading-none">
                 {t.label}
               </span>
-              <span className="text-base font-mono font-semibold text-[#fafafa] leading-snug">
+              <span className="text-base font-mono font-semibold text-[#fafafa] leading-snug animate-data-flicker">
                 {t.value}
               </span>
               <span className="text-[9px] font-mono text-[#3b82f6]/60 tracking-wider">
@@ -205,10 +209,16 @@ export default function HomePage() {
       </header>
 
       {/* ── GitHub Commit Grid ── */}
-      <GitHubGrid username="UniverseScripts" />
+      <div className="animate-boot" style={{ "--boot-delay": "250ms" } as React.CSSProperties}>
+        <GitHubGrid username="UniverseScripts" />
+      </div>
 
       {/* ── Core Pillars Matrix ── */}
-      <section aria-labelledby="matrix-heading">
+      <section 
+        aria-labelledby="matrix-heading" 
+        className="animate-boot" 
+        style={{ "--boot-delay": "350ms" } as React.CSSProperties}
+      >
         <h2
           id="matrix-heading"
           className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mb-6"

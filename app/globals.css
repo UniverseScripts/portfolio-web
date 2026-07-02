@@ -80,3 +80,54 @@ body {
     opacity: 0.6;
   }
 }
+
+/* 
+ * ── Interaction Design Suite ──
+ */
+
+/* 1. Terminal Boot Sequence */
+@keyframes boot {
+  0% { opacity: 0; }
+  99% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.animate-boot {
+  animation: boot var(--boot-delay, 0ms) steps(1, end) forwards;
+  opacity: 0;
+}
+
+/* 2. Telemetry Live-Feed Flicker */
+@keyframes data-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  94% { opacity: 0.6; }
+  96% { opacity: 1; }
+  98% { opacity: 0.8; }
+}
+.animate-data-flicker {
+  animation: data-flicker 6s infinite steps(1, end);
+}
+
+/* 3. Signal Rule Crawl */
+@keyframes signal-crawl {
+  0% { background-position: 0 0; }
+  100% { background-position: 100vw 0; }
+}
+.animate-signal-crawl {
+  background-size: 200vw 1px;
+  animation: signal-crawl 8s linear infinite;
+}
+
+/* Update Reduced Motion for new animations */
+@media (prefers-reduced-motion: reduce) {
+  .animate-boot {
+    animation: none;
+    opacity: 1;
+  }
+  .animate-data-flicker {
+    animation: none;
+  }
+  .animate-signal-crawl {
+    animation: none;
+  }
+}

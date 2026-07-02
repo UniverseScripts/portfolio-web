@@ -14,10 +14,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <Link
       href={project.contentFunnelRoute}
       id={`project-card-${project.id}`}
-      className={`group relative block rounded-md border p-5 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3b82f6] ${
+      className={`group relative block rounded-md border p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3b82f6] ${
         isTier1
-          ? "tier1-card border-[#10b981]/20 bg-[#111113] hover:border-[#10b981]/40"
-          : "border-[#27272a] bg-[#111113] hover:border-[#71717a]/50"
+          ? "tier1-card border-[#10b981]/20 bg-[#111113] hover:border-[#10b981]/80"
+          : "border-[#27272a] bg-[#111113] hover:border-[#71717a]"
       }`}
     >
       {/* Tier 1 pulse border — signature element */}
@@ -28,24 +28,26 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <div className="flex items-center gap-2 mb-2">
             <TierLabel tier={project.tier} />
           </div>
-          <h2 className="text-base font-semibold text-[#fafafa] leading-snug group-hover:text-white transition-colors">
+          <h2 className="text-base font-semibold text-[#fafafa] leading-snug group-hover:text-white">
             {project.title}
           </h2>
-          <p className="text-[11px] font-mono text-[#71717a] mt-0.5 tracking-wide">
+          <p className="text-[11px] font-mono text-[#71717a] mt-0.5 tracking-wide group-hover:text-[#a1a1aa]">
             {project.domain}
           </p>
         </div>
-        <span
-          className={`text-sm font-mono flex-shrink-0 mt-0.5 transition-transform duration-150 group-hover:translate-x-0.5 ${
-            isTier1 ? "text-[#10b981]" : "text-[#71717a]"
+        <div
+          className={`text-sm font-mono flex-shrink-0 mt-0.5 select-none ${
+            isTier1 ? "text-[#10b981]" : "text-[#71717a] group-hover:text-[#fafafa]"
           }`}
           aria-hidden="true"
         >
-          →
-        </span>
+          {/* Brutalist character swap instead of translation */}
+          <span className="group-hover:hidden">_</span>
+          <span className="hidden group-hover:inline">→</span>
+        </div>
       </div>
 
-      <p className="text-xs text-[#71717a] leading-relaxed mb-4 line-clamp-3">
+      <p className="text-xs text-[#71717a] leading-relaxed mb-4 line-clamp-3 group-hover:text-[#a1a1aa]">
         {project.summary}
       </p>
 

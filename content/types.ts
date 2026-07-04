@@ -26,3 +26,12 @@ export interface ProductSchema {
   targetCaseStudyId: ProjectIdentifier;
   description: string;
 }
+
+export interface CertificationSchema {
+  id: string;
+  title: string;
+  authority: string;
+  date: string; // Enforces YYYY-MM-DD chronological sorting strings
+  verificationUrl?: string;
+  badgeHex?: string; // Selective system tier identifier mapping
+}

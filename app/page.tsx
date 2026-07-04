@@ -3,6 +3,7 @@ import Image from "next/image";
 import { allProjects } from "@/content/projects";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { GitHubGrid } from "@/components/visualizations/GitHubGrid";
+import { VerificationGrid } from "@/components/ui/VerificationGrid";
 
 export const metadata: Metadata = {
   title: "Systems Engineering Portfolio",
@@ -39,38 +40,53 @@ const operatorProfile = {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen px-4 py-14 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+    <main className="min-h-screen px-4 py-14 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-10">
 
-      {/* ── Header & Identity Matrix (3-col grid) ── */}
+      {/* ── Header & Identity Matrix (12-column grid split) ── */}
       <header className="mb-0">
         <div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start pb-10 animate-boot"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pb-8 animate-boot"
           style={{ "--boot-delay": "50ms" } as React.CSSProperties}
         >
-
-          {/* Col 1–2: Thesis statement */}
-          <div className="md:col-span-2 flex flex-col h-full">
+          {/* Left Column (lg:col-span-8): Thesis Statement & Current Experience */}
+          <div className="lg:col-span-8 flex flex-col justify-between h-full space-y-6">
             <div>
-              <p className="text-[10px] font-mono text-[#3b82f6] tracking-[0.2em] uppercase mb-4">
+              <p className="text-[10px] font-mono text-[#3b82f6] tracking-[0.2em] uppercase mb-4 select-none">
                 Systems Engineering // Core Engine
               </p>
-              <h1 className="text-3xl sm:text-4xl font-bold text-[#fafafa] leading-tight mb-5 tracking-tight">
+              <h1 className="text-3xl sm:text-5xl font-bold text-[#fafafa] leading-tight mb-5 tracking-tight">
                 High-Stakes Architecture,
                 <br />
                 <span className="text-[#71717a] font-semibold">
                   deployed at latency boundaries.
                 </span>
               </h1>
-              <p className="text-sm text-[#71717a] leading-relaxed max-w-lg">
+              <p className="text-base text-[#71717a] leading-relaxed max-w-2xl mb-8">
                 RAG pipelines with clinical safety guardrails. MCP surrogate
                 patterns for zero-downtime provider rotation. CQRS/DDD at 2400
                 events/s. Each project is a structural tradeoff decision,
                 documented.
               </p>
+
+              {/* Quick Specs Grid */}
+              <div className="grid grid-cols-3 gap-6 pt-6 border-t border-[#27272a]/30 max-w-xl">
+                <div>
+                  <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider select-none">Metrics Ingest</p>
+                  <p className="text-sm font-mono font-semibold text-[#fafafa] mt-0.5">2.4K ev/s</p>
+                </div>
+                <div>
+                  <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider select-none">Clinically Safe</p>
+                  <p className="text-sm font-mono font-semibold text-[#fafafa] mt-0.5">RAG Gate</p>
+                </div>
+                <div>
+                  <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider select-none">Scale Pattern</p>
+                  <p className="text-sm font-mono font-semibold text-[#fafafa] mt-0.5">CQRS / DDD</p>
+                </div>
+              </div>
             </div>
 
             {/* Current Experience — FlyRank AI */}
-            <div className="mt-auto pt-8">
+            <div className="pt-4">
               <p className="text-[9px] font-mono text-[#71717a] tracking-[0.15em] uppercase mb-3">
                 Current Experience
               </p>
@@ -87,7 +103,7 @@ export default function HomePage() {
                   <span className="text-sm font-semibold text-[#fafafa]">
                     AI Engineering Intern
                   </span>
-                  <p className="text-[11px] font-mono text-[#71717a] leading-relaxed max-w-sm">
+                  <p className="text-[11px] font-mono text-[#71717a] leading-relaxed max-w-xl">
                     Building AI-powered ranking and search infrastructure. Working across model integration, API design, and production deployment pipelines.
                   </p>
                 </div>
@@ -95,8 +111,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Col 3: Operator Identity Node */}
-          <div className="border border-[#27272a] rounded-md p-5 bg-[#111113]">
+          {/* Right Column (lg:col-span-4): Operator Identity Node */}
+          <div className="lg:col-span-4 border border-[#27272a] rounded-md p-5 bg-[#111113]">
             {/* Node header */}
             <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#27272a]">
               <p className="text-[9px] font-mono text-[#71717a] tracking-[0.15em] uppercase">
@@ -108,14 +124,14 @@ export default function HomePage() {
             </div>
 
             {/* Photo block — grayscale, hover reveals color */}
-            <div className="relative w-full h-44 mb-4 rounded border border-[#27272a] bg-[#0d0d0f] overflow-hidden group">
+            <div className="relative w-full aspect-square mb-4 rounded border border-[#27272a] bg-[#0d0d0f] overflow-hidden group">
               <Image
                 src={operatorProfile.avatarSrc}
                 alt="Operator portrait"
                 width={300}
                 height={300}
                 priority
-                className="w-full h-full object-cover object-top grayscale contrast-[1.15] brightness-90 group-hover:grayscale-0 transition-all duration-500 ease-in-out"
+                className="w-full h-full object-cover object-center grayscale contrast-[1.15] brightness-90 group-hover:grayscale-0 transition-all duration-500 ease-in-out"
               />
               {/* Fade vignette — bottom only */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#111113] via-transparent to-transparent opacity-50 pointer-events-none" />
@@ -213,15 +229,20 @@ export default function HomePage() {
         <GitHubGrid username="UniverseScripts" />
       </div>
 
+      {/* ── Institutional Verification Grid ── */}
+      <div className="animate-boot" style={{ "--boot-delay": "350ms" } as React.CSSProperties}>
+        <VerificationGrid />
+      </div>
+
       {/* ── Core Pillars Matrix ── */}
       <section 
         aria-labelledby="matrix-heading" 
         className="animate-boot" 
-        style={{ "--boot-delay": "350ms" } as React.CSSProperties}
+        style={{ "--boot-delay": "450ms" } as React.CSSProperties}
       >
         <h2
           id="matrix-heading"
-          className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mb-6"
+          className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mt-8 mb-6"
         >
           Core Pillars Matrix
         </h2>

@@ -28,9 +28,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <div className="flex items-center gap-2 mb-2">
             <TierLabel tier={project.tier} />
           </div>
-          <h2 className="text-base font-semibold text-[#fafafa] leading-snug group-hover:text-white">
+          <h3 className="text-base font-semibold text-[#fafafa] leading-snug group-hover:text-white">
             {project.title}
-          </h2>
+          </h3>
           <p className="text-[11px] font-mono text-[#71717a] mt-0.5 tracking-wide group-hover:text-[#a1a1aa]">
             {project.domain}
           </p>

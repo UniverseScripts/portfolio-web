@@ -13,7 +13,7 @@ export const weatherise: ProjectSchema = {
   architecturePattern: "Event-driven streaming ingest + MCP surrogate abstraction layer",
   mcpIntegration:
     "MCP surrogates decouple the data provider API surface from the processing pipeline, enabling zero-downtime provider rotation",
-  contentFunnelRoute: "/projects/weatherise",
+  contentFunnelRoute: "/projects/weatherise/",
   gumroadProductId: null, // TODO: replace with gumroad.com/l/<id>
   summary:
     "A low-latency realtime integration system ingesting high-frequency environmental data streams. The MCP surrogate pattern abstracts upstream provider contracts, enabling live provider rotation without downstream pipeline disruption.",

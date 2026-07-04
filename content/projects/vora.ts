@@ -12,7 +12,7 @@ export const vora: ProjectSchema = {
   ],
   architecturePattern: "Multi-agent framework with DDD influenced configuration graph",
   mcpIntegration: "Agent-to-agent communication routed through MCP channels with typed message schemas",
-  contentFunnelRoute: "/projects/vora",
+  contentFunnelRoute: "/projects/vora/",
   gumroadProductId: null,
   summary:
     "A multi-agent orchestration framework configuring independent reasoning agents via a Domain-Driven Design configuration graph. Agents operate on isolated bounded contexts, communicating through typed MCP channels with guaranteed message ordering.",

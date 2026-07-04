@@ -11,7 +11,7 @@ export const roomie: ProjectSchema = {
     { label: "P95 Command Latency", value: "<85ms" },
   ],
   architecturePattern: "CQRS + Domain-Driven Design",
-  contentFunnelRoute: "/projects/roomie",
+  contentFunnelRoute: "/projects/roomie/",
   gumroadProductId: null,
   summary:
     "A high-concurrency platform architected around CQRS and Domain-Driven Design principles. The read and write models are fully decoupled at the infrastructure level, allowing independent scaling of query projections without contending for command throughput.",

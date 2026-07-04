@@ -172,9 +172,9 @@ export default function HomePage() {
                     href={net.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[11px] font-mono text-[#3b82f6] hover:text-[#fafafa] transition-colors duration-150 flex items-center gap-1 min-w-0"
+                    className="group text-[11px] font-mono text-[#3b82f6] hover:text-[#fafafa] transition-colors duration-150 flex items-center gap-1 min-w-0"
                   >
-                    <span className="text-[#27272a] group-hover:text-[#71717a]" aria-hidden="true">↳</span>
+                    <span className="text-[#27272a] group-hover:text-[#71717a] transition-colors duration-150" aria-hidden="true">↳</span>
                     <span className="truncate">{net.label}</span>
                   </a>
                 ))}

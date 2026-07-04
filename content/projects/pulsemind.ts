@@ -13,7 +13,7 @@ export const pulsemind: ProjectSchema = {
   architecturePattern: "RAG pipeline with context guardrails + MCP integration layer",
   mcpIntegration:
     "MCP surrogate intercepts model context windows to enforce clinical safety boundaries before inference",
-  contentFunnelRoute: "/projects/pulsemind",
+  contentFunnelRoute: "/projects/pulsemind/",
   gumroadProductId: null, // TODO: replace with gumroad.com/l/<id>
   summary:
     "A clinical decision support framework built on a retrieval-augmented generation pipeline. Context guardrails intercept and validate inference inputs against curated medical knowledge graphs before model execution, enforcing safety boundaries without latency penalty.",

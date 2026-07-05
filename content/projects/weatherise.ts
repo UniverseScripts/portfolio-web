@@ -3,20 +3,17 @@ import { ProjectSchema } from "../types";
 export const weatherise: ProjectSchema = {
   id: "weatherise",
   title: "Weatherise",
-  domain: "Low-Latency Realtime Integration",
+  domain: "Enterprise Weather Intelligence",
   tier: 1,
   metrics: [
     { label: "Data Resolution Latency", value: "<2000ms p99" },
     { label: "MCP Surrogate Throughput", value: "850 rps" },
     { label: "Stream Reconnect Time", value: "<400ms" },
   ],
-  architecturePattern: "Event-driven streaming ingest + MCP surrogate abstraction layer",
-  mcpIntegration:
-    "MCP surrogates decouple the data provider API surface from the processing pipeline, enabling zero-downtime provider rotation",
+  architecturePattern: "Circuit-Breaker Consensus Pipeline with AI Surrogacy Gating and Event-Driven Context Assembly",
+  mcpIntegration: "MCP host decodes real-time meteorological telemetry channels directly into vertical mappers (Agriculture, Construction, Tourism) over non-blocking streams",
   contentFunnelRoute: "/projects/weatherise/",
-  gumroadProductId: null, // TODO: replace with gumroad.com/l/<id>
-  summary:
-    "A low-latency realtime integration system ingesting high-frequency environmental data streams. The MCP surrogate pattern abstracts upstream provider contracts, enabling live provider rotation without downstream pipeline disruption.",
-  architectureDetail:
-    "The ingest layer maintains persistent SSE connections with automated reconnect logic capped at 400ms recovery time. A surrogate dispatch layer maps provider-specific payloads to a normalized domain schema, eliminating tight coupling between data sources and the processing graph. Downstream consumers subscribe to a typed event bus, decoupled from transport semantics. End-to-end data resolution is validated against a sub-2000ms SLA at the 99th percentile.",
+  gumroadProductId: null,
+  summary: "A low-latency weather intelligence engine developed for the NVIDIA AI Open Hackathon. Integrates real-time meteorological Model Context Protocol (MCP) data across multi-vertical logistics channels using an asynchronous consensus framework to preserve sub-2000ms p99 SLAs.",
+  architectureDetail: "Ingest architecture utilizes a non-blocking asyncio fetching cluster that hits six concurrent REST endpoints, gaged by automated circuit breakers and real-time variance weights to prevent latency degradation. Downstream prediction uses high-fidelity neural surrogates linked to NVIDIA NIM targets for localized microclimate inference. Decoupled context mappers (Agriculture, Construction, Tourism) ingest raw data primitives concurrently over an NGINX-managed event loop, streaming structured payloads directly to clients via non-blocking WebSocket streams."
 };

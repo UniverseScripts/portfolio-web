@@ -3,18 +3,16 @@ import { ProjectSchema } from "../types";
 export const roomie: ProjectSchema = {
   id: "roomie",
   title: "Roomie",
-  domain: "High-Concurrency Decoupled Systems",
+  domain: "Real-Time Matching Infrastructure",
   tier: 2,
   metrics: [
-    { label: "CQRS Read/Write Split Ratio", value: "8:1" },
-    { label: "Event Throughput Under Load", value: "2400 evt/s" },
-    { label: "P95 Command Latency", value: "<85ms" },
+    { label: "Vector Matching Latency", value: "<12ms" },
+    { label: "WebSocket Sync Rate", value: "3500 updates/s" },
+    { label: "p95 Routing Latency", value: "<15ms" },
   ],
-  architecturePattern: "CQRS + Domain-Driven Design",
+  architecturePattern: "Asynchronous Layered Monolith with In-Memory WebSocket Orchestration and Vector Embedding Matching",
   contentFunnelRoute: "/projects/roomie/",
-  gumroadProductId: null,
-  summary:
-    "A high-concurrency platform architected around CQRS and Domain-Driven Design principles. The read and write models are fully decoupled at the infrastructure level, allowing independent scaling of query projections without contending for command throughput.",
-  architectureDetail:
-    "Command handlers write exclusively to an append-only event store. Read model projections subscribe to the event stream and maintain materialized views optimized for their specific query shapes. Under sustained load of 2400 events/s, p95 command latency holds below 85ms due to the elimination of read-write lock contention at the storage layer. Aggregate boundaries are defined by DDD domain invariants, not persistence convenience, resulting in explicit consistency guarantees per bounded context.",
+  gumroadProductId: "nextjs-starter-kit",
+  summary: "A high-performance polyglot matching platform built for GDGOC Hackaphobia. Combines a Python FastAPI backend gateway with a decoupled React/Vite frontend to handle real-time tenant-landlord telemetry and sub-15ms bidirectional vector matching queries.",
+  architectureDetail: "The backend engine utilizes FastAPI asynchronous routing to isolate incoming I/O operations from intensive matching procedures. Real-time chat tracking is handled via an in-memory connection manager (`chat_manager.py`) holding stateful WebSocket maps to minimize database overhead. Matching operations invoke an isolated vector execution block (`vector_logic.py`) that computes tokenized user personas against apartment feature matrices using lightweight spatial calculations, generating deterministic accommodation scoring arrays with minimal execution lag."
 };

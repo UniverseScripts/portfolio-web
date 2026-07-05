@@ -16,7 +16,7 @@ const tier2Projects = allProjects.filter((p) => p.tier === 2);
 
 /** Telemetry targets — static at build time, no runtime fetch */
 const telemetryTargets = [
-  { label: "Guardrail Latency", value: "<120ms", source: "Pulsemind" },
+  { label: "Classifier Latency", value: "<5ms", source: "Pulsemind" },
   { label: "Stream SLA p99", value: "<2000ms", source: "Weatherise" },
   { label: "Command Throughput", value: "2400 evt/s", source: "Roomie" },
   { label: "Agent Coordination", value: "<35ms", source: "Vora" },

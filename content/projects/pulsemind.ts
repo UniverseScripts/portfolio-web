@@ -6,17 +6,13 @@ export const pulsemind: ProjectSchema = {
   domain: "Clinical Decision Support",
   tier: 1,
   metrics: [
-    { label: "Context Guardrail Latency", value: "<120ms" },
+    { label: "Classifier Latency", value: "<5ms" },
     { label: "Inference Accuracy Delta", value: "+18%" },
-    { label: "MCP Surrogate Calls/s", value: "340 rps" },
+    { label: "Telemetry Ingest", value: "2400 evt/s" },
   ],
-  architecturePattern: "RAG pipeline with context guardrails + MCP integration layer",
-  mcpIntegration:
-    "MCP surrogate intercepts model context windows to enforce clinical safety boundaries before inference",
+  architecturePattern: "CNN-First Asynchronous Inference Pipeline with Conditional Explainability Gating",
   contentFunnelRoute: "/projects/pulsemind/",
-  gumroadProductId: null, // TODO: replace with gumroad.com/l/<id>
-  summary:
-    "A clinical decision support framework built on a retrieval-augmented generation pipeline. Context guardrails intercept and validate inference inputs against curated medical knowledge graphs before model execution, enforcing safety boundaries without latency penalty.",
-  architectureDetail:
-    "Retrieval layer uses a dense vector index with HNSW approximate nearest-neighbor search. Guardrail stage runs a lightweight classifier (<5ms overhead) that gates the retrieval context window before it reaches the language model. MCP surrogates abstract the model API surface, enabling hot-swappable backend inference providers without application-layer changes. Prompt engineering constraints are enforced at the infrastructure boundary rather than the application layer.",
+  gumroadProductId: null,
+  summary: "An asynchronous critical-care telemetry processor. A lightweight, edge-connected PyTorch neural network evaluates incoming ICU data streams within <5ms, executing high-cost LLM rationalization queries only upon detecting critical anomaly bounds.",
+  architectureDetail: "Ingest layer processes incoming physiological vectors (PEEP, PIP, FiO2, HRV, Procalcitonin) over secure mTLS WebSocket connections. Classification occurs via a dual-stage linear extractor tracking risk boundaries on CUDA execution threads. Downstream explainability utilizes a conditional execution loop gaged to trigger zero-shot inference pipelines via a decoupled vLLM orchestration endpoint."
 };

@@ -62,25 +62,22 @@ export default function HomePage() {
                 </span>
               </h1>
               <p className="text-base text-[#71717a] leading-relaxed max-w-2xl mb-8">
-                RAG pipelines with clinical safety guardrails. MCP surrogate
-                patterns for zero-downtime provider rotation. CQRS/DDD at 2400
-                events/s. Each project is a structural tradeoff decision,
-                documented.
+                Low-latency telemetry processing with automated circuit breakers, CUDA-accelerated classification engines, stateful WebSocket orchestration, and fast in-memory DAG resolution. Every project is backed by structural code primitives, documented.
               </p>
 
               {/* Quick Specs Grid */}
               <div className="grid grid-cols-3 gap-6 pt-6 border-t border-[#27272a]/30 max-w-xl">
                 <div>
-                  <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider select-none">Metrics Ingest</p>
-                  <p className="text-sm font-mono font-semibold text-[#fafafa] mt-0.5">2.4K ev/s</p>
+                  <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider select-none">Classifier Latency</p>
+                  <p className="text-sm font-mono font-semibold text-[#fafafa] mt-0.5">&lt;5ms CNN</p>
                 </div>
                 <div>
-                  <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider select-none">Clinically Safe</p>
-                  <p className="text-sm font-mono font-semibold text-[#fafafa] mt-0.5">RAG Gate</p>
+                  <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider select-none">DAG Path Resolution</p>
+                  <p className="text-sm font-mono font-semibold text-[#fafafa] mt-0.5">&lt;1.5ms Path</p>
                 </div>
                 <div>
-                  <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider select-none">Scale Pattern</p>
-                  <p className="text-sm font-mono font-semibold text-[#fafafa] mt-0.5">CQRS / DDD</p>
+                  <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider select-none">Vector Matching</p>
+                  <p className="text-sm font-mono font-semibold text-[#fafafa] mt-0.5">&lt;12ms Vector</p>
                 </div>
               </div>
             </div>

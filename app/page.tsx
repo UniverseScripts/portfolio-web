@@ -19,7 +19,7 @@ const telemetryTargets = [
   { label: "Classifier Latency", value: "<5ms", source: "Pulsemind" },
   { label: "Stream SLA p99", value: "<2000ms", source: "Weatherise" },
   { label: "Vector Matching Latency", value: "<12ms", source: "Roomie" },
-  { label: "Agent Coordination", value: "<35ms", source: "Vora" },
+  { label: "DAG Path Resolution Latency", value: "<1.5ms", source: "Vora" },
 ];
 
 /** Operator profile — v2 implementation plan */

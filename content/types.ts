@@ -1,5 +1,5 @@
 export type ProjectIdentifier = "pulsemind" | "weatherise" | "vora" | "roomie" | "develarper";
-export type CertificationIdentifier = "vercel-nextjs-approuter" | "deeplearning-ai-genai-llm" | "aws-cloud-practitioner" | "uts-dean-list-2026" | "google-hackathon-top30";
+export type CertificationIdentifier = "nvidia-ai-open-hackathon-top10" | "vercel-nextjs-approuter" | "deeplearning-ai-genai-llm" | "aws-cloud-practitioner" | "uts-dean-list-2026" | "google-hackathon-top30";
 
 export interface Metric {
   label: string;

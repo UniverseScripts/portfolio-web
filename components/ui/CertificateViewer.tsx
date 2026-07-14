@@ -78,7 +78,7 @@ export function CertificateViewer({ cert }: CertificateViewerProps) {
             </div>
             <div className="my-auto space-y-2">
               <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-widest">Credential Recipient</p>
-              <h4 className="text-xl font-bold tracking-tight">Asterios</h4>
+              <h4 className="text-xl font-bold tracking-tight">Yoshio Nomura</h4>
               <p className="text-sm font-semibold text-[#a1a1aa]">{cert.title}</p>
             </div>
             <div className="flex justify-between items-end border-t border-[#27272a]/40 pt-4 text-[9px] font-mono text-[#71717a]">

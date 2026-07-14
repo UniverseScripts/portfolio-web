@@ -248,6 +248,7 @@ function GridSVG({ data, username, available }: RenderProps) {
             role="img"
             style={{ minWidth: Math.min(svgWidth, 320) }}
             className="group/svg"
+            suppressHydrationWarning={true}
           >
             {/* Month labels */}
             {monthLabels.map(({ label, x }) => (

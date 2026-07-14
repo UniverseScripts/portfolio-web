@@ -17,7 +17,6 @@ const productByProject: Record<
   { title: string; description: string; url: string }
 > = {
   pulsemind: localRagApi,
-  vora: localRagApi,
   roomie: nextjsStarterKit,
   weatherise: globalTechIntelligence,
 };

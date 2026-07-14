@@ -1,4 +1,5 @@
-export type ProjectIdentifier = "pulsemind" | "weatherise" | "vora" | "roomie";
+export type ProjectIdentifier = "pulsemind" | "weatherise" | "vora" | "roomie" | "develarper";
+export type CertificationIdentifier = "vercel-nextjs-approuter" | "deeplearning-ai-genai-llm" | "aws-cloud-practitioner" | "uts-dean-list-2026" | "google-hackathon-top30";
 
 export interface Metric {
   label: string;
@@ -28,7 +29,7 @@ export interface ProductSchema {
 }
 
 export interface CertificationSchema {
-  id: string;
+  id: CertificationIdentifier;
   title: string;
   authority: string;
   date: string; // Enforces YYYY-MM-DD chronological sorting strings

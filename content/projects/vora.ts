@@ -4,7 +4,7 @@ export const vora: ProjectSchema = {
   id: "vora",
   title: "Vora",
   domain: "Dynamic Educational Architecture",
-  tier: 2,
+  tier: 1,
   metrics: [
     { label: "DAG Path Latency", value: "<1.5ms" },
     { label: "Gemini Schema Enforcements", value: "100%" },

@@ -1,6 +1,6 @@
-import { CertificationSchema } from "./types";
+import { CertificationSchema } from "../types";
 
-export const verifiedCertifications: CertificationSchema[] = [
+export const certifications: CertificationSchema[] = [
   {
     id: "vercel-nextjs-approuter",
     title: "Next.js App Router Fundamentals",
@@ -29,5 +29,14 @@ export const verifiedCertifications: CertificationSchema[] = [
     authority: "Amazon Web Services (AWS)",
     date: "2025-12-03", // Verified complete Dec 03, 2025
     badgeHex: "#71717a"
+  },
+  {
+    id: "uts-dean-list-2026",
+    title: "Dean's List",
+    authority: "University of Technology Sydney",
+    date: "2026",
+    badgeHex: "#71717a"
   }
 ];
+
+export const verifiedCertifications = Object.fromEntries(certifications.map(cert => [cert.id, cert]))

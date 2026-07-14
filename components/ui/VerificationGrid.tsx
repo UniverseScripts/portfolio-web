@@ -1,7 +1,8 @@
-import { verifiedCertifications } from "@/content/certifications";
+import { verifiedCertifications } from "@/content/certifications/certifications";
+import Link from "next/link";
 
 export function VerificationGrid() {
-  const sortedCertifications = [...verifiedCertifications].sort(
+  const sortedCertifications = Object.values(verifiedCertifications).sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
@@ -43,21 +44,15 @@ export function VerificationGrid() {
                   <td className="p-4">{cert.authority}</td>
                   <td className="p-4">{cert.date}</td>
                   <td className="p-4 text-right">
-                    {cert.verificationUrl ? (
-                      <a
-                        href={cert.verificationUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/link inline-flex items-center text-[#3b82f6] hover:text-[#fafafa] select-none"
-                        aria-label={`Verify authenticity for ${cert.title}`}
-                      >
-                        [AUTH_LOG_
-                        <span className="group-hover/link:hidden">_</span>
-                        <span className="hidden group-hover/link:inline">→</span>]
-                      </a>
-                    ) : (
-                      <span className="text-[#71717a]/40 select-none">[SYSTEM_RECORD]</span>
-                    )}
+                    <Link
+                      href={`/certificates/${cert.id}`}
+                      className="group/link inline-flex items-center text-[#3b82f6] hover:text-[#fafafa] select-none"
+                      aria-label={`View secure certificate for ${cert.title}`}
+                    >
+                      [VIEW_CRED_
+                      <span className="group-hover/link:hidden">_</span>
+                      <span className="hidden group-hover/link:inline">→</span>]
+                    </Link>
                   </td>
                 </tr>
               ))}

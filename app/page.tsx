@@ -29,7 +29,7 @@ const operatorProfile = {
   institution: "University of Technology Sydney (UTS)",
   discipline: "Computer Science & Artificial Intelligence Major",
   location: "Ho Chi Minh City, VN // Global Routing",
-  avatarSrc: "/operator.jpg",
+  avatarSrc: "/static/operator.jpg",
   networks: [
     { label: "GitHub", href: "https://github.com/UniverseScripts" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/yoshio-nomura-b3219438b/" },

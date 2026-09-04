@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ProjectSchema } from "@/content/types";
 import { TierLabel } from "./TierLabel";
-import { MetricGrid } from "./MetricBadge";
+import { MetricList } from "./MetricBadge";
+import { ProvenanceRow } from "./ProvenanceRow";
 
 interface ProjectCardProps {
   project: ProjectSchema;
@@ -51,7 +52,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
         {project.summary}
       </p>
 
-      <MetricGrid metrics={project.metrics} />
+      <ProvenanceRow project={project} />
+      <MetricList metrics={project.metrics} />
     </Link>
   );
 }

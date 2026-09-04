@@ -1,31 +1,40 @@
 import { Metric } from "@/content/types";
 
-interface MetricBadgeProps {
-  metric: Metric;
-}
-
-export function MetricBadge({ metric }: MetricBadgeProps) {
-  return (
-    <div className="flex flex-col gap-1">
-      <span className="font-mono text-[8px] text-[#71717a] uppercase tracking-normal leading-tight line-clamp-2">
-        {metric.label}
-      </span>
-      <span className="font-mono text-xs font-semibold text-[#fafafa] leading-none">
-        {metric.value}
-      </span>
-    </div>
-  );
-}
-
-interface MetricGridProps {
+interface MetricListProps {
   metrics: Metric[];
+  /** Drop the top rule when this already sits beneath a section heading. */
+  flush?: boolean;
 }
 
-export function MetricGrid({ metrics }: MetricGridProps) {
+/**
+ * Measurements, each carrying the conditions it was measured under.
+ *
+ * The condition is not fine print — it is the half of the claim that makes the number
+ * mean anything (truth file §9.1). It renders at every size the value does, and it is
+ * never truncated or hidden behind a hover.
+ *
+ * Returns null on an empty array rather than an empty bordered box: two of the five
+ * projects legitimately have nothing measured, and that should look deliberate.
+ */
+export function MetricList({ metrics, flush = false }: MetricListProps) {
+  if (metrics.length === 0) return null;
+
   return (
-    <div className="grid grid-cols-3 gap-3 pt-3 border-t border-[#27272a]">
+    <div className={`space-y-2.5 ${flush ? "" : "pt-3 mt-3 border-t border-[#27272a]"}`}>
       {metrics.map((metric) => (
-        <MetricBadge key={metric.label} metric={metric} />
+        <div key={metric.label}>
+          <div className="flex items-baseline justify-between gap-3">
+            <span className="font-mono text-[9px] text-[#71717a] uppercase tracking-wide leading-tight">
+              {metric.label}
+            </span>
+            <span className="font-mono text-xs font-semibold text-[#fafafa] leading-none shrink-0">
+              {metric.value}
+            </span>
+          </div>
+          <p className="font-mono text-[9px] text-[#52525b] leading-snug mt-1">
+            {metric.condition}
+          </p>
+        </div>
       ))}
     </div>
   );

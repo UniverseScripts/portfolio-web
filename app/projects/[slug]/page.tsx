@@ -3,7 +3,8 @@ import { allProjects, projectsRegistry } from "@/content/projects";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { TierLabel } from "@/components/ui/TierLabel";
-import { MetricGrid } from "@/components/ui/MetricBadge";
+import { MetricList } from "@/components/ui/MetricBadge";
+import { ProvenanceRow } from "@/components/ui/ProvenanceRow";
 import { ProductCTA } from "@/components/ui/ProductCTA";
 import { PulsemindFlow } from "@/components/visualizations/PulsemindFlow";
 
@@ -81,16 +82,34 @@ export default async function ProjectPage({ params }: PageProps) {
             <p className="text-sm text-[#71717a] leading-relaxed">{project.summary}</p>
           </header>
 
-          {/* Metrics */}
-          <section aria-labelledby="metrics-heading">
+          {/* Provenance — role, period, venue, stack */}
+          <section aria-labelledby="provenance-heading">
             <h2
-              id="metrics-heading"
+              id="provenance-heading"
               className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mb-4 select-none"
             >
-              Performance Targets
+              Provenance
             </h2>
-            <MetricGrid metrics={project.metrics} />
+            <ProvenanceRow project={project} flush />
           </section>
+
+          {/*
+            Measurements. The heading says "Measured" and must keep saying so —
+            truth file §9.6 keeps a target and a measurement separate, and a heading
+            that blurs them relabels every figure beneath it. The section is absent
+            entirely for projects where nothing was instrumented.
+          */}
+          {project.metrics.length > 0 && (
+            <section aria-labelledby="metrics-heading">
+              <h2
+                id="metrics-heading"
+                className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mb-4 select-none"
+              >
+                Measured
+              </h2>
+              <MetricList metrics={project.metrics} flush />
+            </section>
+          )}
         </aside>
 
         {/* Right Column (lg:col-span-8): Deep Dive & Architecture Sheet */}

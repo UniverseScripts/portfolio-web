@@ -10,8 +10,9 @@ interface MetricListProps {
  * Measurements, each carrying the conditions it was measured under.
  *
  * The condition is not fine print — it is the half of the claim that makes the number
- * mean anything (truth file §9.1). It renders at every size the value does, and it is
- * never truncated or hidden behind a hover.
+ * mean anything (truth file §9.1). It is never truncated or hidden behind a hover, and
+ * it must stay legible: do not drop its colour below #71717a or its size below 10px.
+ * Setting it dimmer than the label turns a required disclosure into decoration.
  *
  * Returns null on an empty array rather than an empty bordered box: two of the five
  * projects legitimately have nothing measured, and that should look deliberate.
@@ -31,7 +32,7 @@ export function MetricList({ metrics, flush = false }: MetricListProps) {
               {metric.value}
             </span>
           </div>
-          <p className="font-mono text-[9px] text-[#52525b] leading-snug mt-1">
+          <p className="font-mono text-[10px] text-[#71717a] leading-snug mt-1">
             {metric.condition}
           </p>
         </div>

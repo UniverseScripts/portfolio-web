@@ -62,7 +62,10 @@ export default function HomePage() {
           style={{ "--boot-delay": "50ms" } as React.CSSProperties}
         >
           {/* Left Column (lg:col-span-8): Thesis Statement & Current Experience */}
-          <div className="lg:col-span-8 flex flex-col justify-between h-full space-y-6">
+          {/* Natural flow, not justify-between. The hero lost its spec grid, and
+              spreading two short blocks across the profile card's full height left
+              a ~250px hole in the middle of the fold. */}
+          <div className="lg:col-span-8 flex flex-col gap-10">
             <div>
               <p className="text-[10px] font-mono text-[#3b82f6] tracking-[0.2em] uppercase mb-4 select-none">
                 Systems Engineering // Core Engine
@@ -215,7 +218,7 @@ export default function HomePage() {
                 {m.value}
               </span>
               {/* The condition is half the claim — it renders, it is not a tooltip */}
-              <span className="text-[9px] font-mono text-[#52525b] leading-snug">
+              <span className="text-[10px] font-mono text-[#71717a] leading-snug">
                 {m.condition}
               </span>
               <span className="text-[9px] font-mono text-[#3b82f6]/60 tracking-wider">

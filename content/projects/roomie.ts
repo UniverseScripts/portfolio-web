@@ -3,16 +3,27 @@ import { ProjectSchema } from "../types";
 export const roomie: ProjectSchema = {
   id: "roomie",
   title: "Roomie",
-  domain: "Real-Time Matching Infrastructure",
+  domain: "Roommate and apartment matching",
   tier: 2,
+  role: "Contributor, team of 4 — DevOps & Backend Engineering",
+  period: "April 2026",
+  venue: "GDGoC National Hackathon 2026 (Hanoi) — team Hackaphobia",
+  stack: ["Python", "FastAPI", "React", "PostgreSQL", "SQL", "Vertex AI embeddings"],
   metrics: [
-    { label: "Vector Matching Latency", value: "<12ms" },
-    { label: "WebSocket Sync Rate", value: "3500 updates/s" },
-    { label: "p95 Routing Latency", value: "<15ms" },
+    {
+      label: "Users onboarded",
+      value: "~50",
+      condition: "real users who onboarded and swiped at demo day",
+    },
+    {
+      label: "Average request latency",
+      value: "~12 ms",
+      condition: "structured matching path only — excludes embedding generation",
+    },
   ],
-  architecturePattern: "Asynchronous Layered Monolith with In-Memory WebSocket Orchestration and Vector Embedding Matching",
+  architecturePattern: "Asynchronous FastAPI service with a stateful in-memory WebSocket layer and structured matching",
   contentFunnelRoute: "/projects/roomie/",
   gumroadProductId: "nextjs-starter-kit",
-  summary: "A high-performance polyglot matching platform built for GDGOC Hackaphobia. Combines a Python FastAPI backend gateway with a decoupled React/Vite frontend to handle real-time tenant-landlord telemetry and sub-15ms bidirectional vector matching queries.",
-  architectureDetail: "The backend engine utilizes FastAPI asynchronous routing to isolate incoming I/O operations from intensive matching procedures. Real-time chat tracking is handled via an in-memory connection manager (`chat_manager.py`) holding stateful WebSocket maps to minimize database overhead. Matching operations invoke an isolated vector execution block (`vector_logic.py`) that computes tokenized user personas against apartment feature matrices using lightweight spatial calculations, generating deterministic accommodation scoring arrays with minimal execution lag."
+  summary: "A student roommate and apartment matcher built at the GDGoC National Hackathon 2026 in Hanoi with team Hackaphobia. An onboarding survey and swipe interface match on structured fields — location, budget — with an optional free-text bio path using Vertex AI embeddings and cosine similarity.",
+  architectureDetail: "A FastAPI backend isolates incoming I/O from the matching work. Chat is handled by an in-memory connection manager (chat_manager.py) holding stateful WebSocket maps rather than round-tripping every message through PostgreSQL. Matching runs in an isolated block (vector_logic.py): structured fields resolve directly, and the optional free-text bio path computes cosine similarity over Vertex AI embeddings. An MCP-plus-n8n agentic pipeline was designed and then rejected as over-scoped for a four-person team with no operational runway."
 };

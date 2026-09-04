@@ -3,17 +3,20 @@ import { ProjectSchema } from "../types";
 export const weatherise: ProjectSchema = {
   id: "weatherise",
   title: "Weatherise",
-  domain: "Enterprise Weather Intelligence",
+  domain: "Weather-intelligence pipeline",
   tier: 1,
-  metrics: [
-    { label: "Data Resolution Latency", value: "<2000ms p99" },
-    { label: "MCP Surrogate Throughput", value: "850 rps" },
-    { label: "Stream Reconnect Time", value: "<400ms" },
-  ],
-  architecturePattern: "Circuit-Breaker Consensus Pipeline with AI Surrogacy Gating and Event-Driven Context Assembly",
-  mcpIntegration: "MCP host decodes real-time meteorological telemetry channels directly into vertical mappers (Agriculture, Construction, Tourism) over non-blocking streams",
+  role: "Team — LLMOps & Backend AI Engineering",
+  period: "9–11 June 2026",
+  venue: "Vietnam AI Open Hackathon (NVIDIA / OpenACC)",
+  stack: ["Python", "Qdrant", "NVIDIA Earth-2 surrogates", "Nemotron Ultra", "MCP", "REST sources"],
+  // Empty by design. Every figure this project produced was measured at a concurrency
+  // of one under demonstration conditions, which yields no distribution and therefore
+  // no publishable latency or throughput number. Truth file §4.
+  metrics: [],
+  architecturePattern: "Multi-agent routing chain over surrogate models with vector retrieval",
+  mcpIntegration: "An MCP host feeds ingested meteorological data forward into the agent chain",
   contentFunnelRoute: "/projects/weatherise/",
   gumroadProductId: null,
-  summary: "A low-latency weather intelligence engine developed for the NVIDIA AI Open Hackathon. Integrates real-time meteorological Model Context Protocol (MCP) data across multi-vertical logistics channels using an asynchronous consensus framework to preserve sub-2000ms p99 SLAs.",
-  architectureDetail: "Ingest architecture utilizes a non-blocking asyncio fetching cluster that hits six concurrent REST endpoints, gaged by automated circuit breakers and real-time variance weights to prevent latency degradation. Downstream prediction uses high-fidelity neural surrogates linked to NVIDIA NIM targets for localized microclimate inference. Decoupled context mappers (Agriculture, Construction, Tourism) ingest raw data primitives concurrently over an NGINX-managed event loop, streaming structured payloads directly to clients via non-blocking WebSocket streams."
+  summary: "A weather-intelligence pipeline built at the Vietnam AI Open Hackathon (NVIDIA / OpenACC). REST data sources and NVIDIA Earth-2 surrogate models feed a multi-agent chain running on Nemotron Ultra, with a Qdrant vector database supporting retrieval-augmented generation over the ingested data.",
+  architectureDetail: "Ingestion combines REST meteorological sources with NVIDIA Earth-2 surrogate models, and an MCP host carries the ingested data forward. Retrieved context is held in a Qdrant vector database and supplied to a multi-agent routing chain on Nemotron Ultra, which composes the response. Built and demonstrated across the three days of the hackathon, where the team was selected as one of ten from roughly a hundred registrants to compete."
 };

@@ -3,16 +3,26 @@ import { ProjectSchema } from "../types";
 export const pulsemind: ProjectSchema = {
   id: "pulsemind",
   title: "Pulsemind",
-  domain: "Clinical Decision Support",
+  domain: "Critical-care telemetry — research prototype",
   tier: 1,
+  role: "Team — full-stack AI engineer",
+  period: "May 2026 — ongoing",
+  stack: ["Python", "XGBoost", "PyTorch", "scikit-learn", "React"],
   metrics: [
-    { label: "Classifier Latency", value: "<5ms" },
-    { label: "Inference Accuracy Delta", value: "+18%" },
-    { label: "Telemetry Ingest", value: "2400 evt/s" },
+    {
+      label: "Classifier forward pass",
+      value: "<5 ms",
+      condition: "per stream event",
+    },
+    {
+      label: "End-to-end request",
+      value: "<50 ms",
+      condition: "the anomaly path additionally incurs the ~15 s LLM rationalisation step",
+    },
   ],
-  architecturePattern: "CNN-First Asynchronous Inference Pipeline with Conditional Explainability Gating",
+  architecturePattern: "Asynchronous inference pipeline with conditional explainability gating",
   contentFunnelRoute: "/projects/pulsemind/",
   gumroadProductId: null,
-  summary: "An asynchronous critical-care telemetry processor. A lightweight, edge-connected PyTorch neural network evaluates incoming ICU data streams within <5ms, executing high-cost LLM rationalization queries only upon detecting critical anomaly bounds.",
-  architectureDetail: "Ingest layer processes incoming physiological vectors (PEEP, PIP, FiO2, HRV, Procalcitonin) over secure mTLS WebSocket connections. Classification occurs via a dual-stage linear extractor tracking risk boundaries on CUDA execution threads. Downstream explainability utilizes a conditional execution loop gaged to trigger zero-shot inference pipelines via a decoupled vLLM orchestration endpoint."
+  summary: "An asynchronous ICU telemetry processor. An XGBoost classifier scores incoming stream events and gates higher-cost LLM rationalisation calls so they fire only on detected anomalies.",
+  architectureDetail: "Stream events are scored by an XGBoost classifier trained on the credentialed MIMIC-IV (PhysioNet) de-identified ICU dataset under its data use agreement; demonstrations run on a synthetic derivative built from that dataset. Events scoring below the risk threshold complete on the fast path alone. Only events the classifier flags as anomalous trigger the downstream LLM rationalisation call — the expensive step the gate exists to avoid paying for. No identifiable patient data is used, and there is no clinical deployment."
 };

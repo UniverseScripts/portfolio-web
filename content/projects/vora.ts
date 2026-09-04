@@ -3,16 +3,19 @@ import { ProjectSchema } from "../types";
 export const vora: ProjectSchema = {
   id: "vora",
   title: "Vora",
-  domain: "Dynamic Educational Architecture",
+  domain: "Quiz-verified learning roadmap",
   tier: 1,
-  metrics: [
-    { label: "DAG Path Latency", value: "<1.5ms" },
-    { label: "Gemini Schema Enforcements", value: "100%" },
-    { label: "Cycle Detection Complexity", value: "O(V+E)" },
-  ],
-  architecturePattern: "Hybrid Graph-Generative Engine with Prompt Isolation and In-Memory DAG Resolution",
+  role: "Team — backend engineer",
+  period: "April 2026",
+  venue: "GDGoC DevCamp, HCMUT",
+  // Thin because the truth file gives Vora no stack line. Open question Q3.
+  stack: ["React Flow"],
+  // Empty by design. Nothing on this project was instrumented, and a design target
+  // is not a measurement (truth file §9.6).
+  metrics: [],
+  architecturePattern: "Generative model output resolved into a validated dependency graph",
   contentFunnelRoute: "/projects/vora/",
   gumroadProductId: "local-rag-api",
-  summary: "A high-performance educational pipeline orchestrating cloud-inference LLMs and deterministic graph theory. Dynamically maps out personalized learning pathways by processing unstructured AI tokens into valid, dependency-mapped Directed Acyclic Graphs (DAGs) in under 1.5ms.",
-  architectureDetail: "The ingestion architecture isolates generative boundaries by routing onboarding telemetry through a dedicated prompt configuration layer (`ai-prompts.ts`), enforcing strict JSON schema structures on remote cloud models via the Google Gemini SDK. The raw output is intercepted by a localized TypeScript graph resolver (`roadmap-graph.ts`) that programmatically instantiates node matrices, executing cycle-detection algorithms and topological sorting arrays. This ensures error-free dependency paths, localized progress validation, and streak-tracking loops with zero runtime database or node-server overhead."
+  summary: "A deployed learning-roadmap application with quiz-gated progression, built at the GDGoC DevCamp at HCMUT — a separate programme from the national hackathon. The backend resolver converts unstructured model output into validated, dependency-mapped directed acyclic graphs.",
+  architectureDetail: "The resolver validates generative model output before any of it becomes a roadmap: candidate nodes and their declared dependencies are checked for cycles and for unreachable prerequisites, and output that fails validation never reaches the graph. Cycle detection is O(V+E) — an algorithmic property of the traversal, not a measured latency. Quiz gating then governs progression between resolved nodes, so a learner cannot advance past a dependency they have not demonstrated."
 };

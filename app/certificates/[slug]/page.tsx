@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { allCertifications, certificateRegistry } from "@/content/certifications";
+import {
+  allCertifications,
+  certificateRegistry,
+  credentialNoun,
+  credentialLabel,
+} from "@/content/certifications";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { CertificateViewer } from "@/components/ui/CertificateViewer";
@@ -18,10 +23,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const cert = certificateRegistry[slug];
   if (!cert) return {};
+  const noun = credentialNoun[cert.kind];
+  // Some titles already are the noun ("Certificate of Attendance"). Adding it again
+  // stutters, so it is only appended when it tells the reader something new.
+  const suffix = titleStatesItsKind(cert.title, noun) ? "" : ` — ${noun}`;
   return {
-    title: `${cert.title} — Verified Credential`,
-    description: `Official verification log for the ${cert.title} certification issued by ${cert.authority}.`,
+    title: `${cert.title} — ${cert.authority}`,
+    description: `${cert.title}${suffix}, from ${cert.authority}, ${cert.date}.`,
   };
+}
+
+function titleStatesItsKind(title: string, noun: string): boolean {
+  return title.toLowerCase().includes(noun.toLowerCase());
 }
 
 export default async function CertificatePage({ params }: PageProps) {
@@ -32,47 +45,42 @@ export default async function CertificatePage({ params }: PageProps) {
     notFound();
   }
 
-  // Generate a mock unique SHA-256 checksum for the certificate record
-  const mockChecksum = Array.from(slug)
-    .reduce((hash, char) => (hash * 31 + char.charCodeAt(0)) | 0, 0)
-    .toString(16)
-    .toUpperCase()
-    .padStart(8, "0");
-
   const accentColor = cert.badgeHex || "#3b82f6";
 
   return (
     <main className="min-h-screen px-4 py-16 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-        
+
         {/* Left Column (col-span-4): Sticky Certificate Metadata */}
         <aside className="lg:col-span-4 lg:sticky lg:top-16 space-y-8 animate-boot" style={{ "--boot-delay": "50ms" } as React.CSSProperties}>
-          
+
           {/* Back navigation */}
           <div>
-            <Link 
+            <Link
               href="/"
               className="inline-flex items-center text-xs font-mono text-[#71717a] hover:text-[#fafafa] transition-colors duration-150 select-none group"
-              aria-label="Back to home page verification grid"
+              aria-label="Back to home page credentials list"
             >
               <span className="mr-1.5 transition-transform duration-150 group-hover:-translate-x-1">←</span>
-              Institutional Verification Grid
+              Credentials
             </Link>
           </div>
 
-          {/* Certificate Title & Status */}
+          {/* Certificate Title & Kind */}
           <div className="space-y-4">
             <div>
-              <p className="text-[10px] font-mono tracking-[0.2em] text-[#71717a] uppercase mb-1 select-none">
-                Verified Cryptographic Node
-              </p>
+              {!titleStatesItsKind(cert.title, credentialNoun[cert.kind]) && (
+                <p className="text-[10px] font-mono tracking-[0.2em] text-[#71717a] uppercase mb-1 select-none">
+                  {credentialNoun[cert.kind]}
+                </p>
+              )}
               <h1 className="text-2xl sm:text-3xl font-bold text-[#fafafa] leading-tight tracking-tight">
                 {cert.title}
               </h1>
             </div>
 
             <div className="flex items-center gap-3">
-              <span 
+              <span
                 className="text-[9px] font-mono px-2 py-0.5 rounded border uppercase tracking-wider select-none bg-[#18181b]/50"
                 style={{
                   borderColor: `${accentColor}40`,
@@ -81,43 +89,37 @@ export default async function CertificatePage({ params }: PageProps) {
               >
                 {cert.authority}
               </span>
-              <div className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: accentColor }} />
-                <span className="text-[9px] font-mono text-[#fafafa] uppercase tracking-wider select-none">
-                  SECURE_RECORD
-                </span>
-              </div>
             </div>
           </div>
 
-          {/* Core Technical Specifications List */}
+          {/* What this credential actually is */}
           <div className="border-t border-[#27272a]/30 pt-6 space-y-4">
             <h2 className="text-[10px] font-mono text-[#71717a] tracking-[0.15em] uppercase select-none">
-              Credential Specifications
+              Record
             </h2>
             <dl className="grid grid-cols-1 gap-4 font-mono text-xs">
               <div className="border-b border-[#27272a]/10 pb-3">
-                <dt className="text-[#71717a] text-[10px] uppercase select-none mb-0.5">Verification Registry</dt>
-                <dd className="font-semibold text-[#e4e4e7]">{cert.authority} Authority Node</dd>
+                <dt className="text-[#71717a] text-[10px] uppercase select-none mb-0.5">Issued by</dt>
+                <dd className="font-semibold text-[#e4e4e7]">{cert.authority}</dd>
               </div>
               <div className="border-b border-[#27272a]/10 pb-3">
-                <dt className="text-[#71717a] text-[10px] uppercase select-none mb-0.5">Timestamp Log</dt>
-                <dd className="font-semibold text-[#e4e4e7]">{cert.date} 00:00:00 UTC</dd>
+                <dt className="text-[#71717a] text-[10px] uppercase select-none mb-0.5">Date issued</dt>
+                <dd className="font-semibold text-[#e4e4e7]">{cert.date}</dd>
               </div>
-              <div className="border-b border-[#27272a]/10 pb-3">
-                <dt className="text-[#71717a] text-[10px] uppercase select-none mb-0.5">Cryptographic Signature</dt>
-                <dd className="font-semibold text-[#e4e4e7] break-all select-all text-[11px] text-[#a1a1aa]">
-                  SHA-256: {mockChecksum}D89E7036A4F923B0C442A7C31
-                </dd>
+              <div className={cert.note ? "border-b border-[#27272a]/10 pb-3" : ""}>
+                <dt className="text-[#71717a] text-[10px] uppercase select-none mb-0.5">Type</dt>
+                <dd className="font-semibold text-[#e4e4e7]">{credentialLabel[cert.kind]}</dd>
               </div>
-              <div>
-                <dt className="text-[#71717a] text-[10px] uppercase select-none mb-0.5">Trust Protocol</dt>
-                <dd className="font-semibold text-[#e4e4e7]">Secure Layer Verification (SLV)</dd>
-              </div>
+              {cert.note && (
+                <div>
+                  <dt className="text-[#71717a] text-[10px] uppercase select-none mb-0.5">Detail</dt>
+                  <dd className="text-[#a1a1aa] leading-relaxed font-normal">{cert.note}</dd>
+                </div>
+              )}
             </dl>
           </div>
 
-          {/* External verification button */}
+          {/* Verification is the issuer's link, or nothing at all */}
           {cert.verificationUrl && (
             <div className="pt-2">
               <a
@@ -126,7 +128,7 @@ export default async function CertificatePage({ params }: PageProps) {
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-[#27272a] rounded-md text-xs font-mono text-[#fafafa] bg-[#111113]/90 hover:bg-[#18181b] hover:border-[#3f3f46] hover:shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-200 select-none group"
               >
-                <span>VERIFY AUTHENTICITY LOG</span>
+                <span>VERIFY WITH ISSUER</span>
                 <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
               </a>
             </div>

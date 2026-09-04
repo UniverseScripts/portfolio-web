@@ -74,12 +74,16 @@ export function CertificateViewer({ cert }: CertificateViewerProps) {
             </p>
           </div>
         ) : (
-          /* The actual scanned certificate */
+          /* The actual scanned certificate. Thumbnail crops to fill the card; the
+             expanded view shows the whole document — the scan is the evidence, so
+             expanding it must not cut any of it off. */
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={imagePath}
             alt={`Scan of the ${cert.title} issued by ${cert.authority}`}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.01]"
+            className={`w-full h-full transition-transform duration-500 ${
+              isModal ? "object-contain" : "object-cover group-hover:scale-[1.01]"
+            }`}
             onError={() => setImageError(true)}
           />
         )}

@@ -18,6 +18,11 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      // Standalone CommonJS maintenance script, run by hand and not part of the
+      // app source or the build. package.json declares no "type": "module", so
+      // require() is correct there; next/typescript's no-require-imports rule is
+      // written for the TS app code and does not apply to it.
+      "compress.js",
     ],
   },
 ];

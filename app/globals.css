@@ -87,13 +87,18 @@ body {
 
 /* 1. Terminal Boot Sequence */
 @keyframes boot {
-  0% { opacity: 0; }
-  99% { opacity: 0; }
+  0%, 99% { opacity: 0; }
   100% { opacity: 1; }
 }
+/*
+ * Fails OPEN. There is deliberately no `opacity: 0` base here: nearly every
+ * section of the site carries .animate-boot, so a base of 0 means anything that
+ * stops the animation running renders a blank page. `both` applies the 0% frame
+ * backwards during the stagger, giving the identical reveal, while an element
+ * whose animation never runs simply stays visible.
+ */
 .animate-boot {
-  animation: boot var(--boot-delay, 0ms) steps(1, end) forwards;
-  opacity: 0;
+  animation: boot var(--boot-delay, 0ms) steps(1, end) both;
 }
 
 /* 2. Telemetry Live-Feed Flicker */
@@ -108,7 +113,26 @@ body {
   animation: data-flicker 6s infinite steps(1, end);
 }
 
-/* 3. Signal Rule Crawl */
+/* 3. Certificate Lightbox — referenced by CertificateViewer, previously undefined.
+   No tailwind.config.* exists, so these never resolved and the modal appeared
+   with no transition at all. */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fadeIn {
+  animation: fadeIn 180ms ease-out both;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-scaleIn {
+  animation: scaleIn 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 4. Signal Rule Crawl */
 @keyframes signal-crawl {
   0% { background-position: 0 0; }
   100% { background-position: 100vw 0; }
@@ -128,6 +152,10 @@ body {
     animation: none;
   }
   .animate-signal-crawl {
+    animation: none;
+  }
+  .animate-fadeIn,
+  .animate-scaleIn {
     animation: none;
   }
 }

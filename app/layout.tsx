@@ -20,13 +20,13 @@ export const metadata: Metadata = {
     template: "%s · Systems Engineering Portfolio",
   },
   description:
-    "High-stakes systems engineering: RAG pipelines, MCP integration layers, CQRS/DDD patterns, and low-latency realtime architecture.",
+    "Backend and AI-infrastructure engineering: routing, retrieval, and gating expensive compute behind cheap fast paths.",
   openGraph: {
     type: "website",
     locale: "en_US",
     title: "Systems Engineering Portfolio",
     description:
-      "High-stakes systems engineering: RAG pipelines, MCP integration layers, CQRS/DDD patterns, and low-latency realtime architecture.",
+      "Backend and AI-infrastructure engineering: routing, retrieval, and gating expensive compute behind cheap fast paths.",
   },
 };
 

@@ -2,32 +2,45 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { allProjects } from "@/content/projects";
 import { ProjectCard } from "@/components/ui/ProjectCard";
-import { GitHubGrid } from "@/components/visualizations/GitHubGrid";
 import { VerificationGrid } from "@/components/ui/VerificationGrid";
 
 export const metadata: Metadata = {
   title: "Systems Engineering Portfolio",
   description:
-    "High-stakes systems engineering: RAG pipelines, MCP integration layers, CQRS/DDD patterns, and low-latency realtime architecture.",
+    "Backend and AI-infrastructure engineering: routing, retrieval, and gating expensive compute behind cheap fast paths.",
 };
 
 const tier1Projects = allProjects.filter((p) => p.tier === 1);
 const tier2Projects = allProjects.filter((p) => p.tier === 2);
 
-/** Telemetry targets — static at build time, no runtime fetch */
-const telemetryTargets = [
-  { label: "Classifier Latency", value: "<5ms", source: "Pulsemind" },
-  { label: "Stream SLA p99", value: "<2000ms", source: "Weatherise" },
-  { label: "Vector Matching Latency", value: "<12ms", source: "Roomie" },
-  { label: "DAG Path Resolution Latency", value: "<1.5ms", source: "Vora" },
+/**
+ * Measurements, not targets.
+ *
+ * Entries here must be instrumented figures shown with the conditions they were
+ * measured under (truth file §9.1). A design target, a KPI, or a number from a
+ * single-user demo does not qualify. Two entries is the honest count — do not pad it.
+ */
+const measurements = [
+  {
+    label: "Classifier forward pass",
+    value: "<5 ms",
+    condition: "per stream event",
+    source: "Pulsemind",
+  },
+  {
+    label: "Average request latency",
+    value: "~12 ms",
+    condition: "structured path — excludes embedding generation",
+    source: "Roomie",
+  },
 ];
 
 /** Operator profile — v2 implementation plan */
 const operatorProfile = {
   name: "Yoshio Nomura",
-  title: "Full-Stack & AI Infrastructure Engineer",
+  title: "AI & Backend Engineering — undergraduate / intern",
   institution: "University of Technology Sydney (UTS)",
-  discipline: "Computer Science & Artificial Intelligence Major",
+  discipline: "Bachelor of Artificial Intelligence, Faculty of Engineering & IT",
   location: "Ho Chi Minh City, VN // Global Routing",
   avatarSrc: "/static/operator.jpg",
   networks: [
@@ -55,31 +68,19 @@ export default function HomePage() {
                 Systems Engineering // Core Engine
               </p>
               <h1 className="text-3xl sm:text-5xl font-bold text-[#fafafa] leading-tight mb-5 tracking-tight">
-                High-Stakes Architecture,
+                A cheap fast path,
                 <br />
                 <span className="text-[#71717a] font-semibold">
-                  deployed at latency boundaries.
+                  deciding whether the expensive one runs.
                 </span>
               </h1>
               <p className="text-base text-[#71717a] leading-relaxed max-w-2xl mb-8">
-                Low-latency telemetry processing with automated circuit breakers, CUDA-accelerated classification engines, stateful WebSocket orchestration, and fast in-memory DAG resolution. Every project is backed by structural code primitives, documented.
+                Two of the projects below are the same idea twice. An XGBoost classifier
+                scores ICU stream events in under 5&nbsp;ms and only then pays for an LLM
+                call. A local Qwen-3B model reads a task&rsquo;s difficulty and routes it
+                before a cloud API is touched. Put a cheap decision in front of an
+                expensive one and the expensive one stops setting the pace.
               </p>
-
-              {/* Quick Specs Grid */}
-              <div className="grid grid-cols-3 gap-6 pt-6 border-t border-[#27272a]/30 max-w-xl">
-                <div>
-                  <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider select-none">Classifier Latency</p>
-                  <p className="text-sm font-mono font-semibold text-[#fafafa] mt-0.5">&lt;5ms CNN</p>
-                </div>
-                <div>
-                  <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider select-none">DAG Path Resolution</p>
-                  <p className="text-sm font-mono font-semibold text-[#fafafa] mt-0.5">&lt;1.5ms Path</p>
-                </div>
-                <div>
-                  <p className="text-[9px] font-mono text-[#71717a] uppercase tracking-wider select-none">Vector Matching</p>
-                  <p className="text-sm font-mono font-semibold text-[#fafafa] mt-0.5">&lt;12ms Vector</p>
-                </div>
-              </div>
             </div>
 
             {/* Current Experience — FlyRank AI */}
@@ -98,10 +99,10 @@ export default function HomePage() {
                     </span>
                   </div>
                   <span className="text-sm font-semibold text-[#fafafa]">
-                    AI Engineering Intern
+                    Backend AI Engineer — Internship (Remote)
                   </span>
                   <p className="text-[11px] font-mono text-[#71717a] leading-relaxed max-w-xl">
-                    Building AI-powered ranking and search infrastructure. Working across model integration, API design, and production deployment pipelines.
+                    Model integration and API design. Work in progress.
                   </p>
                 </div>
               </div>
@@ -199,34 +200,33 @@ export default function HomePage() {
         {/* Signature element: signal-decay rule */}
         <hr className="signal-rule animate-signal-crawl mb-0" aria-hidden="true" />
 
-        {/* Telemetry strip — between header and matrix */}
+        {/* Measurement strip — between header and matrix */}
         <div
-          aria-label="System performance targets"
-          className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-5 border-b border-[#27272a] mb-12 animate-boot"
+          aria-label="Measured figures, with the conditions they were measured under"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-5 border-b border-[#27272a] mb-12 animate-boot"
           style={{ "--boot-delay": "150ms" } as React.CSSProperties}
         >
-          {telemetryTargets.map((t) => (
-            <div key={t.label} className="flex flex-col gap-0.5">
+          {measurements.map((m) => (
+            <div key={m.label} className="flex flex-col gap-0.5">
               <span className="text-[9px] font-mono text-[#71717a]/60 tracking-wider uppercase leading-none">
-                {t.label}
+                {m.label}
               </span>
               <span className="text-base font-mono font-semibold text-[#fafafa] leading-snug animate-data-flicker">
-                {t.value}
+                {m.value}
+              </span>
+              {/* The condition is half the claim — it renders, it is not a tooltip */}
+              <span className="text-[9px] font-mono text-[#52525b] leading-snug">
+                {m.condition}
               </span>
               <span className="text-[9px] font-mono text-[#3b82f6]/60 tracking-wider">
-                {t.source}
+                {m.source}
               </span>
             </div>
           ))}
         </div>
       </header>
 
-      {/* ── GitHub Commit Grid ── */}
-      <div className="animate-boot" style={{ "--boot-delay": "250ms" } as React.CSSProperties}>
-        <GitHubGrid username="UniverseScripts" />
-      </div>
-
-      {/* ── Institutional Verification Grid ── */}
+      {/* ── Credentials ── */}
       <div className="animate-boot" style={{ "--boot-delay": "350ms" } as React.CSSProperties}>
         <VerificationGrid />
       </div>
@@ -251,7 +251,7 @@ export default function HomePage() {
               className="inline-block w-1 h-1 rounded-full bg-[#10b981]"
               aria-hidden="true"
             />
-            Tier 1 — High-Stakes Systems Engineering
+            Tier 1 — Featured work
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {tier1Projects.map((project) => (
@@ -267,7 +267,7 @@ export default function HomePage() {
               className="inline-block w-1 h-1 rounded-full bg-[#71717a]"
               aria-hidden="true"
             />
-            Tier 2 — Decoupled Patterns &amp; Tooling
+            Tier 2 — Further work
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {tier2Projects.map((project) => (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { allProjects, projectsRegistry } from "@/content/projects";
+import type { ProductSchema } from "@/content/types";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { TierLabel } from "@/components/ui/TierLabel";
@@ -13,13 +14,21 @@ import { localRagApi } from "@/content/products/local-rag-api";
 import { nextjsStarterKit } from "@/content/products/nextjs-starter-kit";
 import { globalTechIntelligence } from "@/content/products/global-tech-intelligence";
 
-const productByProject: Record<
-  string,
-  { title: string; description: string; url: string }
-> = {
-  pulsemind: localRagApi,
-  roomie: nextjsStarterKit,
-  weatherise: globalTechIntelligence,
+/**
+ * Products keyed by their own id, resolved through each project's
+ * `gumroadProductId`. This replaced a hardcoded slug→product map that ignored that
+ * field, and the two disagreed on three of five routes: Pulsemind and Weatherise
+ * both set `null` yet rendered a CTA, and Vora declared one yet rendered none.
+ *
+ * The consequence was not a missing button. The map anchored the Local RAG API CTA
+ * to the Pulsemind case study and the Global Tech Intelligence CTA to Weatherise —
+ * placing each paid product on precisely the project its own file comment says it
+ * may not lean on. One live mapping, declared in the content, is the fix.
+ */
+const productsById: Record<string, ProductSchema> = {
+  [localRagApi.id]: localRagApi,
+  [nextjsStarterKit.id]: nextjsStarterKit,
+  [globalTechIntelligence.id]: globalTechIntelligence,
 };
 
 export function generateStaticParams() {
@@ -50,7 +59,9 @@ export default async function ProjectPage({ params }: PageProps) {
     notFound();
   }
 
-  const product = productByProject[slug] ?? null;
+  const product = project.gumroadProductId
+    ? productsById[project.gumroadProductId] ?? null
+    : null;
 
   return (
     <main className="min-h-screen px-4 py-16 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -62,7 +73,7 @@ export default async function ProjectPage({ params }: PageProps) {
           <nav aria-label="Breadcrumb">
             <Link
               href="/"
-              className="text-[10px] font-mono text-[#71717a] hover:text-[#fafafa] tracking-[0.15em] uppercase transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#3b82f6]"
+              className="text-[10px] font-mono text-[#a1a1aa] hover:text-[#fafafa] tracking-[0.15em] uppercase transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#3b82f6]"
             >
               ← Core Pillars Matrix
             </Link>
@@ -72,21 +83,21 @@ export default async function ProjectPage({ params }: PageProps) {
           <header className="pb-6 border-b border-[#27272a]/60">
             <div className="flex items-center gap-3 mb-3">
               <TierLabel tier={project.tier} />
-              <span className="text-[10px] font-mono text-[#71717a] tracking-wider select-none">
+              <span className="text-[10px] font-mono text-[#a1a1aa] tracking-wider select-none">
                 {project.domain}
               </span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight mb-4 text-[#fafafa]">
               {project.title}
             </h1>
-            <p className="text-sm text-[#71717a] leading-relaxed">{project.summary}</p>
+            <p className="text-sm text-[#a1a1aa] leading-relaxed">{project.summary}</p>
           </header>
 
           {/* Provenance — role, period, venue, stack */}
           <section aria-labelledby="provenance-heading">
             <h2
               id="provenance-heading"
-              className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mb-4 select-none"
+              className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.2em] uppercase mb-4 select-none"
             >
               Provenance
             </h2>
@@ -103,7 +114,7 @@ export default async function ProjectPage({ params }: PageProps) {
             <section aria-labelledby="metrics-heading">
               <h2
                 id="metrics-heading"
-                className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mb-4 select-none"
+                className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.2em] uppercase mb-4 select-none"
               >
                 Measured
               </h2>
@@ -120,7 +131,7 @@ export default async function ProjectPage({ params }: PageProps) {
             <section aria-labelledby="viz-heading" className="border border-[#27272a] rounded-md p-6 bg-[#111113]">
               <h2
                 id="viz-heading"
-                className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mb-4 select-none"
+                className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.2em] uppercase mb-4 select-none"
               >
                 Architecture Flow
               </h2>
@@ -132,14 +143,14 @@ export default async function ProjectPage({ params }: PageProps) {
           <section aria-labelledby="arch-heading" className="border border-[#27272a] rounded-md p-6 bg-[#111113]">
             <h2
               id="arch-heading"
-              className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mb-3 select-none"
+              className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.2em] uppercase mb-3 select-none"
             >
               Architecture Pattern
             </h2>
             <p className="text-[11px] font-mono text-[#3b82f6] mb-4 tracking-wide">
               {project.architecturePattern}
             </p>
-            <p className="text-sm text-[#71717a] leading-relaxed">{project.architectureDetail}</p>
+            <p className="text-sm text-[#a1a1aa] leading-relaxed">{project.architectureDetail}</p>
           </section>
 
           {/* MCP Integration note */}
@@ -147,7 +158,7 @@ export default async function ProjectPage({ params }: PageProps) {
             <section aria-labelledby="mcp-heading" className="border border-[#27272a] rounded-md p-6 bg-[#111113]">
               <h2
                 id="mcp-heading"
-                className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mb-3 select-none"
+                className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.2em] uppercase mb-3 select-none"
               >
                 MCP Integration
               </h2>

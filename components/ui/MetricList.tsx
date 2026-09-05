@@ -31,12 +31,15 @@ export function MetricList({ metrics, flush = false }: MetricListProps) {
           <dt className="font-mono text-[9px] text-[#a1a1aa] uppercase tracking-wide leading-tight">
             {metric.label}
           </dt>
-          <dd className="flex items-baseline justify-between gap-3 mt-0.5">
-            <span className="font-mono text-[10px] text-[#a1a1aa] leading-snug order-2 min-w-0">
-              {metric.condition}
-            </span>
-            <span className="font-mono text-xs font-semibold text-[#fafafa] leading-none shrink-0 order-1">
+          {/* Stacked, not justified. Spreading value and condition to opposite edges
+              put "per stream event" a card-width away from the "<5 ms" it qualifies —
+              which visually undoes the pairing the <dl> exists to establish. */}
+          <dd className="mt-0.5">
+            <span className="block font-mono text-sm font-semibold text-[#fafafa] leading-tight">
               {metric.value}
+            </span>
+            <span className="block font-mono text-[10px] text-[#a1a1aa] leading-snug mt-0.5">
+              {metric.condition}
             </span>
           </dd>
         </div>

@@ -4,7 +4,7 @@ import type { ProductSchema } from "@/content/types";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { TierLabel } from "@/components/ui/TierLabel";
-import { MetricList } from "@/components/ui/MetricBadge";
+import { MetricList } from "@/components/ui/MetricList";
 import { ProvenanceRow } from "@/components/ui/ProvenanceRow";
 import { ProductCTA } from "@/components/ui/ProductCTA";
 import { PulsemindFlow } from "@/components/visualizations/PulsemindFlow";
@@ -68,9 +68,9 @@ export default async function ProjectPage({ params }: PageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         
         {/* Left Column (lg:col-span-4): Sticky Meta & Context Sidebar */}
-        <aside className="lg:col-span-4 lg:sticky lg:top-16 space-y-8 animate-boot" style={{ "--boot-delay": "50ms" } as React.CSSProperties}>
+        <div className="lg:col-span-4 lg:sticky lg:top-16 space-y-8 animate-boot" style={{ "--boot-delay": "50ms" } as React.CSSProperties}>
           {/* Back navigation */}
-          <nav aria-label="Breadcrumb">
+          <nav aria-label="Back">
             <Link
               href="/"
               className="text-[10px] font-mono text-[#a1a1aa] hover:text-[#fafafa] tracking-[0.15em] uppercase transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#3b82f6]"
@@ -121,7 +121,7 @@ export default async function ProjectPage({ params }: PageProps) {
               <MetricList metrics={project.metrics} flush />
             </section>
           )}
-        </aside>
+        </div>
 
         {/* Right Column (lg:col-span-8): Deep Dive & Architecture Sheet */}
         <div className="lg:col-span-8 space-y-10 animate-boot" style={{ "--boot-delay": "150ms" } as React.CSSProperties}>

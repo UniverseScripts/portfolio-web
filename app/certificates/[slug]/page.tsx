@@ -52,7 +52,7 @@ export default async function CertificatePage({ params }: PageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
         {/* Left Column (col-span-4): Sticky Certificate Metadata */}
-        <aside className="lg:col-span-4 lg:sticky lg:top-16 space-y-8 animate-boot" style={{ "--boot-delay": "50ms" } as React.CSSProperties}>
+        <div className="lg:col-span-4 lg:sticky lg:top-16 space-y-8 animate-boot" style={{ "--boot-delay": "50ms" } as React.CSSProperties}>
 
           {/* Back navigation */}
           <div>
@@ -99,20 +99,20 @@ export default async function CertificatePage({ params }: PageProps) {
             </h2>
             <dl className="grid grid-cols-1 gap-4 font-mono text-xs">
               <div className="border-b border-[#27272a]/10 pb-3">
-                <dt className="text-[#a1a1aa] text-[10px] uppercase select-none mb-0.5">Issued by</dt>
+                <dt className="text-[#a1a1aa] text-[10px] uppercase mb-0.5">Issued by</dt>
                 <dd className="font-semibold text-[#e4e4e7]">{cert.authority}</dd>
               </div>
               <div className="border-b border-[#27272a]/10 pb-3">
-                <dt className="text-[#a1a1aa] text-[10px] uppercase select-none mb-0.5">Date issued</dt>
+                <dt className="text-[#a1a1aa] text-[10px] uppercase mb-0.5">Date issued</dt>
                 <dd className="font-semibold text-[#e4e4e7]">{cert.date}</dd>
               </div>
               <div className={cert.note ? "border-b border-[#27272a]/10 pb-3" : ""}>
-                <dt className="text-[#a1a1aa] text-[10px] uppercase select-none mb-0.5">Type</dt>
+                <dt className="text-[#a1a1aa] text-[10px] uppercase mb-0.5">Type</dt>
                 <dd className="font-semibold text-[#e4e4e7]">{credentialLabel[cert.kind]}</dd>
               </div>
               {cert.note && (
                 <div>
-                  <dt className="text-[#a1a1aa] text-[10px] uppercase select-none mb-0.5">Detail</dt>
+                  <dt className="text-[#a1a1aa] text-[10px] uppercase mb-0.5">Detail</dt>
                   <dd className="text-[#a1a1aa] leading-relaxed font-normal">{cert.note}</dd>
                 </div>
               )}
@@ -126,14 +126,14 @@ export default async function CertificatePage({ params }: PageProps) {
                 href={cert.verificationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-[#27272a] rounded-md text-xs font-mono text-[#fafafa] bg-[#111113]/90 hover:bg-[#18181b] hover:border-[#3f3f46] hover:shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-200 select-none group"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-[#616161] rounded-md text-xs font-mono text-[#fafafa] bg-[#111113]/90 hover:bg-[#18181b] hover:border-[#3f3f46] hover:shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-200 select-none group"
               >
                 <span>VERIFY WITH ISSUER</span>
                 <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
               </a>
             </div>
           )}
-        </aside>
+        </div>
 
         {/* Right Column (col-span-8): Certificate Visual frame */}
         <section className="lg:col-span-8 space-y-6">

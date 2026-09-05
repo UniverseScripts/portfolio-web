@@ -158,4 +158,19 @@ body {
   .animate-scaleIn {
     animation: none;
   }
+
+  /*
+   * Transitions, not just keyframes.
+   *
+   * All six @keyframes animations above were covered; the `transition-*` utilities
+   * were not — and several are transform-based, which is exactly the motion this
+   * query exists to suppress: a 500ms grayscale-to-colour on the portrait, a scale
+   * on the certificate scan, and translate on the back arrows.
+   */
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
 }

@@ -90,7 +90,7 @@ export function CertificateViewer({ cert }: CertificateViewerProps) {
       <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2" style={{ borderColor: accentColor }} />
 
       {/* Frame caption — issuer and issue date, nothing more */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-[#27272a]/60 bg-[#111113]/80 select-none text-[8px] font-mono text-[#a1a1aa] uppercase tracking-wider">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-[#27272a]/60 bg-[#111113]/80 text-[10px] font-mono text-[#a1a1aa] uppercase tracking-wider">
         <span>{cert.authority}</span>
         <span>Issued {cert.date}</span>
       </div>
@@ -180,10 +180,10 @@ export function CertificateViewer({ cert }: CertificateViewerProps) {
               e.stopPropagation();
               setIsExpanded(false);
             }}
-            className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center border border-[#27272a] rounded-full text-[#a1a1aa] hover:text-[#fafafa] bg-[#111113]/80 hover:bg-[#18181b] hover:border-[#3f3f46] transition-all duration-200 select-none z-50 font-mono text-sm"
-            aria-label="Close certificate image"
+            className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center border border-[#616161] rounded-full text-[#a1a1aa] hover:text-[#fafafa] bg-[#111113]/80 hover:bg-[#18181b] hover:border-[#3f3f46] transition-all duration-200 select-none z-50 font-mono text-sm"
           >
-            [X]
+            <span aria-hidden="true">[X]</span>
+            <span className="sr-only">Close</span>
           </button>
 
           {/* Modal Container */}

@@ -25,7 +25,7 @@ export function ProvenanceRow({ project, flush = false }: ProvenanceRowProps) {
     <dl className={`space-y-1.5 ${flush ? "" : "pt-3 border-t border-[#27272a]"}`}>
       {rows.map(([label, value]) => (
         <div key={label} className="flex gap-3 items-baseline">
-          <dt className="font-mono text-[8px] text-[#a1a1aa] uppercase tracking-wider w-[46px] shrink-0 select-none">
+          <dt className="font-mono text-[10px] text-[#a1a1aa] uppercase tracking-wider w-[52px] shrink-0">
             {label}
           </dt>
           <dd className="font-mono text-[10px] text-[#a1a1aa] leading-snug min-w-0">

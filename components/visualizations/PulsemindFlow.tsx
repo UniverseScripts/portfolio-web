@@ -12,14 +12,16 @@
  */
 export function PulsemindFlow() {
   return (
-    <figure className="my-8" aria-label="Pulsemind telemetry risk pipeline diagram">
+    <figure className="my-8">
       <svg
         viewBox="0 0 720 240"
         xmlns="http://www.w3.org/2000/svg"
         className="w-full max-w-2xl mx-auto"
         role="img"
+        aria-labelledby="pulsemind-flow-title"
         aria-describedby="pulsemind-flow-desc"
       >
+        <title id="pulsemind-flow-title">Pulsemind telemetry risk pipeline</title>
         <desc id="pulsemind-flow-desc">
           Five-stage pipeline: telemetry ingest over an mTLS WebSocket → risk classifier (XGBoost, under 5ms per event) → decision gate (anomaly detected) → LLM rationalisation, on the anomaly path only, roughly 15 seconds → structured rationale output
         </desc>
@@ -68,7 +70,7 @@ export function PulsemindFlow() {
         <text x="660" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#10b981" fillOpacity="0.7">structured</text>
 
         {/* ── Stage labels below ── */}
-        <text x="213" y="160" textAnchor="middle" fontFamily="monospace" fontSize="7.5" fill="#a1a1aa" letterSpacing="0.5">FAST PATH — EVERY EVENT</text>
+        <text x="213" y="160" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#a1a1aa" letterSpacing="0.5">FAST PATH — EVERY EVENT</text>
         <text x="368" y="160" textAnchor="middle" fontFamily="monospace" fontSize="7.5" fill="#a1a1aa" letterSpacing="0.5">CONDITIONAL LLM GATING</text>
         <text x="518" y="160" textAnchor="middle" fontFamily="monospace" fontSize="7.5" fill="#a1a1aa" letterSpacing="0.5">SLOW PATH — ANOMALIES ONLY</text>
 

@@ -107,7 +107,7 @@ export default function HomePage() {
                     <span className="text-[9px] font-mono text-[#3b82f6] uppercase tracking-wider">
                       FlyRank AI
                     </span>
-                    <span className="text-[8px] font-mono text-[#10b981] px-1.5 py-0.5 rounded bg-[#10b981]/10 border border-[#10b981]/20 uppercase tracking-wider">
+                    <span className="text-[10px] font-mono text-[#10b981] px-1.5 py-0.5 rounded bg-[#10b981]/10 border border-[#10b981]/20 uppercase tracking-wider">
                       Ongoing
                     </span>
                   </div>
@@ -129,7 +129,7 @@ export default function HomePage() {
               <p className="text-[9px] font-mono text-[#a1a1aa] tracking-[0.15em] uppercase">
                 [Operator Profile]
               </p>
-              <span className="text-[8px] font-mono text-[#10b981] px-1.5 py-0.5 rounded bg-[#10b981]/10 border border-[#10b981]/20 uppercase tracking-wider">
+              <span className="text-[10px] font-mono text-[#10b981] px-1.5 py-0.5 rounded bg-[#10b981]/10 border border-[#10b981]/20 uppercase tracking-wider">
                 Online
               </span>
             </div>
@@ -138,7 +138,7 @@ export default function HomePage() {
             <div className="relative w-full aspect-square mb-4 rounded border border-[#27272a] bg-[#0d0d0f] overflow-hidden group">
               <Image
                 src={operatorProfile.avatarSrc}
-                alt="Operator portrait"
+                alt=""
                 width={300}
                 height={300}
                 priority
@@ -189,7 +189,7 @@ export default function HomePage() {
 
             {/* Network channel array */}
             <div className="border-t border-[#27272a] pt-3">
-              <p className="text-[8px] font-mono text-[#a1a1aa] uppercase tracking-widest mb-2">
+              <p className="text-[10px] font-mono text-[#a1a1aa] uppercase tracking-widest mb-2">
                 Active Channels
               </p>
               <div className="grid grid-cols-2 gap-x-2 gap-y-1.5">
@@ -224,14 +224,18 @@ export default function HomePage() {
               <span className="text-[9px] font-mono text-[#a1a1aa] tracking-wider uppercase leading-none">
                 {m.label}
               </span>
-              <span className="text-base font-mono font-semibold text-[#fafafa] leading-snug animate-data-flicker">
+              <span className="text-base font-mono font-semibold text-[#fafafa] leading-snug">
                 {m.value}
               </span>
               {/* The condition is half the claim — it renders, it is not a tooltip */}
               <span className="text-[10px] font-mono text-[#a1a1aa] leading-snug">
                 {m.condition}
               </span>
-              <span className="text-[9px] font-mono text-[#3b82f6] tracking-wider">
+              <span className="text-[10px] font-mono text-[#3b82f6] tracking-wider flex items-center gap-1.5">
+                <span
+                  className="inline-block w-1 h-1 rounded-full bg-[#3b82f6] animate-data-flicker"
+                  aria-hidden="true"
+                />
                 {m.source}
               </span>
             </div>
@@ -259,34 +263,38 @@ export default function HomePage() {
 
         {/* Tier 1 row */}
         <div className="mb-8">
-          <p className="text-[9px] font-mono text-[#10b981] tracking-[0.15em] uppercase mb-3 flex items-center gap-2">
+          <h3 className="text-[10px] font-mono text-[#10b981] tracking-[0.15em] uppercase mb-3 flex items-center gap-2">
             <span
               className="inline-block w-1 h-1 rounded-full bg-[#10b981]"
               aria-hidden="true"
             />
             Tier 1 — Featured work
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          </h3>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 list-none p-0 m-0">
             {tier1Projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+              <li key={project.id}>
+                <ProjectCard project={project} />
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
         {/* Tier 2 row */}
         <div>
-          <p className="text-[9px] font-mono text-[#a1a1aa] tracking-[0.15em] uppercase mb-3 flex items-center gap-2">
+          <h3 className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.15em] uppercase mb-3 flex items-center gap-2">
             <span
               className="inline-block w-1 h-1 rounded-full bg-[#71717a]"
               aria-hidden="true"
             />
             Tier 2 — Further work
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          </h3>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 list-none p-0 m-0">
             {tier2Projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+              <li key={project.id}>
+                <ProjectCard project={project} />
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
     </main>

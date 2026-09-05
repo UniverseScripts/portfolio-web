@@ -19,7 +19,7 @@ export function VerificationGrid() {
           <table className="w-full text-left border-collapse">
             <caption className="sr-only">Credentials, most recent first</caption>
             <thead>
-              <tr className="border-b border-[#27272a] bg-[#0d0d0f] text-[9px] font-mono text-[#a1a1aa] tracking-wider uppercase select-none">
+              <tr className="border-b border-[#27272a] bg-[#0d0d0f] text-[10px] font-mono text-[#a1a1aa] tracking-wider uppercase">
                 <th scope="col" className="p-4 font-medium">Credential</th>
                 <th scope="col" className="p-4 font-medium">Issuer</th>
                 {/* Type is load-bearing: without it a course completion, an attendance
@@ -52,7 +52,7 @@ export function VerificationGrid() {
                     <Link
                       href={`/certificates/${cert.id}`}
                       className="group/link inline-flex items-center text-[#3b82f6] hover:text-[#fafafa] select-none"
-                      aria-label={`View the ${cert.title} record`}
+                      aria-label={`VIEW_CRED: ${cert.title}`}
                     >
                       [VIEW_CRED_
                       <span className="group-hover/link:hidden">_</span>

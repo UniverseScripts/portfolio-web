@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ProjectSchema } from "@/content/types";
 import { TierLabel } from "./TierLabel";
-import { MetricList } from "./MetricBadge";
+import { MetricList } from "./MetricList";
 import { ProvenanceRow } from "./ProvenanceRow";
 
 interface ProjectCardProps {
@@ -17,8 +17,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
       id={`project-card-${project.id}`}
       className={`group relative block rounded-md border p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3b82f6] ${
         isTier1
-          ? "border-[#10b981]/20 bg-[#111113] hover:border-[#10b981]/80"
-          : "border-[#27272a] bg-[#111113] hover:border-[#71717a]"
+          ? "border-[#10b981]/60 bg-[#111113] hover:border-[#10b981]"
+          : "border-[#616161] bg-[#111113] hover:border-[#a1a1aa]"
       }`}
     >
       {/* Tier 1 pulse border — signature element */}
@@ -29,9 +29,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <div className="flex items-center gap-2 mb-2">
             <TierLabel tier={project.tier} />
           </div>
-          <h3 className="text-base font-semibold text-[#fafafa] leading-snug group-hover:text-white">
+          <h4 className="text-base font-semibold text-[#fafafa] leading-snug group-hover:text-white">
             {project.title}
-          </h3>
+          </h4>
           <p className="text-[11px] font-mono text-[#a1a1aa] mt-0.5 tracking-wide group-hover:text-[#fafafa]">
             {project.domain}
           </p>

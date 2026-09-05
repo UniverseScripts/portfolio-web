@@ -18,16 +18,30 @@ export function ProductCTA({ title, description, url }: ProductCTAProps) {
           <h3 className="text-sm font-semibold text-[#fafafa] mb-1">{title}</h3>
           <p className="text-xs text-[#a1a1aa] leading-relaxed">{description}</p>
         </div>
-        <a
-          id={`cta-${url.replace(/[^a-z0-9]/gi, "-").toLowerCase()}`}
-          href={url}
-          target={isStub ? undefined : "_blank"}
-          rel={isStub ? undefined : "noopener noreferrer"}
-          aria-label={`Purchase ${title} on Gumroad`}
-          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-mono font-semibold text-[#09090b] bg-[#3b82f6] hover:bg-[#2563eb] transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3b82f6]"
-        >
-          {isStub ? "Coming Soon" : "Get it →"}
-        </a>
+        {/*
+          A stub is not a link. It previously rendered an <a href="#gumroad-…"> whose
+          accessible name said "Purchase … on Gumroad" while it read "Coming Soon" and
+          pointed at a fragment matching no element — announced as a purchase, doing
+          nothing when activated. Unavailable things should not be focusable.
+        */}
+        {isStub ? (
+          <span className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-mono font-semibold text-[#a1a1aa] border border-[#616161]">
+            Coming soon
+          </span>
+        ) : (
+          <a
+            id={`cta-${url.replace(/[^a-z0-9]/gi, "-").toLowerCase()}`}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-mono font-semibold text-[#09090b] bg-[#3b82f6] hover:bg-[#60a5fa] transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3b82f6]"
+          >
+            {/* No aria-label: the name comes from the content, so what a voice-control
+                user says is what they can see (2.5.3). */}
+            Get {title}
+            <span aria-hidden="true">→</span>
+          </a>
+        )}
       </div>
     </div>
   );

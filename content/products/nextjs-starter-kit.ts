@@ -11,5 +11,5 @@ export const nextjsStarterKit: ProductSchema = {
   url: "https://galacticgamer62.gumroad.com/l/nextjs-mobile-marketplace",
   targetCaseStudyId: "roomie",
   description:
-    "A Next.js starter configured for mobile-first static export: decoupled data fetching and no server runtime required.",
+    "A mobile-first Next.js 16 and React 19 app skeleton: nine routes, a touch-gesture swipe deck built without a gesture library, a multi-step questionnaire, and a Radix-backed component set on Tailwind.",
 };

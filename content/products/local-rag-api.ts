@@ -11,5 +11,5 @@ export const localRagApi: ProductSchema = {
   url: "https://galacticgamer62.gumroad.com/l/local-rag-api",
   targetCaseStudyId: "pulsemind",
   description:
-    "A self-hosted retrieval-augmented generation API layer that runs on your own hardware — no vendor lock-in, no managed-service costs.",
+    "A local-first RAG backend on FastAPI, ChromaDB and Ollama. Upload PDF or TXT, then query it — every answer comes back with the source chunks it was drawn from and the time it took.",
 };

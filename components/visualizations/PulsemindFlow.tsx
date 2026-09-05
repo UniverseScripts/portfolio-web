@@ -21,7 +21,7 @@ export function PulsemindFlow() {
         aria-describedby="pulsemind-flow-desc"
       >
         <desc id="pulsemind-flow-desc">
-          Five-stage pipeline: stream events → risk classifier (XGBoost, under 5ms per event) → decision gate (anomaly detected) → LLM rationalisation, on the anomaly path only, roughly 15 seconds → structured rationale output
+          Five-stage pipeline: telemetry ingest over an mTLS WebSocket → risk classifier (XGBoost, under 5ms per event) → decision gate (anomaly detected) → LLM rationalisation, on the anomaly path only, roughly 15 seconds → structured rationale output
         </desc>
 
         {/* ── Node definitions ── */}
@@ -29,7 +29,7 @@ export function PulsemindFlow() {
         <rect x="8" y="80" width="110" height="60" rx="6" fill="#27272a" stroke="#71717a" strokeWidth="1" />
         <text x="63" y="101" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#fafafa" fontWeight="600">INGEST LAYER</text>
         <text x="63" y="113" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#fafafa" fontWeight="600">PHYSIOLOGY</text>
-        <text x="63" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#a1a1aa">stream events</text>
+        <text x="63" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#a1a1aa">mTLS WebSocket</text>
 
         {/* Arrow 1→2 */}
         <line x1="118" y1="110" x2="148" y2="110" stroke="#27272a" strokeWidth="1.5" markerEnd="url(#arr)" />

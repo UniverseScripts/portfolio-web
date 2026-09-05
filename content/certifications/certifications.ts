@@ -5,7 +5,7 @@ import { CertificationSchema } from "../types";
 //   #3b82f6 — a course completion
 //   #71717a — attendance, or a foundational-level completion
 
-export const certifications: CertificationSchema[] = [
+export const certifications = [
   {
     id: "vercel-nextjs-approuter",
     title: "Next.js App Router Fundamentals",
@@ -58,6 +58,6 @@ export const certifications: CertificationSchema[] = [
     note: "Selected as one of 10 teams from ~100 registrants to compete.",
     badgeHex: "#71717a"
   }
-];
+] satisfies readonly CertificationSchema[];
 
 export const verifiedCertifications = Object.fromEntries(certifications.map(cert => [cert.id, cert]))

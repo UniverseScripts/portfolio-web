@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { allProjects, projectsRegistry } from "@/content/projects";
+import { allProjects, projectsById } from "@/content/projects";
 import type { Metric, ProjectIdentifier } from "@/content/types";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { VerificationGrid } from "@/components/ui/VerificationGrid";
@@ -34,7 +34,7 @@ const FEATURED: ReadonlyArray<readonly [ProjectIdentifier, string]> = [
 ];
 
 const measurements: Array<Metric & { source: string }> = FEATURED.map(([id, label]) => {
-  const project = projectsRegistry[id];
+  const project = projectsById[id];
   const metric = project.metrics.find((m) => m.label === label);
   if (!metric) {
     throw new Error(

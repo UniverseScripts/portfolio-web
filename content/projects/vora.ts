@@ -17,5 +17,5 @@ export const vora: ProjectSchema = {
   contentFunnelRoute: "/projects/vora/",
   gumroadProductId: "local-rag-api",
   summary: "A deployed learning-roadmap application with quiz-gated progression, built at the GDGoC DevCamp at HCMUT — a separate programme from the national hackathon. The backend resolver converts unstructured model output into validated, dependency-mapped directed acyclic graphs.",
-  architectureDetail: "The resolver validates generative model output before any of it becomes a roadmap: candidate nodes and their declared dependencies are checked for cycles and for unreachable prerequisites, and output that fails validation never reaches the graph. Cycle detection is O(V+E) — an algorithmic property of the traversal, not a measured latency. Quiz gating then governs progression between resolved nodes, so a learner cannot advance past a dependency they have not demonstrated."
+  architectureDetail: "The resolver validates generative model output before any of it becomes a roadmap: candidate nodes and their declared dependencies are checked for cycles and for unreachable prerequisites, and output that fails validation never reaches the graph. Quiz gating then governs progression between resolved nodes, so a learner cannot advance past a dependency they have not demonstrated."
 };

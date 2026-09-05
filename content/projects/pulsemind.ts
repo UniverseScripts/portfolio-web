@@ -14,11 +14,11 @@ export const pulsemind: ProjectSchema = {
       value: "<5 ms",
       condition: "per stream event",
     },
-    {
-      label: "End-to-end request",
-      value: "<50 ms",
-      condition: "the anomaly path additionally incurs the ~15 s LLM rationalisation step",
-    },
+    // §4 gives the "<50 ms end-to-end" figure no measurement conditions of its own,
+    // so §9.1 does not permit publishing it — the ~15 s caveat that sat here was a
+    // note about a different path, which satisfied the type gate without satisfying
+    // the rule. §4 also forbids foregrounding the ~15 s step as a metric; it belongs
+    // in the architecture prose and the diagram, which is where it now lives.
   ],
   architecturePattern: "Asynchronous inference pipeline with conditional explainability gating",
   contentFunnelRoute: "/projects/pulsemind/",

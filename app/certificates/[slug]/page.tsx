@@ -58,7 +58,7 @@ export default async function CertificatePage({ params }: PageProps) {
           <div>
             <Link
               href="/"
-              className="inline-flex items-center text-xs font-mono text-[#71717a] hover:text-[#fafafa] transition-colors duration-150 select-none group"
+              className="inline-flex items-center text-xs font-mono text-[#a1a1aa] hover:text-[#fafafa] transition-colors duration-150 select-none group"
               aria-label="Back to home page credentials list"
             >
               <span className="mr-1.5 transition-transform duration-150 group-hover:-translate-x-1">←</span>
@@ -70,7 +70,7 @@ export default async function CertificatePage({ params }: PageProps) {
           <div className="space-y-4">
             <div>
               {!titleStatesItsKind(cert.title, credentialNoun[cert.kind]) && (
-                <p className="text-[10px] font-mono tracking-[0.2em] text-[#71717a] uppercase mb-1 select-none">
+                <p className="text-[10px] font-mono tracking-[0.2em] text-[#a1a1aa] uppercase mb-1 select-none">
                   {credentialNoun[cert.kind]}
                 </p>
               )}
@@ -94,25 +94,25 @@ export default async function CertificatePage({ params }: PageProps) {
 
           {/* What this credential actually is */}
           <div className="border-t border-[#27272a]/30 pt-6 space-y-4">
-            <h2 className="text-[10px] font-mono text-[#71717a] tracking-[0.15em] uppercase select-none">
+            <h2 className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.15em] uppercase select-none">
               Record
             </h2>
             <dl className="grid grid-cols-1 gap-4 font-mono text-xs">
               <div className="border-b border-[#27272a]/10 pb-3">
-                <dt className="text-[#71717a] text-[10px] uppercase select-none mb-0.5">Issued by</dt>
+                <dt className="text-[#a1a1aa] text-[10px] uppercase select-none mb-0.5">Issued by</dt>
                 <dd className="font-semibold text-[#e4e4e7]">{cert.authority}</dd>
               </div>
               <div className="border-b border-[#27272a]/10 pb-3">
-                <dt className="text-[#71717a] text-[10px] uppercase select-none mb-0.5">Date issued</dt>
+                <dt className="text-[#a1a1aa] text-[10px] uppercase select-none mb-0.5">Date issued</dt>
                 <dd className="font-semibold text-[#e4e4e7]">{cert.date}</dd>
               </div>
               <div className={cert.note ? "border-b border-[#27272a]/10 pb-3" : ""}>
-                <dt className="text-[#71717a] text-[10px] uppercase select-none mb-0.5">Type</dt>
+                <dt className="text-[#a1a1aa] text-[10px] uppercase select-none mb-0.5">Type</dt>
                 <dd className="font-semibold text-[#e4e4e7]">{credentialLabel[cert.kind]}</dd>
               </div>
               {cert.note && (
                 <div>
-                  <dt className="text-[#71717a] text-[10px] uppercase select-none mb-0.5">Detail</dt>
+                  <dt className="text-[#a1a1aa] text-[10px] uppercase select-none mb-0.5">Detail</dt>
                   <dd className="text-[#a1a1aa] leading-relaxed font-normal">{cert.note}</dd>
                 </div>
               )}

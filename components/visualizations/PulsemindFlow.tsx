@@ -29,7 +29,7 @@ export function PulsemindFlow() {
         <rect x="8" y="80" width="110" height="60" rx="6" fill="#27272a" stroke="#71717a" strokeWidth="1" />
         <text x="63" y="101" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#fafafa" fontWeight="600">INGEST LAYER</text>
         <text x="63" y="113" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#fafafa" fontWeight="600">PHYSIOLOGY</text>
-        <text x="63" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#71717a">stream events</text>
+        <text x="63" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#a1a1aa">stream events</text>
 
         {/* Arrow 1→2 */}
         <line x1="118" y1="110" x2="148" y2="110" stroke="#27272a" strokeWidth="1.5" markerEnd="url(#arr)" />
@@ -56,7 +56,7 @@ export function PulsemindFlow() {
         <rect x="458" y="80" width="120" height="60" rx="6" fill="#27272a" stroke="#71717a" strokeWidth="1" />
         <text x="518" y="101" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#fafafa" fontWeight="700" letterSpacing="1">LLM RATIONALE</text>
         <text x="518" y="113" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#fafafa" fontWeight="700" letterSpacing="1">ANOMALY PATH ONLY</text>
-        <text x="518" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#71717a">~15 s</text>
+        <text x="518" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#a1a1aa">~15 s</text>
 
         {/* Arrow 4→5 */}
         <line x1="578" y1="110" x2="608" y2="110" stroke="#27272a" strokeWidth="1.5" markerEnd="url(#arr)" />
@@ -68,18 +68,18 @@ export function PulsemindFlow() {
         <text x="660" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#10b981" fillOpacity="0.7">structured</text>
 
         {/* ── Stage labels below ── */}
-        <text x="213" y="160" textAnchor="middle" fontFamily="monospace" fontSize="7.5" fill="#71717a" letterSpacing="0.5">FAST PATH — EVERY EVENT</text>
-        <text x="368" y="160" textAnchor="middle" fontFamily="monospace" fontSize="7.5" fill="#71717a" letterSpacing="0.5">CONDITIONAL LLM GATING</text>
-        <text x="518" y="160" textAnchor="middle" fontFamily="monospace" fontSize="7.5" fill="#71717a" letterSpacing="0.5">SLOW PATH — ANOMALIES ONLY</text>
+        <text x="213" y="160" textAnchor="middle" fontFamily="monospace" fontSize="7.5" fill="#a1a1aa" letterSpacing="0.5">FAST PATH — EVERY EVENT</text>
+        <text x="368" y="160" textAnchor="middle" fontFamily="monospace" fontSize="7.5" fill="#a1a1aa" letterSpacing="0.5">CONDITIONAL LLM GATING</text>
+        <text x="518" y="160" textAnchor="middle" fontFamily="monospace" fontSize="7.5" fill="#a1a1aa" letterSpacing="0.5">SLOW PATH — ANOMALIES ONLY</text>
 
         {/* Arrowhead marker */}
         <defs>
           <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L6,3 z" fill="#71717a" />
+            <path d="M0,0 L0,6 L6,3 z" fill="#a1a1aa" />
           </marker>
         </defs>
       </svg>
-      <figcaption className="text-center text-[10px] font-mono text-[#71717a] mt-2 tracking-wider">
+      <figcaption className="text-center text-[10px] font-mono text-[#a1a1aa] mt-2 tracking-wider">
         PULSEMIND — TELEMETRY RISK PIPELINE
       </figcaption>
     </figure>

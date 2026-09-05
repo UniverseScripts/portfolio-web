@@ -10,29 +10,30 @@ export function VerificationGrid() {
     <section aria-labelledby="certs-heading" className="mt-14">
       <h2
         id="certs-heading"
-        className="text-[10px] font-mono text-[#71717a] tracking-[0.2em] uppercase mb-6"
+        className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.2em] uppercase mb-6"
       >
         Credentials
       </h2>
       <div className="border border-[#27272a] rounded-md overflow-hidden bg-[#111113]">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse group/table">
+          <table className="w-full text-left border-collapse">
+            <caption className="sr-only">Credentials, most recent first</caption>
             <thead>
-              <tr className="border-b border-[#27272a] bg-[#0d0d0f] text-[9px] font-mono text-[#71717a]/80 tracking-wider uppercase select-none">
-                <th className="p-4 font-medium">Credential</th>
-                <th className="p-4 font-medium">Issuer</th>
+              <tr className="border-b border-[#27272a] bg-[#0d0d0f] text-[9px] font-mono text-[#a1a1aa] tracking-wider uppercase select-none">
+                <th scope="col" className="p-4 font-medium">Credential</th>
+                <th scope="col" className="p-4 font-medium">Issuer</th>
                 {/* Type is load-bearing: without it a course completion, an attendance
                     certificate and a competitive placement read as equivalent rows. */}
-                <th className="p-4 font-medium">Type</th>
-                <th className="p-4 font-medium">Issued</th>
-                <th className="p-4 font-medium text-right">Record</th>
+                <th scope="col" className="p-4 font-medium">Type</th>
+                <th scope="col" className="p-4 font-medium">Issued</th>
+                <th scope="col" className="p-4 font-medium text-right">Record</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#27272a]/60 text-xs font-mono">
               {sortedCertifications.map((cert) => (
                 <tr
                   key={cert.id}
-                  className="transition-opacity duration-100 group-hover/table:opacity-40 hover:!opacity-100 hover:bg-[#161619] text-[#71717a] hover:text-[#fafafa]"
+                  className="transition-colors duration-100 hover:bg-[#161619] text-[#a1a1aa] hover:text-[#fafafa] focus-within:bg-[#161619]"
                 >
                   <td className="p-4 font-sans text-sm font-semibold text-[#fafafa]">
                     <div className="flex items-center gap-2">

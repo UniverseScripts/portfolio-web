@@ -16,7 +16,7 @@ const tierConfig = {
   2: {
     label: "TIER 2",
     sublabel: "Further work",
-    color: "text-[#71717a]",
+    color: "text-[#a1a1aa]",
     border: "border-[#71717a]/30",
     bg: "bg-[#71717a]/5",
   },

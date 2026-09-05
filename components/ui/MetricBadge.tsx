@@ -21,22 +21,26 @@ export function MetricList({ metrics, flush = false }: MetricListProps) {
   if (metrics.length === 0) return null;
 
   return (
-    <div className={`space-y-2.5 ${flush ? "" : "pt-3 mt-3 border-t border-[#27272a]"}`}>
+    /* A <dl>, so the condition is programmatically bound to the value it qualifies.
+       As flat sibling <span>s a screen reader read "Classifier forward pass", "<5 ms",
+       "per stream event" as three unrelated strings — the pairing existed only in the
+       visual layout, which is no use to the reader who most needs it spelled out. */
+    <dl className={`space-y-2.5 ${flush ? "" : "pt-3 mt-3 border-t border-[#27272a]"}`}>
       {metrics.map((metric) => (
         <div key={metric.label}>
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="font-mono text-[9px] text-[#71717a] uppercase tracking-wide leading-tight">
-              {metric.label}
+          <dt className="font-mono text-[9px] text-[#a1a1aa] uppercase tracking-wide leading-tight">
+            {metric.label}
+          </dt>
+          <dd className="flex items-baseline justify-between gap-3 mt-0.5">
+            <span className="font-mono text-[10px] text-[#a1a1aa] leading-snug order-2 min-w-0">
+              {metric.condition}
             </span>
-            <span className="font-mono text-xs font-semibold text-[#fafafa] leading-none shrink-0">
+            <span className="font-mono text-xs font-semibold text-[#fafafa] leading-none shrink-0 order-1">
               {metric.value}
             </span>
-          </div>
-          <p className="font-mono text-[10px] text-[#71717a] leading-snug mt-1">
-            {metric.condition}
-          </p>
+          </dd>
         </div>
       ))}
-    </div>
+    </dl>
   );
 }

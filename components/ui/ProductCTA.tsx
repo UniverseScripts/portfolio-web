@@ -16,7 +16,7 @@ export function ProductCTA({ title, description, url }: ProductCTAProps) {
             Available Product
           </p>
           <h3 className="text-sm font-semibold text-[#fafafa] mb-1">{title}</h3>
-          <p className="text-xs text-[#71717a] leading-relaxed">{description}</p>
+          <p className="text-xs text-[#a1a1aa] leading-relaxed">{description}</p>
         </div>
         <a
           id={`cta-${url.replace(/[^a-z0-9]/gi, "-").toLowerCase()}`}

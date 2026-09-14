@@ -8,7 +8,7 @@ export const roomie: ProjectSchema = {
   role: "Contributor, team of 4 — DevOps & Backend Engineering",
   period: "April 2026",
   venue: "GDGoC National Hackathon 2026 (Hanoi) — team Hackaphobia",
-  stack: ["Python", "FastAPI", "React", "PostgreSQL", "SQL", "Vertex AI embeddings"],
+  stack: ["Python", "FastAPI", "Firestore", "Vertex AI embeddings", "React 19", "Vite", "Google Cloud Run"],
   metrics: [
     {
       label: "Users onboarded",
@@ -25,5 +25,5 @@ export const roomie: ProjectSchema = {
   contentFunnelRoute: "/projects/roomie/",
   gumroadProductId: "nextjs-starter-kit",
   summary: "A student roommate and apartment matcher built at the GDGoC National Hackathon 2026 in Hanoi with team Hackaphobia. An onboarding survey and swipe interface match on structured fields — location, budget — with an optional free-text bio path using Vertex AI embeddings and cosine similarity.",
-  architectureDetail: "A FastAPI backend isolates incoming I/O from the matching work. Chat is handled by an in-memory connection manager (chat_manager.py) holding stateful WebSocket maps rather than round-tripping every message through PostgreSQL. Matching runs in an isolated block (vector_logic.py): structured fields resolve directly, and the optional free-text bio path computes cosine similarity over Vertex AI embeddings. An MCP-plus-n8n agentic pipeline was designed and then rejected as over-scoped for a four-person team with no operational runway."
+  architectureDetail: "A FastAPI service on Google Cloud Run, with Cloud Firestore as the primary database. Chat runs over WebSockets: an in-memory connection manager (chat_manager.py) maps each user to their active sockets, so a user signed in on several tabs receives each message on all of them. Messages persist to Firestore. Matching (vector_logic.py, matching.py) encodes the structured survey answers, including district and budget, into a numeric vector and scores candidates against it by cosine similarity; an optional free-text bio path uses Vertex AI text-embedding-004 embeddings. An MCP-plus-n8n agentic pipeline was designed and then rejected as over-scoped for a four-person team with no operational runway."
 };

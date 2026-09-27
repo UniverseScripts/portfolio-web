@@ -45,106 +45,54 @@ export default async function CertificatePage({ params }: PageProps) {
     notFound();
   }
 
-  const accentColor = cert.badgeHex || "#3b82f6";
+  const noun = credentialNoun[cert.kind];
+  const record: Array<[string, string]> = [
+    ["Kind", noun.charAt(0).toUpperCase() + noun.slice(1)],
+    ["Issued by", cert.authority],
+    ["Date issued", cert.date],
+    ...(cert.note ? [["Detail", cert.note] as [string, string]] : []),
+  ];
 
   return (
-    <main className="min-h-screen px-4 py-16 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+    <article>
+      <header className="pb-2 pt-9">
+        <p className="m-0 mb-3 font-cond text-[15px] text-ink-2">
+          <Link href="/#credentials">← All credentials</Link>
+          {!titleStatesItsKind(cert.title, noun) && <> · {credentialLabel[cert.kind]}</>}
+        </p>
+        <h1 className="m-0 text-[clamp(32px,4.4vw,52px)] font-medium leading-[1.08] tracking-[-0.02em]">
+          {cert.title}
+        </h1>
+        <p className="m-0 mt-1.5 text-[19px] text-ink-2">{cert.authority}</p>
+      </header>
 
-        {/* Left Column (col-span-4): Sticky Certificate Metadata */}
-        <div className="lg:col-span-4 lg:sticky lg:top-16 space-y-8 animate-boot" style={{ "--boot-delay": "50ms" } as React.CSSProperties}>
-
-          {/* Back navigation */}
-          <div>
-            <Link
-              href="/"
-              className="inline-flex items-center text-xs font-mono text-[#a1a1aa] hover:text-[#fafafa] transition-colors duration-150 select-none group"
-              aria-label="Back to home page credentials list"
-            >
-              <span className="mr-1.5 transition-transform duration-150 group-hover:-translate-x-1">←</span>
-              Credentials
-            </Link>
-          </div>
-
-          {/* Certificate Title & Kind */}
-          <div className="space-y-4">
-            <div>
-              {!titleStatesItsKind(cert.title, credentialNoun[cert.kind]) && (
-                <p className="text-[10px] font-mono tracking-[0.2em] text-[#a1a1aa] uppercase mb-1 select-none">
-                  {credentialNoun[cert.kind]}
-                </p>
-              )}
-              <h1 className="text-2xl sm:text-3xl font-bold text-[#fafafa] leading-tight tracking-tight">
-                {cert.title}
-              </h1>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span
-                className="text-[9px] font-mono px-2 py-0.5 rounded border uppercase tracking-wider select-none bg-[#18181b]/50"
-                style={{
-                  borderColor: `${accentColor}40`,
-                  color: accentColor
-                }}
-              >
-                {cert.authority}
-              </span>
-            </div>
-          </div>
-
-          {/* What this credential actually is */}
-          <div className="border-t border-[#27272a]/30 pt-6 space-y-4">
-            <h2 className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.15em] uppercase select-none">
-              Record
-            </h2>
-            <dl className="grid grid-cols-1 gap-4 font-mono text-xs">
-              <div className="border-b border-[#27272a]/10 pb-3">
-                <dt className="text-[#a1a1aa] text-[10px] uppercase mb-0.5">Issued by</dt>
-                <dd className="font-semibold text-[#e4e4e7]">{cert.authority}</dd>
+      <div className="mt-6 grid grid-cols-1 items-start gap-7 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-12">
+        <aside aria-label="Credential record" className="flex flex-col gap-4 lg:sticky lg:top-5 lg:order-2">
+          <dl className="m-0 rounded-card border border-rule bg-sheet px-5 py-1.5">
+            {record.map(([k, val]) => (
+              <div key={k} className="border-b border-rule py-[11px] last:border-b-0">
+                <dt className="font-cond text-[13px] text-ink-2">{k}</dt>
+                <dd className="m-0 mt-0.5 text-[15.5px] leading-[1.45]">{val}</dd>
               </div>
-              <div className="border-b border-[#27272a]/10 pb-3">
-                <dt className="text-[#a1a1aa] text-[10px] uppercase mb-0.5">Date issued</dt>
-                <dd className="font-semibold text-[#e4e4e7]">{cert.date}</dd>
-              </div>
-              <div className={cert.note ? "border-b border-[#27272a]/10 pb-3" : ""}>
-                <dt className="text-[#a1a1aa] text-[10px] uppercase mb-0.5">Type</dt>
-                <dd className="font-semibold text-[#e4e4e7]">{credentialLabel[cert.kind]}</dd>
-              </div>
-              {cert.note && (
-                <div>
-                  <dt className="text-[#a1a1aa] text-[10px] uppercase mb-0.5">Detail</dt>
-                  <dd className="text-[#a1a1aa] leading-relaxed font-normal">{cert.note}</dd>
-                </div>
-              )}
-            </dl>
-          </div>
-
-          {/* Verification is the issuer's link, or nothing at all */}
+            ))}
+          </dl>
+          {/* Verification is the issuer's own link, or nothing at all (rule 7). */}
           {cert.verificationUrl && (
-            <div className="pt-2">
-              <a
-                href={cert.verificationUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-[#616161] rounded-md text-xs font-mono text-[#fafafa] bg-[#111113]/90 hover:bg-[#18181b] hover:border-[#3f3f46] hover:shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-200 select-none group"
-              >
-                <span>VERIFY WITH ISSUER</span>
-                <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-              </a>
-            </div>
+            <a
+              href={cert.verificationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-[3px] bg-ink px-4 py-2.5 text-center font-cond text-[15px] font-medium text-paper no-underline hover:bg-cond"
+            >
+              Verify with the issuer
+            </a>
           )}
-        </div>
+        </aside>
 
-        {/* Right Column (col-span-8): Certificate Visual frame */}
-        <section className="lg:col-span-8 space-y-6">
-          <div className="border border-[#27272a]/60 rounded-md bg-[#111113]/40 p-4 sm:p-8 flex flex-col items-center justify-center min-h-[400px]">
-            <div className="w-full max-w-2xl">
-              <CertificateViewer cert={cert} />
-            </div>
-          </div>
+        <section aria-label="Certificate scan" className="lg:order-1">
+          <CertificateViewer cert={cert} />
         </section>
-
       </div>
-    </main>
+    </article>
   );
 }

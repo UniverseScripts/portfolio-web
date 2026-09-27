@@ -103,7 +103,7 @@ export default function HomePage() {
         <SectionHead
           id="measured-heading"
           title="Measured"
-          note="Every figure on this site, read with the conditions it was measured under."
+          note="Every headline result, read with the conditions it was measured under."
         />
         <MetricTable rows={measured} caption="Every measured result on this site, with its test conditions" />
       </section>

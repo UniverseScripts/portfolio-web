@@ -83,7 +83,7 @@ export interface ProductSchema {
  * from it, and finishing an internship programme is not finishing a course. Truth file
  * 7 / 9.2 / 11.19.
  */
-export type CredentialKind = "placement" | "attendance" | "completion" | "programme" | "honour";
+export type CredentialKind = "placement" | "attendance" | "completion" | "foundational" | "programme" | "honour";
 
 export interface CertificationSchema {
   id: CertificationIdentifier;

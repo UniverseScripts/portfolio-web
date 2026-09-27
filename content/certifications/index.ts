@@ -35,6 +35,7 @@ export const credentialNoun: Record<CredentialKind, string> = {
   placement: "competitive placement",
   attendance: "certificate of attendance",
   completion: "course completion",
+  foundational: "foundational course completion",
   programme: "programme completion",
   honour: "academic honour",
 };
@@ -43,6 +44,7 @@ export const credentialLabel: Record<CredentialKind, string> = {
   placement: "Placement",
   attendance: "Attendance",
   completion: "Completion",
+  foundational: "Foundational",
   programme: "Programme",
   honour: "Honour",
 };

@@ -12,5 +12,5 @@ export const localRagApi: ProductSchema = {
   url: "https://asteriostech.gumroad.com/l/local-rag-api",
   targetCaseStudyId: "local-rag-api",
   description:
-    "A local-first RAG backend on FastAPI, ChromaDB and Ollama. Upload PDF or TXT, then query it — every answer comes back with the source chunks it was drawn from and the time it took.",
+    "A local-first RAG backend on FastAPI, ChromaDB and Ollama. Upload PDF or TXT, then query it — every answer comes back with its sources and the time it took.",
 };

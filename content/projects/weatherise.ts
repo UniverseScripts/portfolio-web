@@ -14,10 +14,10 @@ export const weatherise: ProjectSchema = {
   // no publishable latency or throughput number. Truth file §4.
   metrics: [],
   architecturePattern: "Multi-agent routing chain over surrogate models with vector retrieval",
-  mcpIntegration: "An MCP host feeds ingested meteorological data forward into the agent chain",
+  mcpIntegration: "The pipeline includes an MCP service alongside its REST and Earth-2 ingestion.",
   contentFunnelRoute: "/projects/weatherise/",
   gumroadProductId: null,
   oneLine: "REST sources and Earth-2 surrogates feed a Nemotron Ultra agent chain with Qdrant retrieval.",
   summary: "A weather-intelligence pipeline built at the Vietnam AI Open Hackathon (NVIDIA / OpenACC). REST data sources and NVIDIA Earth-2 surrogate models feed a multi-agent chain running on Nemotron Ultra, with a Qdrant vector database supporting retrieval-augmented generation over the ingested data.",
-  architectureDetail: "Ingestion combines REST meteorological sources with NVIDIA Earth-2 surrogate models, and an MCP host carries the ingested data forward. Retrieved context is held in a Qdrant vector database and supplied to a multi-agent routing chain on Nemotron Ultra, which composes the response. Built and demonstrated across the three days of the hackathon, where the team was selected as one of ten from roughly a hundred registrants to compete."
+  architectureDetail: "Ingestion combines REST meteorological sources with NVIDIA Earth-2 surrogate models, with an MCP service as part of the pipeline. Retrieved context is held in a Qdrant vector database and supplied to a multi-agent routing chain on Nemotron Ultra, which composes the response. Built and demonstrated across the three days of the hackathon, where the team was selected as one of ten from roughly a hundred registrants to compete."
 };

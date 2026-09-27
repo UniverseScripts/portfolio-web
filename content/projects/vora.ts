@@ -23,5 +23,5 @@ export const vora: ProjectSchema = {
   // no topological sort and no cycle detection in the source. What exists is an ordering
   // constraint: a prerequisite may not be ordered after the topic depending on it. Truth
   // file §11.11. Do not reintroduce the stronger wording.
-  architectureDetail: "The resolver validates generative model output before any of it becomes a roadmap: the response is stripped of markdown fencing, JSON-parsed and schema-validated with Zod, then rejected outright if any topic is ordered ahead of a prerequisite it depends on. The graph builder emits prerequisite-to-dependent edges scoped to the current roadmap, and quiz gating governs progression between resolved nodes, so a learner cannot advance past a dependency they have not demonstrated."
+  architectureDetail: "The resolver validates generative model output before any of it becomes a roadmap: the response is stripped of markdown fencing, JSON-parsed and schema-validated with Zod, then rejected outright if any topic is ordered ahead of a prerequisite it depends on. The graph builder emits prerequisite-to-dependent edges, and progression through the roadmap is quiz-gated."
 };

@@ -49,8 +49,8 @@ export const certifications = [
     title: "AWS Cloud Practitioner Essentials",
     authority: "Amazon Web Services (AWS)",
     date: "2025-12-03",
-    kind: "completion",
-    note: "Foundational-level completion."
+    kind: "foundational",
+    note: "A foundational certificate, not cloud experience."
   },
   {
     id: "uts-dean-list-2026",

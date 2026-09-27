@@ -16,7 +16,7 @@ export const vora: ProjectSchema = {
   metrics: [],
   architecturePattern: "Generative model output resolved into a validated dependency graph",
   contentFunnelRoute: "/projects/vora/",
-  gumroadProductId: "local-rag-api",
+  gumroadProductId: null,
   summary: "A deployed learning-roadmap application with quiz-gated progression, built at the GDGoC DevCamp at HCMUT — a separate programme from the national hackathon. The backend resolver converts unstructured model output into validated, dependency-mapped directed acyclic graphs.",
   // NOTE: this previously said the resolver checks "for cycles". It does not — there is
   // no topological sort and no cycle detection in the source. What exists is an ordering

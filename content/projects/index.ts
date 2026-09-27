@@ -3,6 +3,10 @@ import { weatherise } from "./weatherise";
 import { vora } from "./vora";
 import { roomie } from "./roomie";
 import { develarper } from "./develarper";
+import { architecturelab } from "./architecturelab";
+import { agentriskDaas } from "./agentrisk-daas";
+import { localRagApiProject } from "./local-rag-api";
+import { llmops } from "./llmops";
 import { ProjectSchema, ProjectIdentifier } from "../types";
 
 /**
@@ -19,6 +23,10 @@ const registry = {
   vora,
   roomie,
   develarper,
+  architecturelab,
+  "agentrisk-daas": agentriskDaas,
+  "local-rag-api": localRagApiProject,
+  llmops,
 } satisfies Record<ProjectIdentifier, ProjectSchema>;
 
 /** Typed by the union. Use this wherever the key is known at compile time. */

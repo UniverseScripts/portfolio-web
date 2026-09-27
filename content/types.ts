@@ -1,4 +1,13 @@
-export type ProjectIdentifier = "pulsemind" | "weatherise" | "vora" | "roomie" | "develarper";
+export type ProjectIdentifier =
+  | "pulsemind"
+  | "weatherise"
+  | "vora"
+  | "roomie"
+  | "develarper"
+  | "architecturelab"
+  | "agentrisk-daas"
+  | "local-rag-api"
+  | "llmops";
 export type CertificationIdentifier =
   | "nvidia-ai-open-hackathon"
   | "vercel-nextjs-approuter"

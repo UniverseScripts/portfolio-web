@@ -7,8 +7,8 @@ import { ProductSchema } from "../types";
 export const globalTechIntelligence: ProductSchema = {
   id: "global-tech-intelligence",
   title: "Global Tech Intelligence Node",
-  url: "https://galacticgamer62.gumroad.com/l/job-weekly",
+  url: "https://asteriostech.gumroad.com/l/job-weekly",
   targetCaseStudyId: "weatherise",
   description:
-    "A curated weekly feed of technology and infrastructure signals, delivered as a digest.",
+    "Structured listings from Hacker News \"Who is Hiring\" threads — nine extracted fields, six filters and two charts in a hosted dashboard.",
 };

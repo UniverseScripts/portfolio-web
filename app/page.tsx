@@ -57,7 +57,7 @@ const operatorProfile = {
     { label: "GitHub", href: "https://github.com/UniverseScripts" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/yoshio-nomura-b3219438b/" },
     { label: "X", href: "https://x.com/Asterios07" },
-    { label: "Gumroad", href: "https://galacticgamer62.gumroad.com" },
+    { label: "Gumroad", href: "https://asteriostech.gumroad.com" },
   ],
 };
 

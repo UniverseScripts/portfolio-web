@@ -8,7 +8,7 @@ import { ProductSchema } from "../types";
 export const localRagApi: ProductSchema = {
   id: "local-rag-api",
   title: "Local RAG API",
-  url: "https://galacticgamer62.gumroad.com/l/local-rag-api",
+  url: "https://asteriostech.gumroad.com/l/local-rag-api",
   targetCaseStudyId: "pulsemind",
   description:
     "A local-first RAG backend on FastAPI, ChromaDB and Ollama. Upload PDF or TXT, then query it — every answer comes back with the source chunks it was drawn from and the time it took.",

@@ -8,7 +8,7 @@ import { ProductSchema } from "../types";
 export const nextjsStarterKit: ProductSchema = {
   id: "nextjs-starter-kit",
   title: "Next.js Mobile Starter Kit",
-  url: "https://galacticgamer62.gumroad.com/l/nextjs-mobile-marketplace",
+  url: "https://asteriostech.gumroad.com/l/nextjs-mobile-marketplace",
   targetCaseStudyId: "roomie",
   description:
     "A mobile-first Next.js 16 and React 19 app skeleton: nine routes, a touch-gesture swipe deck built without a gesture library, a multi-step questionnaire, and a Radix-backed component set on Tailwind.",

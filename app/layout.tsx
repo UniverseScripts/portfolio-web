@@ -62,8 +62,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${plexSerif.variable} ${plexCondensed.variable} ${plexMono.variable}`}>
+    <html lang="en" className={`${plexSerif.variable} ${plexCondensed.variable} ${plexMono.variable}`}>
+      <body>
         <a
           href="#main"
           className="sr-only-focusable absolute left-5 top-3 z-50 bg-sheet px-3 py-1.5 font-cond text-[15px]"

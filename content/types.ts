@@ -94,5 +94,4 @@ export interface CertificationSchema {
   /** The claimable substance, where the title alone under- or over-states it. */
   note?: string;
   verificationUrl?: string;
-  badgeHex?: string;
 }

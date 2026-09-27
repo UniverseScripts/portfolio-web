@@ -1,9 +1,6 @@
 import { CertificationSchema } from "../types";
 
-// Colour signals what the credential is, not how impressive it sounds:
-//   #10b981 — a competitive placement or an academic honour
-//   #3b82f6 — a course or programme completion
-//   #71717a — attendance, or a foundational-level completion
+// What a credential is comes from `kind` (rendered as words), never from a colour.
 
 export const certifications = [
   {
@@ -13,8 +10,7 @@ export const certifications = [
     date: "2026-09-16",
     kind: "programme",
     note: "Internship programme, 1 Jul – 16 Sep 2026 (July 2026 cohort). Certificate ID FR-D11-62286-4A975.",
-    verificationUrl: "https://internship.flyrank.ai/verify?id=FR-D11-62286-4A975&first_name=Yoshio",
-    badgeHex: "#3b82f6"
+    verificationUrl: "https://internship.flyrank.ai/verify?id=FR-D11-62286-4A975&first_name=Yoshio"
   },
   {
     id: "flyrank-ai-fluency",
@@ -23,16 +19,14 @@ export const certifications = [
     date: "2026-09-16",
     kind: "programme",
     note: "Internship programme, 1 Jul – 16 Sep 2026 (July 2026 cohort). Certificate ID FR-D11-15C28-A543D.",
-    verificationUrl: "https://internship.flyrank.ai/verify?id=FR-D11-15C28-A543D&first_name=Yoshio",
-    badgeHex: "#3b82f6"
+    verificationUrl: "https://internship.flyrank.ai/verify?id=FR-D11-15C28-A543D&first_name=Yoshio"
   },
   {
     id: "vercel-nextjs-approuter",
     title: "Next.js App Router Fundamentals",
     authority: "Vercel",
     date: "2026-02-20",
-    kind: "completion",
-    badgeHex: "#3b82f6"
+    kind: "completion"
   },
   {
     id: "deeplearning-ai-genai-llm",
@@ -40,8 +34,7 @@ export const certifications = [
     authority: "DeepLearning.AI & AWS — via Coursera",
     date: "2026-01-02",
     kind: "completion",
-    verificationUrl: "https://coursera.org/verify/YADAK43947Y7",
-    badgeHex: "#3b82f6"
+    verificationUrl: "https://coursera.org/verify/YADAK43947Y7"
   },
   {
     id: "gdgoc-national-hackathon-2026",
@@ -49,8 +42,7 @@ export const certifications = [
     authority: "GDGoC National Hackathon 2026 (Hanoi)",
     date: "2026-05-20",
     kind: "placement",
-    note: "Team Hackaphobia. The nationwide programme — a separate event from the GDGoC DevCamp at HCMUT that produced Vora.",
-    badgeHex: "#10b981"
+    note: "Team Hackaphobia. The nationwide programme — a separate event from the GDGoC DevCamp at HCMUT that produced Vora."
   },
   {
     id: "aws-cloud-practitioner",
@@ -58,16 +50,14 @@ export const certifications = [
     authority: "Amazon Web Services (AWS)",
     date: "2025-12-03",
     kind: "completion",
-    note: "Foundational-level completion.",
-    badgeHex: "#71717a"
+    note: "Foundational-level completion."
   },
   {
     id: "uts-dean-list-2026",
     title: "Dean's List 2026",
     authority: "University of Technology Sydney",
     date: "2026-07-09",
-    kind: "honour",
-    badgeHex: "#10b981"
+    kind: "honour"
   },
   {
     id: "nvidia-ai-open-hackathon",
@@ -75,8 +65,7 @@ export const certifications = [
     authority: "Vietnam AI Open Hackathon (NVIDIA / OpenACC)",
     date: "2026-06-09",
     kind: "attendance",
-    note: "Selected as one of 10 teams from ~100 registrants to compete.",
-    badgeHex: "#71717a"
+    note: "Selected as one of 10 teams from ~100 registrants to compete."
   }
 ] satisfies readonly CertificationSchema[];
 

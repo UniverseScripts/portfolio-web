@@ -5,8 +5,12 @@ import { projectsById } from "@/content/projects";
  *
  * The classifier's figure is read from content by label and shown with its condition,
  * never retyped (a hardcoded copy here once carried retracted architecture claims and an unscoped mTLS
- * claim that a grep of content/ could not see). The expensive step is named by role
- * only: §4 says the ~15 s LLM step is "never foregrounded as a metric".
+ * claim that a grep of content/ could not see).
+ *
+ * The LLM step's duration is shown by Yoshio's decision (27 Sep 2026, truth file §11.22): the §4
+ * outcome "roughly 15 seconds", with its condition — anomaly path only. It is labelled on the
+ * expensive step in the diagram, not listed as a headline metric. It is not in content/ because
+ * it is deliberately kept out of the "Measured" tables.
  *
  * The mTLS WebSocket ingest is real but scoped to the serving demo (truth file §11.12),
  * so the label says so.
@@ -33,7 +37,7 @@ export function PulsemindFlow() {
         <desc id="pulsemind-flow-desc">
           Telemetry ingest over an mTLS WebSocket in the serving demo, then an XGBoost classifier ({metric.value}{" "}
           {metric.condition}), then a gate: only a detected anomaly continues to LLM rationalisation, which produces
-          a structured rationale.
+          a structured rationale. The LLM step takes roughly 15 seconds, on the anomaly path only.
         </desc>
         <defs>
           <marker id="pf-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
@@ -65,7 +69,7 @@ export function PulsemindFlow() {
 
           <rect x="526" y="50" width="130" height="64" rx="3" fill="none" stroke={rule} strokeDasharray="5 4" />
           <text x="591" y="78" textAnchor="middle" fontWeight="600">LLM rationalisation</text>
-          <text x="591" y="97" textAnchor="middle" fontSize="12.5" fill={ink2}>anomaly path only</text>
+          <text x="591" y="96" textAnchor="middle" fontSize="12.5" fill={ink2}>~15 s · anomaly path only</text>
 
           <line x1="656" y1="82" x2="680" y2="82" stroke={ink2} strokeWidth="1.5" markerEnd="url(#pf-arrow)" />
           <text x="720" y="78" textAnchor="middle" fontSize="13">Structured</text>

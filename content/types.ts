@@ -62,6 +62,8 @@ export interface ProjectSchema {
   mcpIntegration?: string;
   contentFunnelRoute: `/projects/${ProjectIdentifier}/`;
   gumroadProductId: string | null;
+  /** One sentence for the homepage index. A condensation of `summary` — never a new claim. */
+  oneLine: string;
   summary: string;
   architectureDetail: string;
 }

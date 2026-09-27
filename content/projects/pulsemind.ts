@@ -23,6 +23,7 @@ export const pulsemind: ProjectSchema = {
   architecturePattern: "Asynchronous inference pipeline with conditional explainability gating",
   contentFunnelRoute: "/projects/pulsemind/",
   gumroadProductId: null,
+  oneLine: "ICU telemetry: an XGBoost classifier gates LLM rationalisation to detected anomalies.",
   summary: "An asynchronous ICU telemetry processor. An XGBoost classifier scores incoming stream events and gates higher-cost LLM rationalisation calls so they fire only on detected anomalies.",
   architectureDetail: "Stream events are scored by an XGBoost classifier, selected in a bake-off against LightGBM and CatBoost, trained on the credentialed MIMIC-IV (PhysioNet) de-identified ICU dataset under its data use agreement; demonstrations run on a synthetic derivative built from that dataset. The feature set is 109 columns: eleven frozen ventilator time-series parameters — PEEP, PIP and FiO2 among them — each expanded into observation, staleness and imputation columns, plus static comorbidity, demographic and drug-exposure features. In the serving demo, telemetry reaches the classifier over an mTLS WebSocket. Events scoring below the risk threshold complete on the fast path alone; only those flagged as anomalous trigger the downstream LLM rationalisation call, the expensive step the gate exists to avoid paying for. No identifiable patient data is used, and there is no clinical deployment."
 };

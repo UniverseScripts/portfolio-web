@@ -29,8 +29,7 @@ export function ProjectIndex() {
             <tr className="max-lg:block">
               <th
                 colSpan={5}
-                scope="colgroup"
-                id={`group-${group}`}
+                scope="rowgroup"
                 className="border-t border-rule-strong bg-paper px-4 pb-3 pt-4 text-left font-normal max-lg:block"
               >
                 <span className="font-serif text-[20px] font-medium">{info.heading}</span>
@@ -51,7 +50,7 @@ export function ProjectIndex() {
                   <td className={`whitespace-nowrap px-4 py-3.5 font-cond text-[14.5px] text-ink-2 ${stack} max-lg:inline-block`}>{p.period}</td>
                   <td className={`whitespace-nowrap px-4 py-3.5 font-cond text-[14.5px] ${stack} max-lg:ml-2 max-lg:inline-block ${count === 0 ? "max-lg:hidden" : ""}`}>
                     {count === 0 ? (
-                      <span aria-label="Nothing measured">—</span>
+                      <><span aria-hidden="true">—</span><span className="sr-only">Nothing measured</span></>
                     ) : (
                       <Link href={`${p.contentFunnelRoute}#evaluation`}>
                         {count} {count === 1 ? "result" : "results"}

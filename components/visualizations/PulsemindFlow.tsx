@@ -25,7 +25,7 @@ export function PulsemindFlow() {
 
   return (
     <figure className="m-0">
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Pulsemind pipeline diagram (scrolls sideways on narrow screens)">
       <svg
         viewBox="0 0 760 200"
         xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +69,8 @@ export function PulsemindFlow() {
 
           <rect x="526" y="50" width="130" height="64" rx="3" fill="none" stroke={rule} strokeDasharray="5 4" />
           <text x="591" y="78" textAnchor="middle" fontWeight="600">LLM rationalisation</text>
-          <text x="591" y="96" textAnchor="middle" fontSize="12.5" fill={ink2}>~15 s · anomaly path only</text>
+          <text x="591" y="96" textAnchor="middle" fontSize="12.5" fill={ink2}>~15 s</text>
+          <text x="591" y="109" textAnchor="middle" fontSize="12.5" fill={ink2}>anomaly path only</text>
 
           <line x1="656" y1="82" x2="680" y2="82" stroke={ink2} strokeWidth="1.5" markerEnd="url(#pf-arrow)" />
           <text x="720" y="78" textAnchor="middle" fontSize="13">Structured</text>

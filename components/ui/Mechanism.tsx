@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { projectsById } from "@/content/projects";
 import type { ProjectIdentifier } from "@/content/types";
 
@@ -67,9 +68,9 @@ export function Mechanism() {
             className={`grid grid-cols-[170px_1fr] items-center gap-5 py-3.5 max-lg:grid-cols-1 max-lg:gap-2.5 ${i > 0 ? "border-t border-dashed border-rule" : ""}`}
           >
             <div className="font-cond text-[14px] text-ink-2">
-              <a href={project.contentFunnelRoute} className="block font-serif text-[19px] font-medium text-ink no-underline hover:underline">
+              <Link href={project.contentFunnelRoute} className="block font-serif text-[19px] font-medium text-ink no-underline hover:underline">
                 {project.title}
-              </a>
+              </Link>
               {team}
             </div>
             <ol className="m-0 flex list-none items-center p-0 max-lg:flex-col max-lg:items-stretch" aria-label={`${project.title} pipeline`}>
@@ -99,7 +100,7 @@ export function Mechanism() {
         );
       })}
       <figcaption id="mechanism-caption" className="mt-2 font-cond text-[14px] text-ink-2">
-        Solid: runs on every input. Dashed: runs only when the cheap step asks for it. Every figure on the site is listed with its conditions under <a href="#measured">Measured</a>.
+        Solid: runs on every input. Dashed: runs only when the cheap step asks for it. Every headline result is listed with its conditions under <a href="#measured">Measured</a>.
       </figcaption>
     </figure>
   );

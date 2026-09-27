@@ -47,6 +47,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: project.title,
     description: project.summary,
+    openGraph: { title: `${project.title} · Yoshio Nomura`, description: project.summary },
   };
 }
 

@@ -105,7 +105,7 @@ export function CertificateViewer({ cert }: CertificateViewerProps) {
           onClick={() => setIsExpanded(true)}
           className="block w-full cursor-zoom-in rounded-card border border-rule bg-sheet p-3 text-left hover:border-rule-strong"
           aria-label={`Expand the scan of the ${cert.title}`}
-          aria-expanded={isExpanded}
+          aria-haspopup="dialog"
         >
           {scan(false)}
         </button>
@@ -130,7 +130,7 @@ export function CertificateViewer({ cert }: CertificateViewerProps) {
               e.stopPropagation();
               setIsExpanded(false);
             }}
-            className="absolute right-5 top-5 z-50 rounded-[3px] bg-sheet px-3 py-1.5 font-cond text-[15px] text-ink hover:bg-paper"
+            className="absolute right-5 top-5 z-50 rounded-[3px] bg-sheet px-3 py-1.5 font-cond text-[15px] text-ink hover:bg-paper focus-visible:outline-sheet"
           >
             Close
           </button>

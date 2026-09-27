@@ -30,6 +30,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${cert.title} — ${cert.authority}`,
     description: `${cert.title}${suffix}, from ${cert.authority}, ${cert.date}.`,
+    openGraph: {
+      title: `${cert.title} · Yoshio Nomura`,
+      description: `${cert.title}${suffix}, from ${cert.authority}, ${cert.date}.`,
+    },
   };
 }
 

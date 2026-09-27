@@ -1,88 +1,83 @@
+import { projectsById } from "@/content/projects";
+
 /**
- * PulsemindFlow — Inline SVG: telemetry risk pipeline
+ * Pulsemind's pipeline, drawn in inline SVG.
  *
- * WARNING: every label below is hardcoded here, not read from content/projects.
- * Auditing content/ alone will not catch a claim made in this file. Any change to
- * Pulsemind's stack or figures has to be applied in both places.
+ * The classifier's figure is read from content by label and shown with its condition,
+ * never retyped (a hardcoded copy here once carried retracted architecture claims and an unscoped mTLS
+ * claim that a grep of content/ could not see). The expensive step is named by role
+ * only: §4 says the ~15 s LLM step is "never foregrounded as a metric".
  *
- * What the diagram is for: showing the fast path gating the slow one. The sub-5 ms
- * decision and the ~15 s call it avoids are two halves of one claim.
- *
- * No external SVG dependencies. Font: inherited from body.
+ * The mTLS WebSocket ingest is real but scoped to the serving demo (truth file §11.12),
+ * so the label says so.
  */
 export function PulsemindFlow() {
+  const metric = projectsById.pulsemind.metrics.find((m) => m.label === "Classifier forward pass");
+  if (!metric) throw new Error('PulsemindFlow: metric "Classifier forward pass" no longer exists.');
+
+  const font = "var(--font-plex-condensed), 'Arial Narrow', sans-serif";
+  const mono = "var(--font-plex-mono), ui-monospace, monospace";
+  const ink = "#15191e", ink2 = "#434c55", rule = "#8e99a3", cond = "#0b5566", condBg = "#e1ecee", sheet = "#f8fafb";
+
   return (
-    <figure className="my-8">
+    <figure className="m-0">
+      <div className="overflow-x-auto">
       <svg
-        viewBox="0 0 720 240"
+        viewBox="0 0 760 200"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full max-w-2xl mx-auto"
+        className="block h-auto w-full min-w-[640px]"
         role="img"
-        aria-labelledby="pulsemind-flow-title"
-        aria-describedby="pulsemind-flow-desc"
+        aria-labelledby="pulsemind-flow-title pulsemind-flow-desc"
       >
-        <title id="pulsemind-flow-title">Pulsemind telemetry risk pipeline</title>
+        <title id="pulsemind-flow-title">Pulsemind pipeline</title>
         <desc id="pulsemind-flow-desc">
-          Five-stage pipeline: telemetry ingest over an mTLS WebSocket → risk classifier (XGBoost, under 5ms per event) → decision gate (anomaly detected) → LLM rationalisation, on the anomaly path only, roughly 15 seconds → structured rationale output
+          Telemetry ingest over an mTLS WebSocket in the serving demo, then an XGBoost classifier ({metric.value}{" "}
+          {metric.condition}), then a gate: only a detected anomaly continues to LLM rationalisation, which produces
+          a structured rationale.
         </desc>
-
-        {/* ── Node definitions ── */}
-        {/* Node 1: Ingest Layer */}
-        <rect x="8" y="80" width="110" height="60" rx="6" fill="#27272a" stroke="#71717a" strokeWidth="1" />
-        <text x="63" y="101" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#fafafa" fontWeight="600">INGEST LAYER</text>
-        <text x="63" y="113" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#fafafa" fontWeight="600">PHYSIOLOGY</text>
-        <text x="63" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#a1a1aa">mTLS WebSocket</text>
-
-        {/* Arrow 1→2 */}
-        <line x1="118" y1="110" x2="148" y2="110" stroke="#27272a" strokeWidth="1.5" markerEnd="url(#arr)" />
-
-        {/* Node 2: Risk Classifier */}
-        <rect x="148" y="80" width="130" height="60" rx="6" fill="#10b981" fillOpacity="0.08" stroke="#10b981" strokeWidth="1.5" />
-        <text x="213" y="101" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#10b981" fontWeight="700" letterSpacing="1">RISK CLASSIFIER</text>
-        <text x="213" y="113" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#10b981" fontWeight="700" letterSpacing="1">XGBOOST</text>
-        <text x="213" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#10b981" fillOpacity="0.7">{"<"}5ms / event</text>
-
-        {/* Arrow 2→3 */}
-        <line x1="278" y1="110" x2="308" y2="110" stroke="#27272a" strokeWidth="1.5" markerEnd="url(#arr)" />
-
-        {/* Node 3: Decision Gate */}
-        <rect x="308" y="80" width="120" height="60" rx="6" fill="#27272a" stroke="#3b82f6" strokeWidth="1.2" strokeDasharray="4 2" />
-        <text x="368" y="101" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#3b82f6" fontWeight="700" letterSpacing="1">DECISION GATE</text>
-        <text x="368" y="113" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#3b82f6" fontWeight="700" letterSpacing="1">ANOMALY?</text>
-        <text x="368" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#3b82f6" fillOpacity="0.7">no → stop here</text>
-
-        {/* Arrow 3→4 */}
-        <line x1="428" y1="110" x2="458" y2="110" stroke="#27272a" strokeWidth="1.5" markerEnd="url(#arr)" />
-
-        {/* Node 4: LLM rationalisation — the expensive step the gate exists to avoid */}
-        <rect x="458" y="80" width="120" height="60" rx="6" fill="#27272a" stroke="#71717a" strokeWidth="1" />
-        <text x="518" y="101" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#fafafa" fontWeight="700" letterSpacing="1">LLM RATIONALE</text>
-        <text x="518" y="113" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#fafafa" fontWeight="700" letterSpacing="1">ANOMALY PATH ONLY</text>
-        <text x="518" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#a1a1aa">~15 s</text>
-
-        {/* Arrow 4→5 */}
-        <line x1="578" y1="110" x2="608" y2="110" stroke="#27272a" strokeWidth="1.5" markerEnd="url(#arr)" />
-
-        {/* Node 5: Output */}
-        <rect x="608" y="80" width="104" height="60" rx="6" fill="#10b981" fillOpacity="0.06" stroke="#10b981" strokeWidth="1" strokeDasharray="4 2" />
-        <text x="660" y="101" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#10b981" fontWeight="700" letterSpacing="0.5">RATIONALE</text>
-        <text x="660" y="113" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#10b981" fontWeight="700" letterSpacing="0.5">OUTPUT</text>
-        <text x="660" y="128" textAnchor="middle" fontFamily="monospace" fontSize="8" fill="#10b981" fillOpacity="0.7">structured</text>
-
-        {/* ── Stage labels below ── */}
-        <text x="213" y="160" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#a1a1aa" letterSpacing="0.5">FAST PATH — EVERY EVENT</text>
-        <text x="368" y="160" textAnchor="middle" fontFamily="monospace" fontSize="7.5" fill="#a1a1aa" letterSpacing="0.5">CONDITIONAL LLM GATING</text>
-        <text x="518" y="160" textAnchor="middle" fontFamily="monospace" fontSize="7.5" fill="#a1a1aa" letterSpacing="0.5">SLOW PATH — ANOMALIES ONLY</text>
-
-        {/* Arrowhead marker */}
         <defs>
-          <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L6,3 z" fill="#a1a1aa" />
+          <marker id="pf-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill={ink2} />
           </marker>
         </defs>
+        <g fontFamily={font} fontSize="14" fill={ink}>
+          <rect x="4" y="50" width="130" height="64" rx="3" fill={sheet} stroke={rule} />
+          <text x="69" y="78" textAnchor="middle" fontWeight="600">Telemetry ingest</text>
+          <text x="69" y="96" textAnchor="middle" fontSize="11.5" fill={ink2}>mTLS WebSocket</text>
+          <text x="69" y="109" textAnchor="middle" fontSize="11.5" fill={ink2}>serving demo</text>
+
+          <line x1="134" y1="82" x2="166" y2="82" stroke={ink2} strokeWidth="1.5" markerEnd="url(#pf-arrow)" />
+
+          <rect x="168" y="46" width="170" height="72" rx="3" fill={condBg} stroke={cond} strokeWidth="1.5" />
+          <text x="253" y="74" textAnchor="middle" fontWeight="600">XGBoost classifier</text>
+          <text x="253" y="95" textAnchor="middle" fontSize="12.5" fill={cond}>
+            <tspan fontFamily={mono} fontWeight="500">{metric.value}</tspan> {metric.condition}
+          </text>
+
+          <line x1="338" y1="82" x2="370" y2="82" stroke={ink2} strokeWidth="1.5" markerEnd="url(#pf-arrow)" />
+
+          <rect x="372" y="50" width="120" height="64" rx="3" fill={sheet} stroke={rule} />
+          <text x="432" y="78" textAnchor="middle" fontWeight="600">Anomaly?</text>
+          <text x="432" y="97" textAnchor="middle" fontSize="12.5" fill={ink2}>no → stop here</text>
+
+          <line x1="492" y1="82" x2="524" y2="82" stroke={ink2} strokeWidth="1.5" markerEnd="url(#pf-arrow)" />
+          <text x="508" y="70" textAnchor="middle" fontSize="12" fill={ink2}>yes</text>
+
+          <rect x="526" y="50" width="130" height="64" rx="3" fill="none" stroke={rule} strokeDasharray="5 4" />
+          <text x="591" y="78" textAnchor="middle" fontWeight="600">LLM rationalisation</text>
+          <text x="591" y="97" textAnchor="middle" fontSize="12.5" fill={ink2}>anomaly path only</text>
+
+          <line x1="656" y1="82" x2="680" y2="82" stroke={ink2} strokeWidth="1.5" markerEnd="url(#pf-arrow)" />
+          <text x="720" y="78" textAnchor="middle" fontSize="13">Structured</text>
+          <text x="720" y="95" textAnchor="middle" fontSize="13">rationale</text>
+
+          <text x="253" y="150" textAnchor="middle" fontSize="12.5" fill={ink2}>runs on every event</text>
+          <text x="591" y="150" textAnchor="middle" fontSize="12.5" fill={ink2}>runs only when asked for</text>
+        </g>
       </svg>
-      <figcaption className="text-center text-[10px] font-mono text-[#a1a1aa] mt-2 tracking-wider">
-        PULSEMIND — TELEMETRY RISK PIPELINE
+      </div>
+      <figcaption className="mt-2 font-cond text-[14px] text-ink-2">
+        Solid: runs on every event. Dashed: runs only on the anomaly path.
       </figcaption>
     </figure>
   );

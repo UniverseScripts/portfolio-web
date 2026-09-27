@@ -4,8 +4,7 @@ import type { ProductSchema } from "@/content/types";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { projectGroups } from "@/content/projects/groups";
-import { MetricList } from "@/components/ui/MetricList";
-import { ProvenanceRow } from "@/components/ui/ProvenanceRow";
+import { MetricTable } from "@/components/ui/MetricTable";
 import { ProductCTA } from "@/components/ui/ProductCTA";
 import { PulsemindFlow } from "@/components/visualizations/PulsemindFlow";
 
@@ -63,122 +62,86 @@ export default async function ProjectPage({ params }: PageProps) {
     ? productsById[project.gumroadProductId] ?? null
     : null;
 
+  // The project record. Attribution travels with the role (truth file §9.3 / §11.6),
+  // so "Contribution" comes first and is never abbreviated.
+  const record: Array<[string, string]> = [
+    ["Contribution", project.role],
+    ["When", project.period],
+    ...(project.venue ? [["Built at", project.venue] as [string, string]] : []),
+    ["Stack", project.stack.join(" · ")],
+  ];
+
+  const h2 = "m-0 mb-2 font-cond text-[20px] font-semibold";
+
   return (
-    <main className="min-h-screen px-4 py-16 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-        
-        {/* Left Column (lg:col-span-4): Sticky Meta & Context Sidebar */}
-        <div className="lg:col-span-4 lg:sticky lg:top-16 space-y-8 animate-boot" style={{ "--boot-delay": "50ms" } as React.CSSProperties}>
-          {/* Back navigation */}
-          <nav aria-label="Back">
-            <Link
-              href="/"
-              className="text-[10px] font-mono text-[#a1a1aa] hover:text-[#fafafa] tracking-[0.15em] uppercase transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#3b82f6]"
-            >
-              ← Core Pillars Matrix
-            </Link>
-          </nav>
+    <article>
+      <header className="pb-2 pt-9">
+        <p className="m-0 mb-3 font-cond text-[15px] text-ink-2">
+          <Link href="/#work">← All work</Link> · {projectGroups[project.group].heading}
+        </p>
+        <h1 className="m-0 text-[clamp(36px,5vw,58px)] font-medium leading-[1.05] tracking-[-0.02em]">
+          {project.title}
+        </h1>
+        <p className="m-0 mt-1.5 text-[19px] text-ink-2">{project.domain}</p>
+      </header>
 
-          {/* Project header */}
-          <header className="pb-6 border-b border-[#27272a]/60">
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-[10px] font-mono text-[#a1a1aa]">{projectGroups[project.group].heading}</span>
-              <span className="text-[10px] font-mono text-[#a1a1aa] tracking-wider select-none">
-                {project.domain}
-              </span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight mb-4 text-[#fafafa]">
-              {project.title}
-            </h1>
-            <p className="text-sm text-[#a1a1aa] leading-relaxed">{project.summary}</p>
-          </header>
+      <div className="mt-6 grid grid-cols-1 items-start gap-7 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-12">
+        <aside
+          aria-label="Project record"
+          className="rounded-card border border-rule bg-sheet px-5 py-1.5 lg:sticky lg:top-5 lg:order-2"
+        >
+          <dl className="m-0">
+            {record.map(([k, v]) => (
+              <div key={k} className="border-b border-rule py-[11px] last:border-b-0">
+                <dt className="font-cond text-[13px] text-ink-2">{k}</dt>
+                <dd className="m-0 mt-0.5 text-[15.5px] leading-[1.45]">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
 
-          {/* Provenance — role, period, venue, stack */}
-          <section aria-labelledby="provenance-heading">
-            <h2
-              id="provenance-heading"
-              className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.2em] uppercase mb-4 select-none"
-            >
-              Provenance
-            </h2>
-            <ProvenanceRow project={project} flush />
+        <div className="space-y-9 lg:order-1">
+          <section aria-labelledby="what-heading">
+            <h2 id="what-heading" className={h2}>What it is</h2>
+            <p className="m-0 max-w-[66ch]">{project.summary}</p>
           </section>
 
           {/*
-            Measurements. The heading says "Measured" and must keep saying so —
-            truth file §9.6 keeps a target and a measurement separate, and a heading
-            that blurs them relabels every figure beneath it. The section is absent
-            entirely for projects where nothing was instrumented.
+            "Evaluation" holds measurements only — never targets (truth file §9.6). The
+            section is absent, not empty, when nothing was measured.
           */}
           {project.metrics.length > 0 && (
-            <section aria-labelledby="metrics-heading">
-              <h2
-                id="metrics-heading"
-                className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.2em] uppercase mb-4 select-none"
-              >
-                Measured
-              </h2>
-              <MetricList metrics={project.metrics} flush />
+            <section id="evaluation" aria-labelledby="evaluation-heading" className="scroll-mt-6">
+              <h2 id="evaluation-heading" className={h2}>Evaluation</h2>
+              <MetricTable rows={project.metrics} caption={`${project.title}: measured results with test conditions`} />
             </section>
           )}
-        </div>
 
-        {/* Right Column (lg:col-span-8): Deep Dive & Architecture Sheet */}
-        <div className="lg:col-span-8 space-y-10 animate-boot" style={{ "--boot-delay": "150ms" } as React.CSSProperties}>
-          
-          {/* SVG Visualization — Pulsemind only */}
           {slug === "pulsemind" && (
-            <section aria-labelledby="viz-heading" className="border border-[#27272a] rounded-md p-6 bg-[#111113]">
-              <h2
-                id="viz-heading"
-                className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.2em] uppercase mb-4 select-none"
-              >
-                Architecture Flow
-              </h2>
+            <section aria-labelledby="flow-heading">
+              <h2 id="flow-heading" className={h2}>Pipeline</h2>
               <PulsemindFlow />
             </section>
           )}
 
-          {/* Architecture pattern */}
-          <section aria-labelledby="arch-heading" className="border border-[#27272a] rounded-md p-6 bg-[#111113]">
-            <h2
-              id="arch-heading"
-              className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.2em] uppercase mb-3 select-none"
-            >
-              Architecture Pattern
-            </h2>
-            <p className="text-[11px] font-mono text-[#3b82f6] mb-4 tracking-wide">
-              {project.architecturePattern}
-            </p>
-            <p className="text-sm text-[#a1a1aa] leading-relaxed">{project.architectureDetail}</p>
+          <section aria-labelledby="how-heading">
+            <h2 id="how-heading" className={h2}>How it works</h2>
+            <p className="m-0 mb-3 font-cond text-[16px] text-cond">{project.architecturePattern}</p>
+            <p className="m-0 max-w-[66ch]">{project.architectureDetail}</p>
           </section>
 
-          {/* MCP Integration note */}
           {project.mcpIntegration && (
-            <section aria-labelledby="mcp-heading" className="border border-[#27272a] rounded-md p-6 bg-[#111113]">
-              <h2
-                id="mcp-heading"
-                className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.2em] uppercase mb-3 select-none"
-              >
-                MCP Integration
-              </h2>
-              <p className="text-sm text-[#a1a1aa] leading-relaxed border-l-2 border-[#10b981] pl-4 font-mono text-xs">
-                {project.mcpIntegration}
-              </p>
+            <section aria-labelledby="mcp-heading">
+              <h2 id="mcp-heading" className={h2}>MCP integration</h2>
+              <p className="m-0 max-w-[66ch]">{project.mcpIntegration}</p>
             </section>
           )}
 
-          {/* Product CTA — anchored at bottom of post-mortem per guidelines */}
           {product && (
-            <ProductCTA
-              title={product.title}
-              description={product.description}
-              url={product.url}
-            />
+            <ProductCTA title={product.title} description={product.description} url={product.url} />
           )}
         </div>
-
       </div>
-    </main>
+    </article>
   );
 }

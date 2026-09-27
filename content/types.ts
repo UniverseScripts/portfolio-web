@@ -5,7 +5,9 @@ export type CertificationIdentifier =
   | "deeplearning-ai-genai-llm"
   | "aws-cloud-practitioner"
   | "uts-dean-list-2026"
-  | "gdgoc-national-hackathon-2026";
+  | "gdgoc-national-hackathon-2026"
+  | "flyrank-backend-ai-engineering"
+  | "flyrank-ai-fluency";
 
 /**
  * A published measurement.
@@ -50,11 +52,13 @@ export interface ProductSchema {
 }
 
 /**
- * What a credential actually is. A course completion, a competitive placement, an
- * attendance certificate and an academic honour are four different things and must
- * never render identically. Attending an event is not a result from it. Truth file 7 / 9.2.
+ * What a credential actually is. A course completion, a programme completion, a
+ * competitive placement, an attendance certificate and an academic honour are five
+ * different things and must never render identically. Attending an event is not a result
+ * from it, and finishing an internship programme is not finishing a course. Truth file
+ * 7 / 9.2 / 11.19.
  */
-export type CredentialKind = "placement" | "attendance" | "completion" | "honour";
+export type CredentialKind = "placement" | "attendance" | "completion" | "programme" | "honour";
 
 export interface CertificationSchema {
   id: CertificationIdentifier;

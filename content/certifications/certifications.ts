@@ -2,10 +2,30 @@ import { CertificationSchema } from "../types";
 
 // Colour signals what the credential is, not how impressive it sounds:
 //   #10b981 — a competitive placement or an academic honour
-//   #3b82f6 — a course completion
+//   #3b82f6 — a course or programme completion
 //   #71717a — attendance, or a foundational-level completion
 
 export const certifications = [
+  {
+    id: "flyrank-backend-ai-engineering",
+    title: "Backend AI Engineering",
+    authority: "FlyRank AI Internship Program",
+    date: "2026-09-16",
+    kind: "programme",
+    note: "Internship programme, 1 Jul – 16 Sep 2026 (July 2026 cohort). Certificate ID FR-D11-62286-4A975.",
+    verificationUrl: "https://internship.flyrank.ai/verify?id=FR-D11-62286-4A975&first_name=Yoshio",
+    badgeHex: "#3b82f6"
+  },
+  {
+    id: "flyrank-ai-fluency",
+    title: "AI Fluency",
+    authority: "FlyRank AI Internship Program",
+    date: "2026-09-16",
+    kind: "programme",
+    note: "Internship programme, 1 Jul – 16 Sep 2026 (July 2026 cohort). Certificate ID FR-D11-15C28-A543D.",
+    verificationUrl: "https://internship.flyrank.ai/verify?id=FR-D11-15C28-A543D&first_name=Yoshio",
+    badgeHex: "#3b82f6"
+  },
   {
     id: "vercel-nextjs-approuter",
     title: "Next.js App Router Fundamentals",

@@ -4,7 +4,7 @@ export const agentriskDaas: ProjectSchema = {
   id: "agentrisk-daas",
   title: "AgentRisk DaaS",
   domain: "Supply-chain risk data for AI-agent packages",
-  tier: 2,
+  group: "services-data",
   role: "Solo",
   period: "March – August 2026",
   stack: ["Python", "FastAPI", "SQLAlchemy", "Alembic", "PostgreSQL", "Redis", "Next.js", "GitHub Actions", "Render"],

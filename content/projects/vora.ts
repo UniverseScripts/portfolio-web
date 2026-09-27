@@ -4,7 +4,7 @@ export const vora: ProjectSchema = {
   id: "vora",
   title: "Vora",
   domain: "Quiz-verified learning roadmap",
-  tier: 1,
+  group: "services-data",
   role: "Team — backend engineer",
   period: "April 2026",
   venue: "GDGoC DevCamp, HCMUT",

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ProjectSchema } from "@/content/types";
-import { TierLabel } from "./TierLabel";
 import { MetricList } from "./MetricList";
 import { ProvenanceRow } from "./ProvenanceRow";
 
@@ -9,26 +8,14 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const isTier1 = project.tier === 1;
-
   return (
     <Link
       href={project.contentFunnelRoute}
       id={`project-card-${project.id}`}
-      className={`group relative block rounded-md border p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3b82f6] ${
-        isTier1
-          ? "border-[#10b981]/60 bg-[#111113] hover:border-[#10b981]"
-          : "border-[#616161] bg-[#111113] hover:border-[#a1a1aa]"
-      }`}
+      className="group relative block rounded-md border p-5 border-[#616161] bg-[#111113] hover:border-[#a1a1aa] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3b82f6]"
     >
-      {/* Tier 1 pulse border — signature element */}
-      {isTier1 && <span className="tier1-pulse" aria-hidden="true" />}
-
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-2">
-            <TierLabel tier={project.tier} />
-          </div>
           <h4 className="text-base font-semibold text-[#fafafa] leading-snug group-hover:text-white">
             {project.title}
           </h4>
@@ -38,7 +25,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
         <div
           className={`text-sm font-mono flex-shrink-0 mt-0.5 select-none ${
-            isTier1 ? "text-[#10b981]" : "text-[#a1a1aa] group-hover:text-[#fafafa]"
+            "text-[#a1a1aa] group-hover:text-[#fafafa]"
           }`}
           aria-hidden="true"
         >

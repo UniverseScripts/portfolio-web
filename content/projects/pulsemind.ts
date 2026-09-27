@@ -4,7 +4,7 @@ export const pulsemind: ProjectSchema = {
   id: "pulsemind",
   title: "Pulsemind",
   domain: "Critical-care telemetry — research prototype",
-  tier: 1,
+  group: "gated-inference",
   role: "Team — full-stack AI engineer",
   period: "May 2026 — ongoing",
   stack: ["Python", "XGBoost", "PyTorch", "scikit-learn", "React"],

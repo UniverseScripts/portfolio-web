@@ -31,11 +31,25 @@ export interface Metric {
   condition: string;
 }
 
+/**
+ * What a project does, not how good it is. The old "Tier 1 / Tier 2" split was a
+ * self-assessment; groups are neutral descriptions, and the first one is the thesis.
+ * Every group needs a heading in `projectGroups` (content/projects/groups.ts) — a group
+ * without one is a compile error.
+ */
+export type ProjectGroup = "gated-inference" | "retrieval-agents" | "services-data";
+
+export interface ProjectGroupInfo {
+  heading: string;
+  description: string;
+  order: number;
+}
+
 export interface ProjectSchema {
   id: ProjectIdentifier;
   title: string;
   domain: string;
-  tier: 1 | 2;
+  group: ProjectGroup;
   /** Attribution and role together — they are not separable. Truth file 9.3 / 11.6. */
   role: string;
   period: string;

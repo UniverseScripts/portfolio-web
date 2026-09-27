@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { allProjects, projectsById } from "@/content/projects";
+import { orderedGroups, projectGroups } from "@/content/projects/groups";
 import type { Metric, ProjectIdentifier } from "@/content/types";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { VerificationGrid } from "@/components/ui/VerificationGrid";
@@ -11,8 +12,11 @@ export const metadata: Metadata = {
     "Backend and AI-infrastructure engineering: routing, retrieval, and gating expensive compute behind cheap fast paths.",
 };
 
-const tier1Projects = allProjects.filter((p) => p.tier === 1);
-const tier2Projects = allProjects.filter((p) => p.tier === 2);
+const projectsByGroup = orderedGroups.map((group) => ({
+  group,
+  ...projectGroups[group],
+  projects: allProjects.filter((p) => p.group === group),
+}));
 
 /**
  * Measurements, not targets — and deliberately NOT a second copy of them.
@@ -264,41 +268,19 @@ export default function HomePage() {
           Core Pillars Matrix
         </h2>
 
-        {/* Tier 1 row */}
-        <div className="mb-8">
-          <h3 className="text-[10px] font-mono text-[#10b981] tracking-[0.15em] uppercase mb-3 flex items-center gap-2">
-            <span
-              className="inline-block w-1 h-1 rounded-full bg-[#10b981]"
-              aria-hidden="true"
-            />
-            Tier 1 — Featured work
-          </h3>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 list-none p-0 m-0">
-            {tier1Projects.map((project) => (
-              <li key={project.id}>
-                <ProjectCard project={project} />
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Tier 2 row */}
-        <div>
-          <h3 className="text-[10px] font-mono text-[#a1a1aa] tracking-[0.15em] uppercase mb-3 flex items-center gap-2">
-            <span
-              className="inline-block w-1 h-1 rounded-full bg-[#71717a]"
-              aria-hidden="true"
-            />
-            Tier 2 — Further work
-          </h3>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 list-none p-0 m-0">
-            {tier2Projects.map((project) => (
-              <li key={project.id}>
-                <ProjectCard project={project} />
-              </li>
-            ))}
-          </ul>
-        </div>
+        {projectsByGroup.map(({ group, heading, description, projects }) => (
+          <div key={group} className="mb-8">
+            <h3 className="text-base font-semibold text-[#fafafa] mb-1">{heading}</h3>
+            <p className="text-xs text-[#a1a1aa] mb-3">{description}</p>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 list-none p-0 m-0">
+              {projects.map((project) => (
+                <li key={project.id}>
+                  <ProjectCard project={project} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </section>
     </main>
   );

@@ -4,7 +4,7 @@ export const roomie: ProjectSchema = {
   id: "roomie",
   title: "Roomie",
   domain: "Roommate and apartment matching",
-  tier: 2,
+  group: "services-data",
   role: "Contributor, team of 4 — DevOps & Backend Engineering",
   period: "April 2026",
   venue: "GDGoC National Hackathon 2026 (Hanoi) — team Hackaphobia",

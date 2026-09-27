@@ -4,7 +4,7 @@ export const weatherise: ProjectSchema = {
   id: "weatherise",
   title: "Weatherise",
   domain: "Weather-intelligence pipeline",
-  tier: 1,
+  group: "retrieval-agents",
   role: "Team — LLMOps & Backend AI Engineering",
   period: "9–11 June 2026",
   venue: "Vietnam AI Open Hackathon (NVIDIA / OpenACC)",

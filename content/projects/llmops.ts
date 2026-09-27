@@ -4,7 +4,7 @@ export const llmops: ProjectSchema = {
   id: "llmops",
   title: "llmops",
   domain: "Self-hosted inference",
-  tier: 2,
+  group: "services-data",
   role: "Solo",
   period: "March 2026",
   stack: ["Python", "FastAPI", "flan-t5-base (8-bit) + LoRA", "PostgreSQL", "Redis", "Traefik", "Prometheus", "Grafana", "Docker Compose"],

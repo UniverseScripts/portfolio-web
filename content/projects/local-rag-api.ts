@@ -4,7 +4,7 @@ export const localRagApiProject: ProjectSchema = {
   id: "local-rag-api",
   title: "Local RAG API",
   domain: "Local-first retrieval-augmented generation",
-  tier: 2,
+  group: "retrieval-agents",
   role: "Solo",
   period: "February 2026",
   stack: ["Python", "FastAPI", "ChromaDB", "sentence-transformers", "Ollama"],

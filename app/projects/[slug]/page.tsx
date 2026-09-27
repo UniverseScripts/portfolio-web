@@ -3,7 +3,7 @@ import { allProjects, projectsRegistry } from "@/content/projects";
 import type { ProductSchema } from "@/content/types";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { TierLabel } from "@/components/ui/TierLabel";
+import { projectGroups } from "@/content/projects/groups";
 import { MetricList } from "@/components/ui/MetricList";
 import { ProvenanceRow } from "@/components/ui/ProvenanceRow";
 import { ProductCTA } from "@/components/ui/ProductCTA";
@@ -82,7 +82,7 @@ export default async function ProjectPage({ params }: PageProps) {
           {/* Project header */}
           <header className="pb-6 border-b border-[#27272a]/60">
             <div className="flex items-center gap-3 mb-3">
-              <TierLabel tier={project.tier} />
+              <span className="text-[10px] font-mono text-[#a1a1aa]">{projectGroups[project.group].heading}</span>
               <span className="text-[10px] font-mono text-[#a1a1aa] tracking-wider select-none">
                 {project.domain}
               </span>

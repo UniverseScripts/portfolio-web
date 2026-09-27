@@ -17,16 +17,17 @@ import { ProjectSchema, ProjectIdentifier } from "../types";
  * sixth member to the union, forget the record here, and it would still compile,
  * lint, build, and ship without that route.
  */
+// Key order is display order within each group (see groups.ts for group order).
 const registry = {
   pulsemind,
-  weatherise,
-  vora,
-  roomie,
   develarper,
+  weatherise,
+  "local-rag-api": localRagApiProject,
   architecturelab,
   "agentrisk-daas": agentriskDaas,
-  "local-rag-api": localRagApiProject,
   llmops,
+  roomie,
+  vora,
 } satisfies Record<ProjectIdentifier, ProjectSchema>;
 
 /** Typed by the union. Use this wherever the key is known at compile time. */

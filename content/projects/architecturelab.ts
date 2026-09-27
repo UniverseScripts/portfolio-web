@@ -4,7 +4,7 @@ export const architecturelab: ProjectSchema = {
   id: "architecturelab",
   title: "ArchitectureLab",
   domain: "Human–agent system modelling",
-  tier: 2,
+  group: "retrieval-agents",
   role: "Team of 3 — scaffold, WebMCP adapter and deployment: design, direction and review; implemented with a coding agent",
   period: "September 2026",
   stack: ["React 19", "Vite 8", "TypeScript 6", "WebMCP", "Vitest", "Playwright"],

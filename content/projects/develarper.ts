@@ -4,7 +4,7 @@ export const develarper: ProjectSchema = {
   id: "develarper",
   title: "Develarper",
   domain: "LLM task routing",
-  tier: 2,
+  group: "gated-inference",
   role: "Team of 4 — LLMOps",
   period: "July 2026",
   venue: "AMD Developer Hackathon, Act II",

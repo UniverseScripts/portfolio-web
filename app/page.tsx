@@ -96,10 +96,10 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Current Experience — FlyRank AI */}
+            {/* Experience — FlyRank AI, completed 16 Sep 2026 (truth file §11.19) */}
             <div className="pt-4">
               <p className="text-[9px] font-mono text-[#a1a1aa] tracking-[0.15em] uppercase mb-3">
-                Current Experience
+                Experience
               </p>
               <div className="border border-[#27272a] rounded-md p-4 bg-[#111113] flex items-start justify-between gap-4">
                 <div className="flex flex-col gap-1.5">
@@ -108,14 +108,17 @@ export default function HomePage() {
                       FlyRank AI
                     </span>
                     <span className="text-[10px] font-mono text-[#10b981] px-1.5 py-0.5 rounded bg-[#10b981]/10 border border-[#10b981]/20 uppercase tracking-wider">
-                      Ongoing
+                      Completed
                     </span>
                   </div>
                   <span className="text-sm font-semibold text-[#fafafa]">
                     Backend AI Engineer — Internship (Remote)
                   </span>
+                  <span className="text-[10px] font-mono text-[#a1a1aa] uppercase tracking-wider">
+                    1 Jul – 16 Sep 2026
+                  </span>
                   <p className="text-[11px] font-mono text-[#a1a1aa] leading-relaxed max-w-xl">
-                    Model integration and API design. Work in progress.
+                    Completed both the Backend AI Engineering and AI Fluency tracks; certificates issued 16 September 2026.
                   </p>
                 </div>
               </div>

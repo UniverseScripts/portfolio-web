@@ -16,6 +16,7 @@ export const ignis: ProjectSchema = {
   period: "October 2026",
   venue: "AMD Developer Hackathon, Act III · lablab.ai",
   repoUrl: "https://github.com/khanhtuongnakitomo/IGNIS",
+  pyriumTeam: true,
   stack: ["Python", "SQLite", "MinerU OCR", "DeepSeek-V4-Flash (AMD-hosted)", "React 19", "Vite"],
   metrics: [
     {

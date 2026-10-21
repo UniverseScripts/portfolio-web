@@ -8,6 +8,8 @@ export const architecturelab: ProjectSchema = {
   role: "Team of 3 — scaffold, WebMCP adapter and deployment",
   period: "September 2026",
   venue: "OpenAI hackathon · Devpost",
+  demoUrl: "https://architecturelab.vercel.app",
+  pyriumTeam: true,
   stack: ["React 19", "Vite 8", "TypeScript 6", "WebMCP", "Vitest", "Playwright"],
   metrics: [],
   architecturePattern: "Shared live system model driven through page-registered agent tools",

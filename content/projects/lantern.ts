@@ -16,6 +16,7 @@ export const lantern: ProjectSchema = {
   period: "September 2026",
   venue: "AssemblyAI Voice Agent Hackathon · lablab.ai",
   repoUrl: "https://github.com/BennedictQuanTon/The-Lantern-AssemblyAI-Voice-Agent-Hackathon",
+  pyriumTeam: true,
   stack: ["Python", "FastAPI", "WebSockets", "AssemblyAI streaming", "Qwen3 4B via Ollama", "Kokoro TTS", "SQLite"],
   metrics: [
     {

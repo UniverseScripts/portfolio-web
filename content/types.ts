@@ -59,6 +59,10 @@ export interface ProjectSchema {
   venue?: string;
   /** Public source repository, checked to resolve before it is added. */
   repoUrl?: string;
+  /** A working demo that loads in a browser today. Only projects with one may get a showcase. */
+  demoUrl?: string;
+  /** Built by the three people who are Pyrium (truth file §11.25.1). Renders the red dot. */
+  pyriumTeam?: true;
   stack: string[];
   /** Zero entries is a correct state: it means nothing on this project was measured. */
   metrics: Metric[];
@@ -70,6 +74,21 @@ export interface ProjectSchema {
   oneLine: string;
   summary: string;
   architectureDetail: string;
+}
+
+/**
+ * An affiliation that is not employment. `status` is REQUIRED for the same reason
+ * `Metric.condition` is: Pyrium is "in development, not incorporated" (truth file §11.25.1),
+ * and a qualifier that is optional is a qualifier that eventually goes missing.
+ */
+export interface AffiliationSchema {
+  name: string;
+  role: string;
+  period: string;
+  status: string;
+  description: string;
+  url: string;
+  members: string[];
 }
 
 export interface ProductSchema {

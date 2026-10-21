@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { allProjects } from "@/content/projects";
 import { pyrium } from "@/content/affiliations";
-import { Mechanism } from "@/components/ui/Mechanism";
+import { ThesisShowcase } from "@/components/ui/ThesisShowcase";
 import { ProjectIndex } from "@/components/ui/ProjectIndex";
 import { MetricTable, type MetricRow } from "@/components/ui/MetricTable";
 import { CredentialTable } from "@/components/ui/CredentialTable";
@@ -136,7 +136,7 @@ export default function HomePage() {
         <div className="page">
           <div className="card grid grid-cols-1 items-start gap-3.5 p-3.5 min-[1100px]:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
             <div className="rounded-[16px] bg-paper p-1 min-[1100px]:sticky min-[1100px]:top-24">
-              <Mechanism />
+              <ThesisShowcase />
             </div>
             <div id="measured" className="scroll-mt-24 px-[18px] pb-2.5 pt-[18px]">
               <h2 id="measured-heading" className="m-0 text-[22px] leading-tight tracking-[-0.01em]">Measured</h2>

@@ -77,6 +77,26 @@ export interface ProjectSchema {
 }
 
 /**
+ * One line of a narrated showcase. A line that states a figure must name the `Metric` it
+ * comes from (project + label). The film shows that metric's value AND condition on screen
+ * from content, and a check confirms the spoken words say the same number — so a figure can
+ * never enter a video without its condition, or drift from the page (truth file §11.25.7).
+ */
+export interface ShowcaseLine {
+  scene: string;
+  text: string;
+  metric?: { project: ProjectIdentifier; label: string };
+}
+
+export interface ShowcaseSchema {
+  id: string;
+  title: string;
+  /** Who wrote the words, and whether they have been approved for audio. */
+  status: "draft" | "approved";
+  lines: ShowcaseLine[];
+}
+
+/**
  * An affiliation that is not employment. `status` is REQUIRED for the same reason
  * `Metric.condition` is: Pyrium is "in development, not incorporated" (truth file §11.25.1),
  * and a qualifier that is optional is a qualifier that eventually goes missing.

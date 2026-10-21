@@ -23,6 +23,8 @@ const eslintConfig = [
       // require() is correct there; next/typescript's no-require-imports rule is
       // written for the TS app code and does not apply to it.
       "compress.js",
+      // Same reasoning: builds public/cv.pdf from planning/resume.md, run by hand.
+      "scripts/build-cv.cjs",
     ],
   },
 ];

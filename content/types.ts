@@ -79,8 +79,9 @@ export interface ProjectSchema {
 /**
  * One line of a narrated showcase. A line that states a figure must name the `Metric` it
  * comes from (project + label). The film shows that metric's value AND condition on screen
- * from content, and a check confirms the spoken words say the same number — so a figure can
- * never enter a video without its condition, or drift from the page (truth file §11.25.7).
+ * from content, and the build fails if the spoken words do not say the same number
+ * (`spokenNumbersMatch` in content/showcases/spoken.ts, enforced in ThesisShowcase) — so a
+ * figure can never enter a video without its condition, or drift from the page (§11.25.7).
  */
 export interface ShowcaseLine {
   scene: string;

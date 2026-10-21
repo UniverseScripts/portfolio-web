@@ -7,6 +7,8 @@ import { architecturelab } from "./architecturelab";
 import { agentriskDaas } from "./agentrisk-daas";
 import { localRagApiProject } from "./local-rag-api";
 import { llmops } from "./llmops";
+import { ignis } from "./ignis";
+import { lantern } from "./lantern";
 import { ProjectSchema, ProjectIdentifier } from "../types";
 
 /**
@@ -21,9 +23,11 @@ import { ProjectSchema, ProjectIdentifier } from "../types";
 const registry = {
   pulsemind,
   develarper,
+  lantern,
+  architecturelab,
   weatherise,
   "local-rag-api": localRagApiProject,
-  architecturelab,
+  ignis,
   "agentrisk-daas": agentriskDaas,
   llmops,
   roomie,

@@ -65,11 +65,14 @@ export default async function ProjectPage({ params }: PageProps) {
 
   // The project record. Attribution travels with the role (truth file §9.3 / §11.6),
   // so "Contribution" comes first and is never abbreviated.
-  const record: Array<[string, string]> = [
+  const record: Array<[string, React.ReactNode]> = [
     ["Contribution", project.role],
     ["When", project.period],
-    ...(project.venue ? [["Built at", project.venue] as [string, string]] : []),
+    ...(project.venue ? [["Built at", project.venue] as [string, React.ReactNode]] : []),
     ["Stack", project.stack.join(" · ")],
+    ...(project.repoUrl
+      ? [["Source", <a key="repo" href={project.repoUrl}>{project.repoUrl.replace("https://", "")}</a>] as [string, React.ReactNode]]
+      : []),
   ];
 
   const h2 = "m-0 mb-2 font-cond text-[20px] font-semibold";
@@ -95,7 +98,7 @@ export default async function ProjectPage({ params }: PageProps) {
             {record.map(([k, v]) => (
               <div key={k} className="border-b border-rule py-[11px] last:border-b-0">
                 <dt className="font-cond text-[13px] text-ink-2">{k}</dt>
-                <dd className="m-0 mt-0.5 text-[15.5px] leading-[1.45]">{v}</dd>
+                <dd className="m-0 mt-0.5 text-[15.5px] leading-[1.45] [overflow-wrap:anywhere]">{v}</dd>
               </div>
             ))}
           </dl>

@@ -7,7 +7,9 @@ export type ProjectIdentifier =
   | "architecturelab"
   | "agentrisk-daas"
   | "local-rag-api"
-  | "llmops";
+  | "llmops"
+  | "ignis"
+  | "lantern";
 export type CertificationIdentifier =
   | "nvidia-ai-open-hackathon"
   | "vercel-nextjs-approuter"
@@ -55,6 +57,8 @@ export interface ProjectSchema {
   period: string;
   /** The hackathon or programme this was built for, where there is one. */
   venue?: string;
+  /** Public source repository, checked to resolve before it is added. */
+  repoUrl?: string;
   stack: string[];
   /** Zero entries is a correct state: it means nothing on this project was measured. */
   metrics: Metric[];

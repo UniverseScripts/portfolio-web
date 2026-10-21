@@ -1,4 +1,4 @@
-import { AbsoluteFill, interpolate, spring, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, interpolate, Sequence, spring, useCurrentFrame } from "remotion";
 import { type Cue, cueAt, FPS } from "./timeline";
 
 /**
@@ -170,6 +170,15 @@ export function ThesisFilm({ cues, figures, pipelines, closing, portrait }: Thes
           {closing.line} <span style={{ color: C.ink2 }}>{closing.muted}</span>
         </div>
       </AbsoluteFill>
+
+      {/* Narration: one clip per line, placed at its cue. */}
+      {cues.map((c) =>
+        c.audio ? (
+          <Sequence key={c.index} from={Math.round(c.start * FPS)} durationInFrames={Math.ceil((c.end - c.start) * FPS) + 6}>
+            <Audio src={c.audio} />
+          </Sequence>
+        ) : null,
+      )}
 
       {/* Burned-in captions, from the same script as the transcript. */}
       <div

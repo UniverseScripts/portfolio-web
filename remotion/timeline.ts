@@ -16,12 +16,15 @@ export interface Cue {
   start: number; // seconds
   end: number; // seconds
   metricKey?: string;
+  /** Narration for this line, once audio has been generated from the approved script. */
+  audio?: string;
 }
 
 export interface FilmLine {
   scene: string;
   text: string;
   metricKey?: string;
+  audio?: string;
 }
 
 const WORDS_PER_SECOND = 2.6;
@@ -31,7 +34,7 @@ export function buildTimeline(lines: FilmLine[], durations?: number[]): { cues: 
   const cues = lines.map((line, index) => {
     const words = line.text.split(/\s+/).length;
     const d = durations?.[index] ?? Math.max(1.6, words / WORDS_PER_SECOND);
-    const cue = { index, scene: line.scene, text: line.text, start: t, end: t + d, metricKey: line.metricKey };
+    const cue = { index, scene: line.scene, text: line.text, start: t, end: t + d, metricKey: line.metricKey, audio: line.audio };
     t += d + GAP;
     return cue;
   });

@@ -2,8 +2,8 @@ import { ShowcaseSchema } from "../types";
 
 /*
  * The homepage film: the thesis, told through the two projects that share it.
- * DRAFT — written from truth-file wording (§4, §11.25, §11.26) for Yoshio's approval.
- * No audio is generated until `status` is "approved".
+ * APPROVED by Yoshio, 21 Oct 2026 — written from truth-file wording (§4, §11.25, §11.26).
+ * Narration audio is generated from these exact lines (scripts/tts/speak.py).
  *
  * Rules: every number is spoken in words and tied to its content Metric; the ~15 s LLM step
  * is never stated here (§11.22 keeps it to the Pulsemind page's diagram).
@@ -11,7 +11,7 @@ import { ShowcaseSchema } from "../types";
 export const thesisFilm = {
   id: "thesis",
   title: "A cheap decision first",
-  status: "draft",
+  status: "approved",
   lines: [
     { scene: "open", text: "Two of my projects are the same idea, twice." },
     { scene: "pulsemind", text: "In Pulsemind, an XGBoost classifier scores every reading from an ICU stream." },

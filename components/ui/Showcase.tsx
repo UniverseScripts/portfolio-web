@@ -40,6 +40,9 @@ const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).p
 export function Showcase({ film, total, transcript, hasAudio, children }: ShowcaseProps) {
   const [loaded, setLoaded] = useState<Loaded | null>(null);
   const [loading, setLoading] = useState(false);
+  const [started, setStarted] = useState(false);
+  const [autoplayFallback, setAutoplayFallback] = useState(false);
+  const figure = useRef<HTMLElement>(null);
   const [reduce, setReduce] = useState(false);
   const [portrait, setPortrait] = useState(false);
   const player = useRef<PlayerRef>(null);
@@ -83,40 +86,50 @@ export function Showcase({ film, total, transcript, hasAudio, children }: Showca
     };
   }, [loaded, film.cues, light]);
 
-  const play = async () => {
-    setLoading(true);
+  const load = useCallback(async () => {
     const [{ Player }, { ThesisFilm }] = await Promise.all([import("@remotion/player"), import("@/remotion/ThesisFilm")]);
-    setLoaded({ Player, Film: ThesisFilm });
+    setLoaded((current) => current ?? { Player, Film: ThesisFilm });
+  }, []);
+
+  // Fetch the player once the film is near the viewport, so pressing Play can start it inside
+  // the click itself — browsers only allow sound from a direct user gesture, and a player that
+  // mounts after an await has lost it (Remotion then mutes itself).
+  useEffect(() => {
+    const el = figure.current;
+    if (reduce || loaded || !el) return;
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        io.disconnect();
+        void load();
+      }
+    }, { rootMargin: "200px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [reduce, loaded, load]);
+
+  const play = async (e: React.MouseEvent) => {
+    if (loaded && player.current) {
+      setStarted(true);
+      player.current.play(e);
+      return;
+    }
+    // Pressed before the player arrived: load it, then autoplay. It may start muted; the
+    // player's own controls can unmute it.
+    setLoading(true);
+    await load();
+    setAutoplayFallback(true);
+    setStarted(true);
     setLoading(false);
   };
 
   const Player = loaded?.Player;
 
   return (
-    <figure className="m-0" aria-label="Narrated film: a cheap decision first">
-      {Player && loaded ? (
-        <div className="overflow-hidden rounded-[14px] bg-sheet">
-          <Player
-            ref={player}
-            component={loaded.Film}
-            inputProps={{ ...film, portrait }}
-            durationInFrames={Math.ceil(total * FPS)}
-            fps={FPS}
-            compositionWidth={portrait ? 720 : 960}
-            compositionHeight={portrait ? 900 : 540}
-            controls
-            autoPlay
-            clickToPlay
-            acknowledgeRemotionLicense
-            style={{ width: "100%" }}
-          />
-        </div>
-      ) : (
-        children
-      )}
-
-      <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-3 pb-2 pt-3 text-[13px] text-ink-2">
-        {!loaded && !reduce && (
+    <figure ref={figure} className="m-0" aria-label="Narrated film: a cheap decision first">
+      {/* Controls first: the figure can be taller than the window while pinned, so the
+          Play button must never sit below the diagram. */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-3 pb-3 pt-2 text-[13px] text-ink-2">
+        {!started && !reduce && (
           <button
             type="button"
             onClick={play}
@@ -130,7 +143,29 @@ export function Showcase({ film, total, transcript, hasAudio, children }: Showca
           {hasAudio ? "Narration: synthetic voice (Kokoro)." : "Captions only — narration to follow."}
           {reduce && " Motion is off on this device; the diagram and the transcript carry the same content."}
         </span>
-        <details className="w-full">
+      </div>
+      {Player && loaded && (
+        <div className="overflow-hidden rounded-[14px] bg-sheet" hidden={!started}>
+          <Player
+            ref={player}
+            component={loaded.Film}
+            inputProps={{ ...film, portrait }}
+            durationInFrames={Math.ceil(total * FPS)}
+            fps={FPS}
+            compositionWidth={portrait ? 720 : 960}
+            compositionHeight={portrait ? 900 : 540}
+            controls
+            autoPlay={autoplayFallback}
+            clickToPlay
+            acknowledgeRemotionLicense
+            style={{ width: "100%" }}
+          />
+        </div>
+      )}
+      {!started && children}
+
+      <figcaption className="px-3 pb-2 pt-3 text-[13px] text-ink-2">
+        <details>
           <summary className="cursor-pointer text-cond">Transcript</summary>
           <ol className="m-0 mt-2 grid gap-1.5 pl-5 text-[14px] text-ink">
             {transcript.map((l, i) => (

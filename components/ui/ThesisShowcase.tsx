@@ -3,6 +3,7 @@ import { thesisFilm } from "@/content/showcases/thesis";
 import { metricKey } from "@/components/ui/MetricTable";
 import { Mechanism } from "@/components/ui/Mechanism";
 import { buildTimeline } from "@/remotion/timeline";
+import narration from "@/content/showcases/thesis.timeline.json";
 import type { FilmFigure } from "@/remotion/ThesisFilm";
 import { Showcase, type TranscriptLine } from "@/components/ui/Showcase";
 
@@ -23,7 +24,16 @@ export function ThesisShowcase() {
     return { scene: line.scene, text: line.text, metricKey: key };
   });
 
-  const { cues, total } = buildTimeline(lines);
+  // Audio exists only for an approved script, and only if it was generated from these exact
+  // lines — stale audio fails the build rather than saying words the transcript does not.
+  const hasAudio = thesisFilm.status === "approved" && narration.lines.length === lines.length;
+  if (hasAudio) {
+    narration.lines.forEach((n, i) => {
+      if (n.text !== lines[i].text) throw new Error(`thesis film: narration line ${i} is stale — re-run scripts/tts/speak.py`);
+    });
+  }
+  const voiced = lines.map((l, i) => ({ ...l, audio: hasAudio ? narration.lines[i].file : undefined }));
+  const { cues, total } = buildTimeline(voiced, hasAudio ? narration.lines.map((n) => n.duration) : undefined);
   const keyFor = (project: "pulsemind" | "develarper", label: string) => metricKey({ source: projectsById[project].title, label });
 
   const transcript: TranscriptLine[] = lines.map((l) => ({
@@ -35,7 +45,7 @@ export function ThesisShowcase() {
     <Showcase
       total={total}
       transcript={transcript}
-      hasAudio={false}
+      hasAudio={hasAudio}
       film={{
         cues,
         figures,

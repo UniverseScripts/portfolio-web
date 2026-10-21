@@ -1,0 +1,63 @@
+{
+  "film": "thesis",
+  "voice": "Kokoro-82M af_heart",
+  "speed": 0.97,
+  "lines": [
+    {
+      "index": 0,
+      "scene": "open",
+      "text": "Two of my projects are the same idea, twice.",
+      "file": "/showcase/thesis/line-00.mp3",
+      "duration": 2.688
+    },
+    {
+      "index": 1,
+      "scene": "pulsemind",
+      "text": "In Pulsemind, an XGBoost classifier scores every reading from an ICU stream.",
+      "file": "/showcase/thesis/line-01.mp3",
+      "duration": 5.355
+    },
+    {
+      "index": 2,
+      "scene": "pulsemind",
+      "text": "In the demo, scoring a reading and explaining it takes about forty-three milliseconds.",
+      "file": "/showcase/thesis/line-02.mp3",
+      "duration": 4.587
+    },
+    {
+      "index": 3,
+      "scene": "pulsemind",
+      "text": "Only when it flags an anomaly does the system pay for a language model.",
+      "file": "/showcase/thesis/line-03.mp3",
+      "duration": 4.181
+    },
+    {
+      "index": 4,
+      "scene": "develarper",
+      "text": "In Develarper, a small local model reads each task's difficulty first.",
+      "file": "/showcase/thesis/line-04.mp3",
+      "duration": 4.416
+    },
+    {
+      "index": 5,
+      "scene": "develarper",
+      "text": "On the team's routing evaluation, it sent seven hundred and eleven of eight hundred tasks to the right tier.",
+      "file": "/showcase/thesis/line-05.mp3",
+      "duration": 6.443
+    },
+    {
+      "index": 6,
+      "scene": "develarper",
+      "text": "Hard tasks go to the cloud. The rest stay on the local model.",
+      "file": "/showcase/thesis/line-06.mp3",
+      "duration": 3.669
+    },
+    {
+      "index": 7,
+      "scene": "close",
+      "text": "The expensive step runs only when the cheap one asks for it.",
+      "file": "/showcase/thesis/line-07.mp3",
+      "duration": 3.392
+    }
+  ]
+}

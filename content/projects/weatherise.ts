@@ -8,6 +8,8 @@ export const weatherise: ProjectSchema = {
   role: "Team — LLMOps & Backend AI Engineering",
   period: "9–11 June 2026",
   venue: "Vietnam AI Open Hackathon (NVIDIA / OpenACC)",
+  repoUrl: "https://github.com/BennedictQuanTon/Weatherise_Vietnam-AI-Open-Hackathon-2026",
+  demoUrl: "https://weatherise-vietnam-ai-open-hackatho.vercel.app/app",
   pyriumTeam: true,
   stack: ["Python", "Qdrant", "NVIDIA Earth-2 surrogates", "Nemotron Ultra", "MCP", "REST sources"],
   // Empty by design. Every figure this project produced was measured at a concurrency

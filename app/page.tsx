@@ -169,7 +169,7 @@ export default function HomePage() {
           <SectionHead
             id="demos-heading"
             title="Working demos."
-            lead="Only projects with a demo that runs today. Narrated walkthroughs of each are on the way."
+            lead="Only projects with a demo that runs today. Ignis and The Lantern run on free servers that take about a minute to wake on a first visit."
           />
         </div>
         <ul className="bleed-rail m-0 list-none">

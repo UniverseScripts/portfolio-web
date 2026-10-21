@@ -16,8 +16,8 @@ import { projectsById } from "@/content/projects";
  * so the label says so.
  */
 export function PulsemindFlow() {
-  const metric = projectsById.pulsemind.metrics.find((m) => m.label === "Classifier forward pass");
-  if (!metric) throw new Error('PulsemindFlow: metric "Classifier forward pass" no longer exists.');
+  const metric = projectsById.pulsemind.metrics.find((m) => m.label === "Score per reading");
+  if (!metric) throw new Error('PulsemindFlow: metric "Score per reading" no longer exists.');
 
   const font = "var(--font-plex-condensed), 'Arial Narrow', sans-serif";
   const mono = "var(--font-plex-mono), ui-monospace, monospace";
@@ -55,7 +55,7 @@ export function PulsemindFlow() {
           <rect x="168" y="46" width="170" height="72" rx="3" fill={condBg} stroke={cond} strokeWidth="1.5" />
           <text x="253" y="74" textAnchor="middle" fontWeight="600">XGBoost classifier</text>
           <text x="253" y="95" textAnchor="middle" fontSize="12.5" fill={cond}>
-            <tspan fontFamily={mono} fontWeight="500">{metric.value}</tspan> {metric.condition}
+            <tspan fontFamily={mono} fontWeight="500">{metric.value}</tspan> {metric.label.toLowerCase()}
           </text>
 
           <line x1="338" y1="82" x2="370" y2="82" stroke={ink2} strokeWidth="1.5" markerEnd="url(#pf-arrow)" />
@@ -82,7 +82,7 @@ export function PulsemindFlow() {
       </svg>
       </div>
       <figcaption className="mt-2 font-cond text-[14px] text-ink-2">
-        Solid: runs on every event. Dashed: runs only on the anomaly path.
+        Classifier: <span className="fig">{metric.value}</span> {metric.label.toLowerCase()}, {metric.condition}. Solid: runs on every event. Dashed: runs only on the anomaly path.
       </figcaption>
     </figure>
   );

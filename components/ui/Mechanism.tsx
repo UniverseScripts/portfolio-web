@@ -28,7 +28,7 @@ const PIPELINES: Pipeline[] = [
     id: "pulsemind",
     input: "ICU stream event",
     gate: "XGBoost classifier",
-    gateMetric: "Classifier forward pass",
+    gateMetric: "Score per reading",
     when: "only on a detected anomaly",
     costly: "LLM rationalisation",
   },

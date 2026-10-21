@@ -10,15 +10,14 @@ export const pulsemind: ProjectSchema = {
   stack: ["Python", "XGBoost", "PyTorch", "scikit-learn", "React"],
   metrics: [
     {
-      label: "Classifier forward pass",
-      value: "<5 ms",
-      condition: "per stream event",
+      label: "Score per reading",
+      value: "~43 ms",
+      condition: "including its TreeSHAP explanation — demo service, 7 readings, 31.6–64.7 ms",
     },
-    // §4 gives the "<50 ms end-to-end" figure no measurement conditions of its own,
-    // so §9.1 does not permit publishing it — the ~15 s caveat that sat here was a
-    // note about a different path, which satisfied the type gate without satisfying
-    // the rule. §4 also forbids foregrounding the ~15 s step as a metric; it belongs
-    // in the architecture prose and the diagram, which is where it now lives.
+    // §11.26: the earlier sub-5-millisecond per-event figure was a 200k-row GPU batch average,
+    // not a per-event time, and is withdrawn. "<50 ms end-to-end" is unusable for the
+    // same reason. §4 forbids foregrounding the ~15 s LLM step as a metric; it belongs
+    // in the architecture prose and the diagram, which is where it lives.
   ],
   architecturePattern: "Asynchronous inference pipeline with conditional explainability gating",
   contentFunnelRoute: "/projects/pulsemind/",

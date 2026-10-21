@@ -56,7 +56,10 @@ function Edge({ label }: { label?: string }) {
 
 export function Mechanism() {
   return (
-    <figure className="@container m-0 rounded-[14px] bg-sheet px-7 pb-4 pt-6 @max-[700px]:p-4" aria-labelledby="mechanism-caption">
+    // The container is the wrapper, not the figure: a container query only matches ancestors, so
+    // @max-[700px]:p-4 on the figure itself would never apply.
+    <div className="@container">
+    <figure className="m-0 rounded-[14px] bg-sheet px-7 pb-4 pt-6 @max-[700px]:p-4" aria-labelledby="mechanism-caption">
       {PIPELINES.map((p, i) => {
         const project = projectsById[p.id];
         const metric = project.metrics.find((m) => m.label === p.gateMetric);
@@ -105,5 +108,6 @@ export function Mechanism() {
         Solid: runs on every input. Dashed: runs only when the cheap step asks for it. Each figure is listed with its test conditions under <a href="#measured">Measured</a>.
       </figcaption>
     </figure>
+    </div>
   );
 }

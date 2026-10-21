@@ -19,9 +19,11 @@ export function PulsemindFlow() {
   const metric = projectsById.pulsemind.metrics.find((m) => m.label === "Score per reading");
   if (!metric) throw new Error('PulsemindFlow: metric "Score per reading" no longer exists.');
 
-  const font = "var(--font-plex-condensed), 'Arial Narrow', sans-serif";
+  // The 21 Oct design system (app/globals.css): Inter text, Plex Mono figures, current tokens.
+  // Box outlines use rule-strong, a decorative divider; arrows keep ink-2 so the flow reads.
+  const font = "var(--font-inter), system-ui, sans-serif";
   const mono = "var(--font-plex-mono), ui-monospace, monospace";
-  const ink = "#15191e", ink2 = "#434c55", rule = "#8e99a3", cond = "#0b5566", condBg = "#e1ecee", sheet = "#f8fafb";
+  const ink = "#15191e", ink2 = "#434c55", rule = "#c9ced3", cond = "#0b5566", condBg = "#e4eff1", sheet = "#ffffff";
 
   return (
     <figure className="m-0">
@@ -81,7 +83,7 @@ export function PulsemindFlow() {
         </g>
       </svg>
       </div>
-      <figcaption className="mt-2 font-cond text-[14px] text-ink-2">
+      <figcaption className="mt-2 text-[14px] text-ink-2">
         Classifier: <span className="fig">{metric.value}</span> {metric.label.toLowerCase()}, {metric.condition}. Solid: runs on every event. Dashed: runs only on the anomaly path.
       </figcaption>
     </figure>

@@ -42,6 +42,7 @@ export function Showcase({ film, total, transcript, hasAudio, children }: Showca
   const [loading, setLoading] = useState(false);
   const [started, setStarted] = useState(false);
   const [autoplayFallback, setAutoplayFallback] = useState(false);
+  const [failed, setFailed] = useState(false);
   const figure = useRef<HTMLElement>(null);
   const [reduce, setReduce] = useState(false);
   const [portrait, setPortrait] = useState(false);
@@ -86,9 +87,16 @@ export function Showcase({ film, total, transcript, hasAudio, children }: Showca
     };
   }, [loaded, film.cues, light]);
 
+  // Resolves false instead of throwing: a chunk can fail to load on a flaky network or after a
+  // redeploy, and the visitor must get a working retry rather than a dead button (see play()).
   const load = useCallback(async () => {
-    const [{ Player }, { ThesisFilm }] = await Promise.all([import("@remotion/player"), import("@/remotion/ThesisFilm")]);
-    setLoaded((current) => current ?? { Player, Film: ThesisFilm });
+    try {
+      const [{ Player }, { ThesisFilm }] = await Promise.all([import("@remotion/player"), import("@/remotion/ThesisFilm")]);
+      setLoaded((current) => current ?? { Player, Film: ThesisFilm });
+      return true;
+    } catch {
+      return false;
+    }
   }, []);
 
   // Fetch the player once the film is near the viewport, so pressing Play can start it inside
@@ -108,18 +116,32 @@ export function Showcase({ film, total, transcript, hasAudio, children }: Showca
   }, [reduce, loaded, load]);
 
   const play = async (e: React.MouseEvent) => {
+    // The bundler caches a failed chunk load for the life of the page, so a second import()
+    // fails instantly (measured). A reload is the retry that works: it refetches after a network
+    // blip, and after a redeploy it fetches HTML that points at the new chunk names.
+    if (failed) {
+      window.location.reload();
+      return;
+    }
     if (loaded && player.current) {
       setStarted(true);
       player.current.play(e);
       return;
     }
-    // Pressed before the player arrived: load it, then autoplay. It may start muted; the
-    // player's own controls can unmute it.
+    // Pressed before the player arrived (or after a failed prefetch): load it, then autoplay.
+    // It may start muted; the player's own controls can unmute it.
     setLoading(true);
-    await load();
-    setAutoplayFallback(true);
-    setStarted(true);
-    setLoading(false);
+    setFailed(false);
+    try {
+      if (await load()) {
+        setAutoplayFallback(true);
+        setStarted(true);
+      } else {
+        setFailed(true);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const Player = loaded?.Player;
@@ -136,16 +158,19 @@ export function Showcase({ film, total, transcript, hasAudio, children }: Showca
             disabled={loading}
             className="rounded-pill bg-ink px-4 py-1.5 text-[13.5px] font-medium text-sheet hover:bg-cond disabled:cursor-wait"
           >
-            {loading ? "Loading the film…" : `Play the film · ${fmt(total)}`}
+            {loading ? "Loading the film…" : failed ? "Couldn’t load the film — reload to try again" : `Play the film · ${fmt(total)}`}
           </button>
         )}
+        <span role="status" className="sr-only">
+          {failed ? "The film couldn’t load. Press the button to reload the page and try again." : ""}
+        </span>
         <span>
           {hasAudio ? "Narration: synthetic voice (Kokoro)." : "Captions only — narration to follow."}
           {reduce && " Motion is off on this device; the diagram and the transcript carry the same content."}
         </span>
       </div>
       {Player && loaded && (
-        <div className="overflow-hidden rounded-[14px] bg-sheet" hidden={!started}>
+        <div data-film-player className="overflow-hidden rounded-[14px] bg-sheet" hidden={!started}>
           <Player
             ref={player}
             component={loaded.Film}

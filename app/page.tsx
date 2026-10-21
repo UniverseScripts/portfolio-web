@@ -150,12 +150,17 @@ export default function HomePage() {
         <div className="pb-20 pt-9 text-center">
           <p className="m-0 mb-[18px] text-[12px] font-medium uppercase tracking-[0.14em] text-ink-2">Hackathons I&rsquo;ve built at</p>
           <div className="marquee-mask">
-            <ul className="marquee-track m-0 list-none gap-14 p-0 font-display text-[19px] text-ink-2">
-              {[...hackathons, ...hackathons].map((h, i) => (
-                <li key={`${h}-${i}`} aria-hidden={i >= hackathons.length ? true : undefined} className="pr-14 last:pr-0">
-                  {h}
-                </li>
-              ))}
+            {/* Every item carries the same trailing padding and there is no gap, so the two halves
+                are exactly equal and translateX(-50%) lands on the copy without a jump. */}
+            <ul className="marquee-track m-0 list-none p-0 font-display text-[19px] text-ink-2">
+              {[...hackathons, ...hackathons].map((h, i) => {
+                const dup = i >= hackathons.length;
+                return (
+                  <li key={`${h}-${i}`} aria-hidden={dup ? true : undefined} className={`pr-14${dup ? " marquee-dup" : ""}`}>
+                    {h}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

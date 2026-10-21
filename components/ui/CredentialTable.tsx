@@ -10,10 +10,10 @@ export function CredentialTable() {
   const rows = [...allCertifications].sort((a, b) => b.date.localeCompare(a.date));
   const cell = "px-[18px] py-3 max-sm:block max-sm:px-4 max-sm:py-0.5";
   return (
-    <table className="w-full border-collapse border border-rule bg-sheet text-left max-sm:block">
+    <table className="w-full border-collapse text-left max-sm:block">
       <caption className="sr-only">Credentials, most recent first</caption>
       <thead className="max-sm:sr-only">
-        <tr className="bg-thead font-cond text-[13.5px] text-ink-2">
+        <tr className="border-b border-rule-strong font-cond text-[12.5px] text-ink-2">
           <th scope="col" className="px-[18px] py-3 font-medium">Credential</th>
           <th scope="col" className="px-[18px] py-3 font-medium">Issuer</th>
           <th scope="col" className="px-[18px] py-3 font-medium">Kind</th>

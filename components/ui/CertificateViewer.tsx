@@ -103,7 +103,7 @@ export function CertificateViewer({ cert }: CertificateViewerProps) {
           type="button"
           ref={triggerRef}
           onClick={() => setIsExpanded(true)}
-          className="block w-full cursor-zoom-in rounded-card border border-rule bg-sheet p-3 text-left hover:border-rule-strong"
+          className="block w-full cursor-zoom-in card p-3 text-left hover:border-rule-strong"
           aria-label={`Expand the scan of the ${cert.title}`}
           aria-haspopup="dialog"
         >

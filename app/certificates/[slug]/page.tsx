@@ -58,21 +58,21 @@ export default async function CertificatePage({ params }: PageProps) {
   ];
 
   return (
-    <article>
-      <header className="pb-2 pt-9">
+    <article className="page pt-[120px]">
+      <header className="pb-2 pt-4">
         <p className="m-0 mb-3 font-cond text-[15px] text-ink-2">
           <Link href="/#credentials">← All credentials</Link>
           {!titleStatesItsKind(cert.title, noun) && <> · {credentialLabel[cert.kind]}</>}
         </p>
-        <h1 className="m-0 text-[clamp(32px,4.4vw,52px)] font-medium leading-[1.08] tracking-[-0.02em]">
+        <h1 className="m-0 text-[clamp(32px,4.4vw,52px)] leading-[1.08] tracking-[-0.02em]">
           {cert.title}
         </h1>
         <p className="m-0 mt-1.5 text-[19px] text-ink-2">{cert.authority}</p>
       </header>
 
       <div className="mt-6 grid grid-cols-1 items-start gap-7 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-12">
-        <aside aria-label="Credential record" className="flex flex-col gap-4 lg:sticky lg:top-5 lg:order-2">
-          <dl className="m-0 rounded-card border border-rule bg-sheet px-5 py-1.5">
+        <aside aria-label="Credential record" className="flex flex-col gap-4 lg:sticky lg:top-24 lg:order-2">
+          <dl className="card m-0 px-6 py-2">
             {record.map(([k, val]) => (
               <div key={k} className="border-b border-rule py-[11px] last:border-b-0">
                 <dt className="font-cond text-[13px] text-ink-2">{k}</dt>

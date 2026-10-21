@@ -1,8 +1,10 @@
 import { Metric } from "@/content/types";
 
 export interface MetricRow extends Metric {
-  /** Which project the figure belongs to, when the table mixes projects. */
+  /** Which project the figure belongs to, when the list mixes projects. */
   source?: string;
+  /** Attribution shown beside the project name in a group heading. */
+  attribution?: string;
 }
 
 interface MetricTableProps {
@@ -10,56 +12,60 @@ interface MetricTableProps {
   caption: string;
 }
 
+/** A stable id per figure, so a narrated film can light the row it is reading. */
+export const metricKey = (row: Pick<MetricRow, "source" | "label">) =>
+  `${row.source ?? ""}-${row.label}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
 /**
- * The signature device: a datasheet row where the result and its test conditions are
- * one unit. The condition sits in its own tinted column (the only use of the accent
- * colour besides links) and is never truncated, hidden behind a hover, or set smaller
- * than the label — it is the half of the claim that makes the number mean anything
- * (truth file §9.1). On narrow screens rows stack, and the condition stays attached to
- * its own row.
+ * The signature device: the result and its test conditions are one unit. The condition
+ * sits in its own tinted chip (teal is the conditions colour) and is never truncated,
+ * hidden behind a hover, or set fainter than the label — it is the half of the claim that
+ * makes the number mean anything (truth file §9.1).
  *
- * Returns null for an empty list: a project with nothing measured shows no table
- * rather than an empty frame (omission, not disclaimer).
+ * Rows are grouped under the project that produced them, so the figures read as proof of a
+ * project rather than a loose list. In the markup each row is label → value → condition (the
+ * built-site check reads them in that order); CSS places the value in the left column.
+ *
+ * Returns null for an empty list: a project with nothing measured shows nothing
+ * (omission, not disclaimer).
  */
 export function MetricTable({ rows, caption }: MetricTableProps) {
   if (rows.length === 0) return null;
 
-  const cell = "max-sm:block max-sm:px-4 max-sm:py-2 max-sm:before:block max-sm:before:font-cond max-sm:before:text-[12.5px] max-sm:before:font-normal max-sm:before:content-[attr(data-h)]";
+  const groups: { source?: string; attribution?: string; rows: MetricRow[] }[] = [];
+  for (const row of rows) {
+    const last = groups[groups.length - 1];
+    if (last && last.source === row.source) last.rows.push(row);
+    else groups.push({ source: row.source, attribution: row.attribution, rows: [row] });
+  }
 
   return (
-    <table className="w-full border-collapse border border-rule bg-sheet text-left max-sm:block">
-      <caption className="sr-only">{caption}</caption>
-      <thead className="max-sm:sr-only">
-        <tr className="bg-thead font-cond text-[13.5px] text-ink-2">
-          <th scope="col" className="px-[18px] py-3 font-medium">Measure</th>
-          <th scope="col" className="px-[18px] py-3 font-medium">Result</th>
-          <th scope="col" className="px-[18px] py-3 font-medium text-cond">Test conditions</th>
-        </tr>
-      </thead>
-      <tbody className="max-sm:block">
-        {rows.map((row) => (
-          <tr
-            key={`${row.source ?? ""}-${row.label}`}
-            className="border-t border-rule align-top max-sm:block"
-          >
-            <th scope="row" className="px-[18px] py-3 font-medium max-sm:block max-sm:px-4 max-sm:pb-1">
-              {row.label}
-              {row.source && (
-                <span className="block font-cond text-[13.5px] font-normal text-ink-2">{row.source}</span>
-              )}
-            </th>
-            <td data-h="Result" className={`fig whitespace-nowrap px-[18px] py-3 text-[17px] max-sm:before:text-ink-2 ${cell}`}>
-              {row.value}
-            </td>
-            <td
-              data-h="Test conditions"
-              className={`border-l-2 border-cond bg-cond-bg px-[18px] py-3 font-cond text-[15.5px] text-cond max-sm:border-l-0 max-sm:border-t-2 max-sm:before:text-cond ${cell}`}
-            >
-              {row.condition}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div role="group" aria-label={caption}>
+      {groups.map((g) => (
+        <section key={g.source ?? "rows"} aria-label={g.source ?? caption}>
+          {g.source && (
+            <h3 className="m-0 px-2.5 pb-1 pt-4 font-serif text-[15px] font-medium text-ink">
+              {g.source}
+              {g.attribution && <span className="ml-1.5 text-[13px] font-normal text-ink-2">{g.attribution}</span>}
+            </h3>
+          )}
+          <dl className="m-0">
+            {g.rows.map((row) => (
+              <div
+                key={metricKey(row)}
+                data-metric={metricKey(row)}
+                className="grid grid-cols-[84px_1fr] gap-x-3.5 gap-y-1 rounded-inner border-t border-rule px-2.5 py-3 transition-[background-color,box-shadow] duration-300 aria-[current=true]:bg-[#f1f7f8] aria-[current=true]:shadow-[inset_3px_0_0_var(--color-cond)] sm:grid-cols-[104px_1fr]"
+              >
+                <dt className="col-start-2 row-start-1 text-[14.5px] font-medium">{row.label}</dt>
+                <dd className="fig col-start-1 row-start-1 m-0 pt-px text-[16.5px] text-ink">{row.value}</dd>
+                <dd className="col-start-2 m-0 justify-self-start rounded-[8px] bg-cond-bg px-2 py-1 text-[13.5px] leading-snug text-cond">
+                  {row.condition}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ))}
+    </div>
   );
 }

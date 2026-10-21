@@ -1,36 +1,59 @@
 @import "tailwindcss";
 
 /*
- * Design tokens — the "model card" system (chosen 27 Sep 2026 from mockups).
+ * Design tokens — the Pyrium-pattern system (approved 21 Oct 2026 from mockup C, which was
+ * built from the live pyrium-private-ai.vercel.app). The token NAMES are kept from the 27 Sep
+ * "model card" system so every component keeps compiling; the values changed.
  *
- * One accent, one meaning: `cond` (teal) marks measurement conditions — and links,
- * which point at evidence. Every text/ground pair below was computed:
- *   ink    on paper 15.56:1 · on sheet 16.86:1 · on cond-bg 14.65:1
- *   ink-2  on paper  7.70:1 · on sheet  8.35:1 · on cond-bg  7.25:1
- *   cond   on paper  7.39:1 · on sheet  8.01:1 · on cond-bg  6.96:1
+ * Two accents, one meaning each:
+ *   cond   (teal) — measurement conditions, and links (which point at evidence)
+ *   pyrium (red)  — Pyrium only: its band, its button, the dot on work built with the team.
+ *                   Never text: red on paper is 4.30:1. White on it is 4.87:1.
+ *
+ * Every text/ground pair below was computed (21 Oct 2026):
+ *   ink    on paper 16.48 · sheet 17.65 · thead 16.00 · cond-bg 15.06
+ *   ink-2  on paper  8.16 · sheet  8.74 · thead  7.92 · cond-bg  7.45
+ *   cond   on paper  7.82 · sheet  8.38 · thead  7.60 · cond-bg  7.15
+ *   night-ink on night 17.42 · night-ink-2 on night 10.43
+ *   glow-ink on the hero's lightest stop (#0f5a69): white 7.82 · glow-ink-2 6.38
+ *   white on pyrium 4.87 · on pyrium-deep 6.44 · slate-ink-2 on slate 8.96
  * Resting text never goes below ink-2, and no text colour takes an opacity modifier.
- * `rule` / `rule-strong` are decorative dividers only (1.43:1 / 2.56:1) — never the
- * only boundary of a control.
+ * `rule` / `rule-strong` are decorative dividers only — never the only boundary of a control.
  */
 @theme {
-  --color-paper: #eef1f3;
-  --color-sheet: #f8fafb;
-  --color-thead: #f1f4f6;
+  --color-paper: #f7f7f7;
+  --color-sheet: #ffffff;
+  --color-thead: #f2f4f5;
   --color-ink: #15191e;
   --color-ink-2: #434c55;
-  --color-rule: #c4ccd3;
-  --color-rule-strong: #8e99a3;
+  --color-rule: #e3e6e9;
+  --color-rule-strong: #c9ced3;
   --color-cond: #0b5566;
-  --color-cond-bg: #e1ecee;
+  --color-cond-bg: #e4eff1;
 
-  --radius-card: 4px;
+  --color-pyrium: #d9292f;
+  --color-pyrium-deep: #b81f25;
+  --color-slate: #242433;
+  --color-slate-ink-2: #c3c6d1;
+  --color-night: #0f0f0f;
+  --color-night-ink: #f3f4f6;
+  --color-night-ink-2: #b9c0c7;
+  --color-glow-ink-2: #d7ecef;
+
+  --radius-card: 24px;
+  --radius-inner: 12px;
+  --radius-pill: 100px;
+
+  --container-page: 1200px;
 }
 
 /* `inline`: the next/font variables are defined on <html>, so utilities must reference
-   them directly rather than through a :root copy resolved before they exist. */
+   them directly rather than through a :root copy resolved before they exist.
+   `serif` and `cond` keep their names for the existing components; both are Inter now. */
 @theme inline {
-  --font-serif: var(--font-plex-serif), Georgia, serif;
-  --font-cond: var(--font-plex-condensed), "Arial Narrow", sans-serif;
+  --font-display: var(--font-dm-sans), var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-inter), system-ui, sans-serif;
+  --font-cond: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
@@ -44,11 +67,20 @@
 body {
   background-color: var(--color-paper);
   color: var(--color-ink);
-  font-family: var(--font-plex-serif), Georgia, serif;
-  font-size: 17px;
-  line-height: 1.6;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 16.5px;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-dm-sans), var(--font-inter), system-ui, sans-serif;
+  font-weight: 400;
+  font-variation-settings: "opsz" 40;
 }
 
 a {
@@ -62,16 +94,129 @@ a:hover {
 :focus-visible {
   outline: 2px solid var(--color-cond);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 }
 
-/* Figures are set in mono with tabular digits so columns of numbers align. */
 @layer components {
+/* Figures are set in mono with tabular digits so columns of numbers align. */
 .fig {
   font-family: var(--font-plex-mono), ui-monospace, monospace;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+/* The 1200px column. Margins are designed space (bands, lattice, frame lines) — content
+   never stretches into them. */
+.page {
+  width: 100%;
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 2.5vw, 32px);
+}
+
+.card {
+  background: var(--color-sheet);
+  border-radius: var(--radius-card);
+  box-shadow: 0 2px 3px -2px rgb(24 24 37 / 0.12), 0 1px 0 rgb(24 24 37 / 0.03);
+}
+
+/* Pyrium's blueprint lattice, in ink only — red never appears outside the Pyrium band. */
+.lattice {
+  background-image:
+    linear-gradient(63deg, transparent 49.92%, rgb(72 71 88 / 0.05) 49.92% 50.08%, transparent 50.08%),
+    linear-gradient(-63deg, transparent 49.94%, rgb(72 71 88 / 0.04) 49.94% 50.06%, transparent 50.06%),
+    linear-gradient(24deg, transparent 49.95%, rgb(72 71 88 / 0.035) 49.95% 50.05%, transparent 50.05%);
+  background-size: 220px 220px, 260px 260px, 340px 340px;
+}
+
+/* The measurement frame: the portfolio's version of Pyrium's signal frame. Two teal hairlines
+   run down the margins of the sections that carry figures. Teal = conditions. */
+.measure-frame {
+  position: relative;
+}
+.measure-frame::before,
+.measure-frame::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgb(11 85 102 / 0.22);
+  pointer-events: none;
+}
+.measure-frame::before { left: max(10px, calc((100vw - var(--container-page)) / 4)); }
+.measure-frame::after { right: max(10px, calc((100vw - var(--container-page)) / 4)); }
+@media (max-width: 1299px) {
+  .measure-frame::before,
+  .measure-frame::after { display: none; }
+}
+
+/* The hero: Pyrium's radial glow technique, in the portfolio's teal-ink, falling into the
+   portrait band's near-black so the two read as one opening. */
+.hero-glow {
+  background:
+    radial-gradient(150% 100% at 50% -4%, #0a2f3a 0%, #0b4654 40%, #0f5a69 62%, var(--color-night) 100%),
+    var(--color-night);
+}
+
+/* Pyrium's own hero treatment, used exactly once: the Pyrium band. */
+.pyrium-glow {
+  background:
+    radial-gradient(150% 100% at 50% 0%, var(--color-pyrium-deep) 0%, var(--color-pyrium) 52%, rgb(217 41 47 / 0.6) 72%, rgb(247 247 247 / 0) 92%),
+    var(--color-paper);
+}
+.pyrium-frame::before,
+.pyrium-frame::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgb(255 255 255 / 0.35);
+  pointer-events: none;
+}
+.pyrium-frame::before { left: 10.5%; }
+.pyrium-frame::after { right: 10.5%; }
+
+/* The portrait sits on its own black: the photo's background is #0f0f0f at the bottom, so
+   the band takes that colour and the photo's lighter top and sides are feathered away. */
+.portrait-feather {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 30%), linear-gradient(to right, transparent 0, #000 18%, #000 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 30%), linear-gradient(to right, transparent 0, #000 18%, #000 82%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* A rail that starts aligned to the column and runs off the right edge (Pyrium's projects
+   carousel). scroll-padding matches, or snapping pulls the first card to the screen edge. */
+.bleed-rail {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-inline: max(clamp(16px, 2.5vw, 32px), calc((100vw - var(--container-page)) / 2 + clamp(16px, 2.5vw, 32px)));
+  scroll-padding-inline: max(clamp(16px, 2.5vw, 32px), calc((100vw - var(--container-page)) / 2 + clamp(16px, 2.5vw, 32px)));
+  padding-bottom: 8px;
+}
+.bleed-rail > * { scroll-snap-align: start; }
+
+/* Text wordmarks that drift and fade at both edges (Pyrium's logo marquee). Static under
+   reduced motion; the duplicate half is aria-hidden. */
+.marquee-mask {
+  overflow: hidden;
+  -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
 }
 }
 
@@ -85,7 +230,7 @@ a:hover {
   white-space: nowrap;
 }
 
-/* Certificate lightbox — the only motion on the site, and it is feedback. */
+/* Certificate lightbox — feedback motion. */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -103,7 +248,8 @@ a:hover {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fadeIn,
-  .animate-scaleIn {
+  .animate-scaleIn,
+  .marquee-track {
     animation: none;
   }
   *,

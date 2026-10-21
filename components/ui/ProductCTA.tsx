@@ -11,7 +11,7 @@ export function ProductCTA({ title, description, url }: ProductCTAProps) {
   return (
     <aside
       aria-label={`Related product: ${title}`}
-      className="flex flex-wrap items-center justify-between gap-4 rounded-card border border-rule bg-sheet px-[18px] py-4"
+      className="flex flex-wrap items-center justify-between gap-4 card px-[18px] py-4"
     >
       <div className="min-w-0 flex-1 basis-72">
         <p className="m-0 font-cond text-[13.5px] text-ink-2">Related product</p>

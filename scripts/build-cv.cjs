@@ -40,7 +40,7 @@ html = html.replace(/<li>([\s\S]*?)(?=<li>|<\/ul>)/g, (m, c) => `<li>${c.replace
 const page = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Yoshio Nomura — CV</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600&display=block" rel="stylesheet">
 <style>
-@page { size: A4; margin: 13mm 14mm 13mm 14mm; }
+@page { size: A4; margin: 11mm 14mm 11mm 14mm; }
 * { box-sizing: border-box; }
 body { margin: 0; font: 9.2pt/1.4 Inter, system-ui, sans-serif; color: #15191e; letter-spacing: -0.005em; }
 a { color: #0b5566; text-decoration: none; }

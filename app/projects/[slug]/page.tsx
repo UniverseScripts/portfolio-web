@@ -69,6 +69,7 @@ export default async function ProjectPage({ params }: PageProps) {
     ["Contribution", project.role],
     ["When", project.period],
     ...(project.venue ? [["Built at", project.venue] as [string, React.ReactNode]] : []),
+    ...(project.result ? [["Result", project.result] as [string, React.ReactNode]] : []),
     ["Stack", project.stack.join(" · ")],
     ...(project.demoUrl
       ? [["Demo", <a key="demo" href={project.demoUrl}>{project.demoUrl.replace("https://", "")}</a>] as [string, React.ReactNode]]
@@ -99,6 +100,7 @@ export default async function ProjectPage({ params }: PageProps) {
             <li className="card rounded-pill px-3 py-1">{project.role.split(" — ")[0]}</li>
             <li className="card rounded-pill px-3 py-1">{project.period}</li>
             {project.venue && <li className="card rounded-pill px-3 py-1">{project.venue}</li>}
+            {project.result && <li className="card rounded-pill px-3 py-1">{project.result.split(" — ")[0]}</li>}
           </ul>
         </div>
       </header>

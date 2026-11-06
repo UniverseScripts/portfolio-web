@@ -9,7 +9,8 @@ export type ProjectIdentifier =
   | "local-rag-api"
   | "llmops"
   | "ignis"
-  | "lantern";
+  | "lantern"
+  | "alodi";
 export type CertificationIdentifier =
   | "nvidia-ai-open-hackathon"
   | "vercel-nextjs-approuter"
@@ -57,6 +58,11 @@ export interface ProjectSchema {
   period: string;
   /** The hackathon or programme this was built for, where there is one. */
   venue?: string;
+  /**
+   * A placement announced by the organisers, copied from that announcement. Never a
+   * self-assessment, and never a figure — figures belong in `metrics`, with conditions.
+   */
+  result?: string;
   /** Public source repository, checked to resolve before it is added. */
   repoUrl?: string;
   /** A working demo that loads in a browser today. Only projects with one may get a showcase. */

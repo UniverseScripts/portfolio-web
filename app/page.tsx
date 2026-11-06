@@ -187,6 +187,7 @@ export default function HomePage() {
                 <span className="text-[12.5px] text-ink-2">{p.period}</span>
                 <h3 className="m-0 mb-0.5 mt-1 text-[24px] leading-tight">{p.title}</h3>
                 {p.venue && <p className="m-0 mb-2.5 text-[13px] text-ink-2">{p.venue}</p>}
+                {p.result && <p className="m-0 mb-2.5 text-[13px] font-medium text-ink">{p.result.split(" — ")[0]}</p>}
                 <p className="m-0 mb-4 text-[14.5px] text-ink-2">{p.oneLine}</p>
                 <p className="m-0 mt-auto flex flex-wrap items-center gap-3 text-[14px]">
                   <a href={p.demoUrl} className="rounded-pill bg-ink px-[18px] py-2 text-sheet no-underline hover:bg-cond">

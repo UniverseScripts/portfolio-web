@@ -9,6 +9,7 @@ import { localRagApiProject } from "./local-rag-api";
 import { llmops } from "./llmops";
 import { ignis } from "./ignis";
 import { lantern } from "./lantern";
+import { alodi } from "./alodi";
 import { ProjectSchema, ProjectIdentifier } from "../types";
 
 /**
@@ -24,6 +25,7 @@ const registry = {
   pulsemind,
   develarper,
   lantern,
+  alodi,
   architecturelab,
   weatherise,
   "local-rag-api": localRagApiProject,
